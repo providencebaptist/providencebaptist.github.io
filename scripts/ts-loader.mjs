@@ -65,7 +65,7 @@ export async function load(url, context, defaultLoad) {
   const { outputText } = ts.transpileModule(source, {
     compilerOptions: {
       module: ts.ModuleKind.ESNext,
-      jsx: ts.JsxEmit.React,
+      jsx: ts.JsxEmit.ReactJSX,
       target: ts.ScriptTarget.ES2020,
       esModuleInterop: true,
       moduleResolution: ts.ModuleResolutionKind.NodeNext,

@@ -1,6 +1,6 @@
 import * as HelmetAsync from "react-helmet-async";
 
-const { Helmet } = HelmetAsync;
+const { Helmet } = (HelmetAsync as any).default || HelmetAsync;
 
 interface SEOProps {
   title?: string;
@@ -20,8 +20,8 @@ const SEO = ({
   structuredData
 }: SEOProps) => {
   const siteUrl = url || "https://pbcatx.org";
-  const fullTitle = title.includes("Providence Baptist Church") 
-    ? title 
+  const fullTitle = title.includes("Providence Baptist Church")
+    ? title
     : `${title} | Providence Baptist Church`;
 
   // Default structured data for the church
@@ -91,7 +91,7 @@ const SEO = ({
       <meta name="title" content={fullTitle} />
       <meta name="description" content={description} />
       <link rel="canonical" href={siteUrl} />
-      
+
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={type} />
       <meta property="og:url" content={siteUrl} />
@@ -114,7 +114,7 @@ const SEO = ({
       <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
       <meta name="googlebot" content="index, follow" />
       <meta name="bingbot" content="index, follow" />
-      
+
       {/* Semantic keywords for AI understanding */}
       <meta name="keywords" content="Providence Baptist Church, Georgetown TX church, Independent Baptist Church, Bible believing church, Christian worship Georgetown, Sunday service Georgetown TX, Pastor Kyle Pope, Bible study, Christian fellowship, church family" />
       <meta name="category" content="Religion & Spirituality" />

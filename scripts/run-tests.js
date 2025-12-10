@@ -16,14 +16,36 @@ const filteredArgs = process.argv.filter((arg) => arg !== "--coverage");
 const coverageRoot = path.join(projectRoot, "coverage");
 const rawCoverageDir = path.join(coverageRoot, ".v8");
 
-const testFile = path.join(projectRoot, "src", "full-coverage.test.ts");
+const testDir = path.join(projectRoot, "src");
 const loaderPath = path.join(projectRoot, "scripts", "ts-loader.mjs");
+const setupPath = path.join(projectRoot, "scripts", "test-setup.js");
+
+function findTestFiles(dir) {
+  let results = [];
+  const list = fs.readdirSync(dir);
+  list.forEach(file => {
+    const filePath = path.join(dir, file);
+    const stat = fs.statSync(filePath);
+    if (stat && stat.isDirectory()) {
+      results = results.concat(findTestFiles(filePath));
+    } else {
+      if (file.match(/\.test\.(ts|tsx)$/)) {
+        results.push(filePath);
+      }
+    }
+  });
+  return results;
+}
+
+const userArgs = filteredArgs.slice(2);
+const filesToRun = userArgs.length > 0 ? userArgs : findTestFiles(testDir);
+console.log(`Running ${filesToRun.length} test files.`);
 
 fs.rmSync(coverageRoot, { recursive: true, force: true });
 
 const result = spawnSync(
   process.execPath,
-  ["--test", "--loader", loaderPath, ...filteredArgs.slice(2), testFile],
+  ["--test", "--import", setupPath, "--loader", loaderPath, ...filesToRun],
   {
     cwd: projectRoot,
     stdio: "inherit",

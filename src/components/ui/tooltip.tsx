@@ -1,5 +1,7 @@
 import * as React from "react";
-import * as TooltipPrimitive from "@radix-ui/react-tooltip";
+import * as TooltipPrimitivePkg from "@radix-ui/react-tooltip";
+
+const TooltipPrimitive = (TooltipPrimitivePkg as any).default || TooltipPrimitivePkg;
 
 import { cn } from "@/lib/utils";
 

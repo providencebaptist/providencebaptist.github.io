@@ -23,7 +23,7 @@ import Sermons from "./pages/Sermons";
 import SermonDetail from "./pages/SermonDetail";
 import NotFound from "./pages/NotFound";
 
-const { HelmetProvider } = HelmetAsync;
+const { HelmetProvider } = (HelmetAsync as any).default || HelmetAsync;
 const queryClient = new QueryClient();
 
 const App = () => (

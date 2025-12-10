@@ -1,7 +1,7 @@
 import * as HelmetAsync from "react-helmet-async";
 import { useLocation } from 'react-router-dom';
 
-const { Helmet } = HelmetAsync;
+const { Helmet } = (HelmetAsync as any).default || HelmetAsync;
 
 const BreadcrumbSchema = () => {
   const location = useLocation();

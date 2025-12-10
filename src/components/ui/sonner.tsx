@@ -1,5 +1,8 @@
 import { useTheme } from "next-themes";
-import { Toaster as Sonner, toast } from "sonner";
+import * as SonnerPkg from "sonner";
+
+// Handle CJS/ESM interop
+const { Toaster: Sonner, toast } = (SonnerPkg as any).default || SonnerPkg;
 
 type ToasterProps = React.ComponentProps<typeof Sonner>;
 
