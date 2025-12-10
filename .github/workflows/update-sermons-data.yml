@@ -12,6 +12,7 @@ permissions:
 
 jobs:
   fetch-and-commit:
+    if: ${{ secrets.SERMON_AUDIO_API_KEY != '' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -44,7 +45,7 @@ jobs:
   deploy:
     needs: fetch-and-commit
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' && secrets.SERMON_AUDIO_API_KEY != ''
     env:
       NODE_ENV: production
       VITE_ENABLE_ANALYTICS: 'true'
