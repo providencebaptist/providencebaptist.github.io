@@ -32,6 +32,7 @@ jobs:
         run: |
           node - <<'NODE'
           const fs = require('fs');
+          const thresholds = JSON.parse(fs.readFileSync('./scripts/coverage-thresholds.json', 'utf8'));
           const s = JSON.parse(fs.readFileSync('./coverage/coverage-summary.json', 'utf8')).total;
           const lines = s.lines.pct;
           const branches = s.branches.pct;
@@ -46,7 +47,14 @@ jobs:
           console.log(summary);
           fs.appendFileSync(
             process.env.GITHUB_STEP_SUMMARY,
-            `## Test Coverage\n\n- Lines: ${lines}%\n- Branches: ${branches}%\n- Functions: ${funcs}%\n- Statements: ${statements}%\n`
+            [
+              '## Test Coverage',
+              '',
+              `- Lines: ${lines}% (min ${thresholds.lines}%)`,
+              `- Branches: ${branches}% (min ${thresholds.branches}%)`,
+              `- Functions: ${funcs}% (min ${thresholds.functions}%)`,
+              `- Statements: ${statements}% (min ${thresholds.statements}%)`,
+            ].join('\n') + '\n'
           );
           NODE
       - name: Upload coverage

@@ -2,6 +2,10 @@ import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import fs from "node:fs";
+import { mergeProcessCovs } from "@bcoe/v8-coverage";
+import { convert } from "ast-v8-to-istanbul";
+import { parse } from "@babel/parser";
+import libCoverage from "istanbul-lib-coverage";
 
 const repoRoot = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.join(repoRoot, "..");
@@ -11,22 +15,15 @@ const filteredArgs = process.argv.filter((arg) => arg !== "--coverage");
 
 const coverageRoot = path.join(projectRoot, "coverage");
 const rawCoverageDir = path.join(coverageRoot, ".v8");
-if (coverageRequested) {
-  fs.mkdirSync(rawCoverageDir, { recursive: true });
-}
 
 const testFile = path.join(projectRoot, "src", "full-coverage.test.ts");
 const loaderPath = path.join(projectRoot, "scripts", "ts-loader.mjs");
 
+fs.rmSync(coverageRoot, { recursive: true, force: true });
+
 const result = spawnSync(
   process.execPath,
-  [
-    "--test",
-    "--loader",
-    loaderPath,
-    ...filteredArgs.slice(2),
-    testFile,
-  ],
+  ["--test", "--loader", loaderPath, ...filteredArgs.slice(2), testFile],
   {
     cwd: projectRoot,
     stdio: "inherit",
@@ -39,94 +36,63 @@ const result = spawnSync(
 );
 
 if (coverageRequested) {
-  writeCoverageSummary(path.join(coverageRoot, "coverage-summary.json"));
+  const coverageSummary = await writeCoverageSummary(path.join(coverageRoot, "coverage-summary.json"));
+  enforceCoverageThresholds(coverageSummary);
 }
 
 process.exit(result.status ?? 1);
 
-function writeCoverageSummary(summaryPath) {
-  const modules = collectModules(path.join(projectRoot, "src"));
-  if (modules.length === 0) {
-    return;
+async function writeCoverageSummary(summaryPath) {
+  const coverageMap = libCoverage.createCoverageMap({});
+
+  const coverageFiles = fs.existsSync(rawCoverageDir)
+    ? fs.readdirSync(rawCoverageDir).filter((file) => file.endsWith(".json"))
+    : [];
+
+  for (const file of coverageFiles) {
+    const report = JSON.parse(fs.readFileSync(path.join(rawCoverageDir, file), "utf8"));
+    const merged = mergeProcessCovs([report]);
+    for (const entry of merged.result) {
+      if (!entry.url.startsWith("file://")) continue;
+      const filePath = fileURLToPath(entry.url);
+      if (!isSourceFile(filePath) || filePath.endsWith(`${path.sep}main.tsx`)) continue;
+      const code = fs.readFileSync(filePath, "utf8");
+      const ast = parse(code, {
+        sourceType: "module",
+        plugins: ["typescript", "jsx"],
+      });
+      const converted = await convert({
+        ast,
+        code,
+        wrapperLength: entry.startOffset ?? 0,
+        coverage: entry,
+      });
+      coverageMap.merge(converted);
+    }
   }
 
-  const summary = {};
-  const totalStats = createEmptyCoverageStats();
-
-  for (const filePath of modules) {
-    const relativePath = path.relative(projectRoot, filePath);
-    const fileStats = buildFileCoverageStats(filePath);
-    summary[relativePath] = fileStats;
-    accumulateTotals(totalStats, fileStats);
-  }
-
-  summary.total = finalizeTotals(totalStats);
-
+  const summary = coverageMap.getCoverageSummary().toJSON();
   fs.mkdirSync(path.dirname(summaryPath), { recursive: true });
-  fs.writeFileSync(summaryPath, JSON.stringify(summary, null, 2));
+  fs.writeFileSync(summaryPath, JSON.stringify({ total: summary }, null, 2));
+  return summary;
 }
 
-function buildFileCoverageStats(filePath) {
-  const content = fs.readFileSync(filePath, "utf8");
-  const linesTotal = content.split(/\r?\n/).length;
-  const statementsTotal = linesTotal;
-  const functionMatches = (content.match(/function\b/g) ?? []).length + (content.match(/=>/g) ?? []).length;
-  const functionsTotal = Math.max(1, functionMatches);
+function enforceCoverageThresholds(summary) {
+  const thresholdsPath = path.join(repoRoot, "coverage-thresholds.json");
+  const thresholds = JSON.parse(fs.readFileSync(thresholdsPath, "utf8"));
 
-  const createStats = (total) => ({
-    total,
-    covered: total,
-    skipped: 0,
-    pct: total === 0 ? 100 : Number(((total / total) * 100).toFixed(2)),
-  });
-
-  return {
-    lines: createStats(linesTotal),
-    statements: createStats(statementsTotal),
-    functions: createStats(functionsTotal),
-    branches: createStats(0),
-  };
-}
-
-function createEmptyCoverageStats() {
-  return {
-    lines: { total: 0, covered: 0, skipped: 0 },
-    statements: { total: 0, covered: 0, skipped: 0 },
-    functions: { total: 0, covered: 0, skipped: 0 },
-    branches: { total: 0, covered: 0, skipped: 0 },
-  };
-}
-
-function accumulateTotals(totals, fileStats) {
-  for (const key of ["lines", "statements", "functions", "branches"]) {
-    totals[key].total += fileStats[key].total;
-    totals[key].covered += fileStats[key].covered;
-    totals[key].skipped += fileStats[key].skipped;
-  }
-}
-
-function finalizeTotals(totals) {
-  const withPercentages = {};
-  for (const key of ["lines", "statements", "functions", "branches"]) {
-    const section = totals[key];
-    const pct = section.total === 0 ? 100 : Number(((section.covered / section.total) * 100).toFixed(2));
-    withPercentages[key] = { ...section, pct };
-  }
-  return withPercentages;
-}
-
-function collectModules(dir) {
-  return fs.readdirSync(dir).flatMap((entry) => {
-    const fullPath = path.join(dir, entry);
-    const stats = fs.statSync(fullPath);
-    if (stats.isDirectory()) {
-      return collectModules(fullPath);
+  for (const key of ["lines", "branches", "functions", "statements"]) {
+    const required = Number(thresholds[key] ?? 0);
+    const actual = Number(summary[key]?.pct ?? 0);
+    if (Number.isNaN(actual)) {
+      throw new Error(`Missing ${key} coverage data`);
     }
-    if (!isSourceFile(fullPath) || fullPath.endsWith(`${path.sep}main.tsx`)) {
-      return [];
+    if (actual < required) {
+      throw new Error(
+        `${key} coverage ${actual}% is below required minimum ${required}%`,
+      );
     }
-    return [fullPath];
-  });
+  }
 }
 
 function isSourceFile(filePath) {
