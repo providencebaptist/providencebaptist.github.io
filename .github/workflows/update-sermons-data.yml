@@ -7,6 +7,8 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   fetch-and-commit:
@@ -38,3 +40,28 @@ jobs:
           else
             echo "No changes to commit"
           fi
+
+  deploy:
+    needs: fetch-and-commit
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    env:
+      NODE_ENV: production
+      VITE_ENABLE_ANALYTICS: 'true'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci --legacy-peer-deps --include=dev
+      - run: npm run build
+      - run: node scripts/generate-sitemap.js
+      - run: cp dist/index.html dist/404.html
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+      - id: deployment
+        uses: actions/deploy-pages@v4
