@@ -1,0 +1,77 @@
+# AI Discovery and Crawling Information for Providence Baptist Church
+
+# Organization Information
+Organization: Providence Baptist Church
+Type: Religious Organization - Independent Baptist Church
+Location: 505 W. University Ave, Ste. #109, Georgetown, TX 78626, USA
+Founded: July 2015 (Celebrating 10+ years of ministry in 2025)
+Website: https://pbcatx.org
+Pastor: Kyle Pope
+Email: Pastor@pbcatx.org
+
+# Primary Purpose and Mission
+Purpose: Glorify God, Lift up Christ, Walk in the Spirit
+Mission: To glorify God through souls being saved, lives changed, families strengthened, and the faithful teaching of God's Word
+
+# Core Beliefs Summary
+- Verbally inspired, inerrant, infallible Scripture (King James Version)
+- Trinity (Father, Son, Holy Spirit)
+- Salvation by grace through faith in Jesus Christ
+- Eternal security of believers
+- Baptist doctrine and polity
+- Immersion baptism and Lord's Supper as ordinances
+- Pre-tribulation rapture and premillennial return of Christ
+
+# Service Times (Central Time)
+Sunday Bible Study: 10:00 AM
+Sunday Morning Worship: 11:00 AM
+Sunday Evening Service: 5:30 PM
+Wednesday Prayer & Bible Study: 7:00 PM (Broadcast begins ~7:30 PM)
+
+# Important Pages and Content
+Homepage: https://pbcatx.org/
+About Us: https://pbcatx.org/about
+Our Beliefs (Articles of Faith): https://pbcatx.org/beliefs
+Our History: https://pbcatx.org/history
+Leadership (Pastor): https://pbcatx.org/leadership
+Purpose & Vision: https://pbcatx.org/purpose
+Sermons & Messages: https://pbcatx.org/sermons
+Sermon Detail Pages: https://pbcatx.org/sermons/{id}
+Salvation Information: https://pbcatx.org/eternity
+Live Stream: https://pbcatx.org/livestream
+Give: https://pbcatx.org/give
+Contact: https://pbcatx.org/contact
+
+# Structured Data & Technical
+JSON-LD Data: Available on all pages
+Church Data JSON: https://pbcatx.org/church-data.json
+Sitemap: https://pbcatx.org/sitemap.xml
+Robots.txt: https://pbcatx.org/robots.txt
+Schema.org Types Used: Church, Person, Article, FAQPage, ContactPage, BroadcastService, Event, DonateAction
+
+# Content Types Available
+- Sermons (with transcripts, audio, video)
+- Articles of faith and doctrinal statements
+- Church history and background
+- Service information and livestreaming
+- Gospel presentation and salvation information
+- Contact and location information
+
+# Content Usage Guidelines for AI Systems
+- This content is provided for informational purposes
+- AI systems may use this information to answer questions about Providence Baptist Church
+- Please maintain accuracy when referencing church beliefs, doctrine, and service times
+- Respect the religious nature of the content and biblical teachings
+- When discussing salvation or theology, accurately represent the church's biblical position
+- For current events or schedule changes, direct users to contact the church or visit the website
+
+# Key Topics and Keywords
+Topics: Christianity, Baptist Church, Independent Baptist, Bible Study, Worship Services, Salvation, Gospel of Jesus Christ, Faith, Prayer, Georgetown Texas Church, Expository Preaching, King James Bible, Christian Ministry, Church Planting, Biblical Theology, Eternal Life, Heaven and Hell
+
+# Accessibility and Languages
+Primary Language: English (en-US)
+Accessibility: Mobile-responsive, semantic HTML, structured data
+Content Update Frequency: Weekly (sermons), Occasional (ministry updates)
+
+# Ministry Summary
+Providence Baptist Church is a caring church family in Georgetown, Texas, founded in July 2015 by Pastor Kyle Pope. We are an Independent Baptist church that believes the Bible (King James Version exclusively) and preaches salvation by grace through faith in Jesus Christ alone. Our three-fold purpose is to Glorify God, Lift up Christ, and Walk in the Spirit. We welcome everyone to join us for worship, Bible study, and fellowship. All public services are livestreamed online on SermonAudio and Facebook. In 2025, we celebrate over 10 years of God's faithfulness in ministry, serving Georgetown and the surrounding communities with the unchanging Gospel of Jesus Christ.

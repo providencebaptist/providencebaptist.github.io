@@ -1,99 +1,78 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
 @layer base {
   :root {
-    --background: 40 33% 97%;
-    --foreground: 220 30% 15%;
+    --background: 40 20% 97%;
+    --foreground: 210 30% 15%;
 
-    --card: 40 30% 99%;
-    --card-foreground: 220 30% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 210 30% 15%;
 
-    --popover: 40 30% 99%;
-    --popover-foreground: 220 30% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 30% 15%;
 
-    --primary: 160 35% 25%;
-    --primary-foreground: 40 33% 97%;
+    --primary: 210 50% 25%;
+    --primary-foreground: 40 20% 97%;
 
-    --secondary: 40 25% 92%;
-    --secondary-foreground: 220 30% 15%;
+    --secondary: 183 75% 25%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 40 20% 94%;
-    --muted-foreground: 220 15% 45%;
+    --muted: 40 15% 90%;
+    --muted-foreground: 210 20% 45%;
 
-    --accent: 38 70% 50%;
-    --accent-foreground: 220 30% 15%;
+    --accent: 246 46% 33%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 40 20% 88%;
-    --input: 40 20% 88%;
-    --ring: 160 35% 25%;
+    --border: 40 15% 85%;
+    --input: 40 15% 85%;
+    --ring: 210 50% 25%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
-    /* Custom church colors */
-    --gold: 38 70% 50%;
-    --gold-light: 40 65% 65%;
-    --cream: 40 33% 97%;
-    --cream-dark: 40 25% 92%;
-    --forest: 160 35% 25%;
-    --forest-light: 160 30% 35%;
-    --navy: 220 30% 15%;
-
-    /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(160 35% 25% / 0.95), hsl(220 30% 15% / 0.9));
-    --gradient-gold: linear-gradient(135deg, hsl(38 70% 50%), hsl(40 65% 60%));
-    --gradient-cream: linear-gradient(180deg, hsl(40 33% 97%), hsl(40 25% 94%));
-
-    /* Shadows */
-    --shadow-soft: 0 4px 20px -4px hsl(220 30% 15% / 0.1);
-    --shadow-card: 0 10px 40px -10px hsl(220 30% 15% / 0.12);
-    --shadow-gold: 0 4px 20px -4px hsl(38 70% 50% / 0.3);
-
-    /* Typography */
-    --font-display: 'Playfair Display', Georgia, serif;
-    --font-body: 'Source Sans 3', system-ui, sans-serif;
-
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Custom tokens for church theme */
+    --hero-gradient: linear-gradient(135deg, hsl(246 46% 33%), hsl(183 75% 25%));
+    --warm-gradient: linear-gradient(180deg, hsl(246 46% 33% / 0.05), hsl(183 75% 25% / 0.05));
+    --card-shadow: 0 4px 20px -4px hsl(210 30% 15% / 0.1);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .dark {
-    --background: 220 30% 10%;
-    --foreground: 40 33% 97%;
+    --background: 210 30% 12%;
+    --foreground: 40 20% 97%;
 
-    --card: 220 28% 14%;
-    --card-foreground: 40 33% 97%;
+    --card: 210 25% 15%;
+    --card-foreground: 40 20% 97%;
 
-    --popover: 220 28% 14%;
-    --popover-foreground: 40 33% 97%;
+    --popover: 210 25% 15%;
+    --popover-foreground: 40 20% 97%;
 
-    --primary: 40 65% 60%;
-    --primary-foreground: 220 30% 10%;
+    --primary: 183 75% 35%;
+    --primary-foreground: 210 30% 12%;
 
-    --secondary: 220 25% 18%;
-    --secondary-foreground: 40 33% 97%;
+    --secondary: 210 30% 20%;
+    --secondary-foreground: 40 20% 97%;
 
-    --muted: 220 25% 18%;
-    --muted-foreground: 40 20% 70%;
+    --muted: 210 25% 18%;
+    --muted-foreground: 40 10% 70%;
 
-    --accent: 38 70% 50%;
-    --accent-foreground: 220 30% 10%;
+    --accent: 246 46% 45%;
+    --accent-foreground: 0 0% 100%;
 
-    --border: 220 25% 20%;
-    --input: 220 25% 20%;
-    --ring: 40 65% 60%;
+    --destructive: 0 62.8% 50%;
+    --destructive-foreground: 40 20% 97%;
+
+    --border: 210 25% 22%;
+    --input: 210 25% 22%;
+    --ring: 35 60% 55%;
   }
 }
 
@@ -108,47 +87,5 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: var(--font-body);
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-display);
-  }
-}
-
-@layer utilities {
-  .font-display {
-    font-family: var(--font-display);
-  }
-
-  .font-body {
-    font-family: var(--font-body);
-  }
-
-  .text-gradient-gold {
-    background: var(--gradient-gold);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .bg-gradient-hero {
-    background: var(--gradient-hero);
-  }
-
-  .bg-gradient-cream {
-    background: var(--gradient-cream);
-  }
-
-  .shadow-soft {
-    box-shadow: var(--shadow-soft);
-  }
-
-  .shadow-card {
-    box-shadow: var(--shadow-card);
-  }
-
-  .shadow-gold {
-    box-shadow: var(--shadow-gold);
   }
 }

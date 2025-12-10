@@ -1,0 +1,40 @@
+name: Update Sermons Data
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch-and-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fetch sermons data
+        run: |
+          curl -X GET \
+            'https://api.sermonaudio.com/v2/node/sermons?page=1&exactRefMatch=false&featured=false&includeTranscripts=false&requireAudio=false&requireVideo=false&requirePDF=false&noMedia=false&vacantPulpit=false&staffPick=false&listenerRecommended=false&lite=false&liteBroadcaster=false&cache=false&includeDrafts=false&includeScheduled=false&includePublished=true&includeGlobalChildren=false' \
+            -H 'accept: application/json' \
+            -H "X-Api-Key: ${SERMON_AUDIO_API_KEY}" \
+            -o public/sermons-data.json
+        env:
+          SERMON_AUDIO_API_KEY: ${{ secrets.SERMON_AUDIO_API_KEY }}
+
+      - name: Commit changes
+        run: |
+          if git status --porcelain | grep .; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add public/sermons-data.json
+            git commit -m "chore: update sermons data"
+            git push
+          else
+            echo "No changes to commit"
+          fi

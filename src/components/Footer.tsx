@@ -1,92 +1,82 @@
-import { Facebook, Youtube, Instagram, Mail } from "lucide-react";
+import { Mail, MapPin, Clock, BookOpen } from "lucide-react";
+import { Link } from "react-router-dom";
+import churchLogo from "@/assets/church-logo.png";
 
-const socialLinks = [
-  { icon: Facebook, href: "#", label: "Facebook" },
-  { icon: Youtube, href: "#", label: "YouTube" },
-  { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Mail, href: "#", label: "Email" },
-];
-
-const quickLinks = [
-  { label: "About Us", href: "#about" },
-  { label: "Service Times", href: "#services" },
-  { label: "Events", href: "#events" },
-  { label: "Contact", href: "#contact" },
-];
-
-export const Footer = () => {
+const Footer = () => {
   return (
-    <footer className="bg-navy text-cream">
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid md:grid-cols-3 gap-10 md:gap-16">
-          {/* Logo & Description */}
+    <footer className="bg-primary text-primary-foreground">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-full bg-cream flex items-center justify-center">
-                <span className="text-navy font-display font-bold text-lg">P</span>
-              </div>
-              <div>
-                <span className="font-display text-lg font-semibold">Providence</span>
-                <span className="block text-xs text-cream/70 -mt-1">Baptist Church</span>
-              </div>
+            <div className="flex items-center gap-3 mb-4">
+              <img src={churchLogo} alt="Providence Baptist Church Logo" className="h-10 w-10" />
+              <h3 className="text-xl font-bold">Providence Baptist Church</h3>
             </div>
-            <p className="text-cream/70 font-body text-sm leading-relaxed mb-6">
-              A welcoming community of faith, growing together in God's love since 1952.
+            <p className="text-primary-foreground/80 mb-4">
+              A caring church family dedicated to glorifying God, lifting up Christ, and walking in the Spirit.
             </p>
             <div className="flex gap-3">
-              {socialLinks.map((social, index) => (
-                <a
-                  key={index}
-                  href={social.href}
-                  aria-label={social.label}
-                  className="w-10 h-10 rounded-full bg-cream/10 flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-all duration-300"
-                >
-                  <social.icon className="w-4 h-4" />
-                </a>
-              ))}
+              <Link 
+                to="/sermons" 
+                className="inline-flex items-center gap-2 text-primary-foreground/80 hover:text-accent transition-colors text-sm"
+              >
+                <BookOpen className="h-4 w-4" />
+                <span>Sermons</span>
+              </Link>
+              <Link 
+                to="/livestream" 
+                className="inline-flex items-center gap-2 text-primary-foreground/80 hover:text-accent transition-colors text-sm"
+              >
+                <span>Watch Live</span>
+              </Link>
             </div>
           </div>
 
-          {/* Quick Links */}
           <div>
-            <h4 className="font-display text-lg font-semibold mb-4">Quick Links</h4>
-            <ul className="space-y-3">
-              {quickLinks.map((link, index) => (
-                <li key={index}>
-                  <a
-                    href={link.href}
-                    className="text-cream/70 hover:text-accent font-body text-sm transition-colors"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <h4 className="text-lg font-semibold mb-4">Service Times (CT)</h4>
+            <div className="space-y-2 text-primary-foreground/80">
+              <div className="flex items-start gap-2">
+                <Clock className="h-5 w-5 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="font-medium">Sunday</p>
+                  <p>Bible Study: 10:00 AM</p>
+                  <p>Worship Service: 11:00 AM</p>
+                  <p>Family Worship: 5:30 PM</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2">
+                <Clock className="h-5 w-5 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="font-medium">Wednesday</p>
+                  <p>Prayer & Bible Study: 7:00 PM</p>
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Service Times */}
           <div>
-            <h4 className="font-display text-lg font-semibold mb-4">Service Times</h4>
-            <div className="space-y-3 text-cream/70 font-body text-sm">
-              <p>
-                <span className="text-cream font-medium">Sunday School:</span> 9:00 AM
-              </p>
-              <p>
-                <span className="text-cream font-medium">Morning Worship:</span> 10:30 AM
-              </p>
-              <p>
-                <span className="text-cream font-medium">Wednesday Bible Study:</span> 7:00 PM
-              </p>
+            <h4 className="text-lg font-semibold mb-4">Contact Us</h4>
+            <div className="space-y-3 text-primary-foreground/80">
+              <div className="flex items-start gap-2">
+                <MapPin className="h-5 w-5 mt-0.5 flex-shrink-0" />
+                <p>505 W. University Ave, Ste. #109<br />Georgetown, TX 78626</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <Mail className="h-5 w-5 flex-shrink-0" />
+                <a href="mailto:Pastor@pbcatx.org" className="hover:text-accent transition-colors">
+                  Pastor@pbcatx.org
+                </a>
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="border-t border-cream/10 mt-12 pt-8 text-center">
-          <p className="text-cream/50 font-body text-sm">
-            © {new Date().getFullYear()} Providence Baptist Church. All rights reserved.
-          </p>
+        <div className="mt-8 pt-8 border-t border-primary-foreground/20 text-center text-primary-foreground/60">
+          <p>&copy; {new Date().getFullYear()} Providence Baptist Church. All rights reserved.</p>
         </div>
       </div>
     </footer>
   );
 };
+
+export default Footer;

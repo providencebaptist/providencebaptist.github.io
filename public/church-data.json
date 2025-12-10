@@ -1,0 +1,147 @@
+{
+  "organization": {
+    "name": "Providence Baptist Church",
+    "legalName": "Providence Baptist Church of Georgetown, Texas",
+    "alternateName": "PBC Georgetown",
+    "type": "Religious Organization",
+    "denomination": "Independent Baptist",
+    "founded": "July 2015",
+    "description": "Providence Baptist Church is an Independent Baptist Church in Georgetown, Texas, dedicated to glorifying God, lifting up Christ, and walking in the Spirit. We are a caring church family that believes the Bible and preaches the Gospel of Jesus Christ.",
+    
+    "contact": {
+      "email": "Pastor@pbcatx.org",
+      "website": "https://pbcatx.org"
+    },
+    
+    "location": {
+      "address": "505 W. University Ave, Ste. #109",
+      "city": "Georgetown",
+      "state": "Texas",
+      "zipCode": "78626",
+      "country": "United States",
+      "coordinates": {
+        "latitude": 30.632856,
+        "longitude": -97.677154
+      },
+      "serviceArea": "Georgetown, Texas and surrounding Williamson County"
+    },
+    
+    "leadership": {
+      "pastor": {
+        "name": "Kyle Pope",
+        "title": "Pastor and Founder",
+        "background": "Felt called to ministry as a teenager, attended Bible college in Colorado Springs, served 9 years at Gospel Light Baptist Church in Rio Rancho, New Mexico before founding Providence Baptist Church in 2015"
+      }
+    },
+    
+    "services": {
+      "timezone": "Central Time (CT)",
+      "schedule": [
+        {
+          "day": "Sunday",
+          "services": [
+            {
+              "name": "Bible Study Classes",
+              "time": "10:00 AM"
+            },
+            {
+              "name": "Worship Service",
+              "time": "11:00 AM",
+              "livestreamed": true
+            },
+            {
+              "name": "Family Worship Service",
+              "time": "5:30 PM",
+              "livestreamed": true
+            }
+          ]
+        },
+        {
+          "day": "Wednesday",
+          "services": [
+            {
+              "name": "Prayer & Bible Study",
+              "time": "7:00 PM",
+              "livestreamed": true,
+              "note": "Broadcast begins around 7:30 PM"
+            }
+          ]
+        }
+      ]
+    },
+    
+    "beliefs": {
+      "core": [
+        "Verbally inspired, inerrant, infallible Scripture (King James Version)",
+        "Trinity - One God in three persons",
+        "Jesus Christ - fully God and fully man, virgin birth, sinless life, substitutionary death, bodily resurrection",
+        "Salvation by grace through faith alone",
+        "Eternal security of believers",
+        "Literal six-day creation",
+        "Eternal heaven and hell"
+      ],
+      "purpose": "Glorify God, Lift up Christ, Walk in the Spirit"
+    },
+    
+    "ministries": [
+      "Sunday School and Bible Study",
+      "Children's Ministry (ages 0-12)",
+      "Youth Ministry",
+      "Music Ministry",
+      "Community Outreach",
+      "Fellowship Events",
+      "Online Livestream Services"
+    ],
+    
+    "events": {
+      "upcoming": [
+        {
+          "name": "Christmas Sunday Service",
+          "date": "December 21, 2025",
+          "description": "Special Christmas celebration service"
+        }
+      ],
+      "milestones": [
+        {
+          "year": 2025,
+          "event": "Celebrated 10 year anniversary"
+        }
+      ]
+    },
+    
+    "giving": {
+      "methods": [
+        "Online giving",
+        "In-person offerings during services",
+        "Mail checks to church address"
+      ],
+      "philosophy": "We believe believers are stewards of God's resources. The tithe (10%) is the basic unit of giving, with sacrificial offerings above the tithe encouraged."
+    },
+    
+    "social": {
+      "facebook": "https://www.facebook.com/ProvidenceBaptistChurchGeorgetown"
+    },
+    
+    "keywords": [
+      "church",
+      "Baptist church",
+      "Independent Baptist",
+      "Georgetown TX",
+      "Bible believing",
+      "Christian worship",
+      "Sunday service",
+      "Bible study",
+      "salvation",
+      "gospel",
+      "Jesus Christ",
+      "faith",
+      "prayer",
+      "fellowship",
+      "Pastor Kyle Pope",
+      "Williamson County church",
+      "Texas church"
+    ],
+    
+    "aiSummary": "Providence Baptist Church is an Independent Baptist church founded in Georgetown, Texas in July 2015 by Pastor Kyle Pope. We are a Bible-believing church family committed to glorifying God, lifting up Christ, and walking in the Spirit. We welcome everyone to join us for worship services on Sundays at 10 AM (Bible Study), 11 AM (Worship), and 5:30 PM (Family Worship), and Wednesday evenings at 7 PM for Prayer and Bible Study. All public services are livestreamed online. We celebrate 10 years of God's faithfulness in 2025. Our beliefs are grounded in the verbally inspired, inerrant Bible (King James Version), and we preach salvation by grace through faith in Jesus Christ alone. Located at 505 W. University Ave in Georgetown, TX, we serve the Georgetown and Williamson County community."
+  }
+}
