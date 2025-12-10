@@ -2,7 +2,7 @@ import { Mail, MapPin, Clock, BookOpen } from "lucide-react";
 import { Link } from "react-router-dom";
 import churchLogo from "@/assets/church-logo.png";
 
-const Footer = () => {
+export const Footer = () => {
   return (
     <footer className="bg-primary text-primary-foreground">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">

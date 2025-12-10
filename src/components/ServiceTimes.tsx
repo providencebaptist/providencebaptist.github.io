@@ -1,7 +1,7 @@
 import { Clock } from "lucide-react";
 import { Card, CardContent } from "./ui/card";
 
-const ServiceTimes = () => {
+export const ServiceTimes = () => {
   const services = [
     {
       day: "Sunday Morning",
