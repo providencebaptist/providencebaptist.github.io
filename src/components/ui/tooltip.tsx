@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as TooltipPrimitivePkg from "@radix-ui/react-tooltip";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const TooltipPrimitive = (TooltipPrimitivePkg as any).default || TooltipPrimitivePkg;
 
 import { cn } from "@/lib/utils";

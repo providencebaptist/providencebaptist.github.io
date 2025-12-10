@@ -2,6 +2,7 @@ import { useTheme } from "next-themes";
 import * as SonnerPkg from "sonner";
 
 // Handle CJS/ESM interop
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const { Toaster: Sonner, toast } = (SonnerPkg as any).default || SonnerPkg;
 
 type ToasterProps = React.ComponentProps<typeof Sonner>;

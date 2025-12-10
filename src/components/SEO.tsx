@@ -1,5 +1,6 @@
 import * as HelmetAsync from "react-helmet-async";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const { Helmet } = (HelmetAsync as any).default || HelmetAsync;
 
 interface SEOProps {

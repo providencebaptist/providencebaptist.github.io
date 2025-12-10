@@ -18,6 +18,7 @@ describe("useIsMobile", () => {
             addEventListener: () => { },
             removeEventListener: () => { },
             dispatchEvent: () => true,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } as any);
 
         const { result } = renderHook(() => useIsMobile());
@@ -37,6 +38,7 @@ describe("useIsMobile", () => {
             addEventListener: () => { },
             removeEventListener: () => { },
             dispatchEvent: () => true,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } as any);
 
         const { result } = renderHook(() => useIsMobile());

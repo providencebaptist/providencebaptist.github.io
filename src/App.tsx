@@ -23,6 +23,7 @@ import Sermons from "./pages/Sermons";
 import SermonDetail from "./pages/SermonDetail";
 import NotFound from "./pages/NotFound";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const { HelmetProvider } = (HelmetAsync as any).default || HelmetAsync;
 const queryClient = new QueryClient();
 

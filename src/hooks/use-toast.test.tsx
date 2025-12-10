@@ -99,6 +99,7 @@ describe("useToast hook", () => {
     it("should update toast via returned helper", () => {
         const { result } = renderHook(() => useToast());
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let t: any;
         act(() => {
             t = result.current.toast({ title: "Init" });

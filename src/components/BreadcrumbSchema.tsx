@@ -1,6 +1,7 @@
 import * as HelmetAsync from "react-helmet-async";
 import { useLocation } from 'react-router-dom';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const { Helmet } = (HelmetAsync as any).default || HelmetAsync;
 
 const BreadcrumbSchema = () => {

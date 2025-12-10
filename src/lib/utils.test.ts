@@ -8,7 +8,9 @@ describe("cn", () => {
     });
 
     it("should handle conditional classes", () => {
-        assert.strictEqual(cn("c1", true && "c2", false && "c3"), "c1 c2");
+        const trueCondition = true;
+        const falseCondition = false;
+        assert.strictEqual(cn("c1", trueCondition && "c2", falseCondition && "c3"), "c1 c2");
     });
 
     it("should merge tailwind classes correctly", () => {

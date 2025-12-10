@@ -5,6 +5,7 @@ import * as HelmetAsync from 'react-helmet-async'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { TooltipProvider } from '@/components/ui/tooltip'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const { HelmetProvider } = (HelmetAsync as any).default || HelmetAsync;
 
 const createQueryClient = () => new QueryClient({
