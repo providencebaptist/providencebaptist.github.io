@@ -45,7 +45,7 @@ jobs:
   deploy:
     needs: fetch-and-commit
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && secrets.SERMON_AUDIO_API_KEY != ''
+    if: github.ref == 'refs/heads/main' && secrets.SERMON_AUDIO_API_KEY != '' && github.event.repository.has_pages
     env:
       NODE_ENV: production
       VITE_ENABLE_ANALYTICS: 'true'

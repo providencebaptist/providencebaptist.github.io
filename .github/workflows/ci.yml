@@ -75,7 +75,7 @@ jobs:
   deploy:
     needs: lint-build-test
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push' && github.event.repository.has_pages
     env:
       NODE_ENV: production
       VITE_ENABLE_ANALYTICS: 'true'
