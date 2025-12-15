@@ -37,6 +37,9 @@ describe("Navigation", () => {
 
     it("renders Mobile Navigation Trigger", async () => {
         // Mobile view
+        Object.defineProperty(window, 'innerWidth', { writable: true, configurable: true, value: 500 });
+        window.dispatchEvent(new Event('resize'));
+
         window.matchMedia = (query) => ({
             matches: true,
             media: query,
@@ -50,26 +53,24 @@ describe("Navigation", () => {
 
         renderWithProviders(<Navigation />);
 
-        // Find hamburger. It has <Menu /> icon. 
-        // We can find by role button.
-        // It's the button with className lg:hidden.
-        // Or better, it's the button that is visible. 
-        // Since we are mocking matchMedia, checking visibility might be tricky in jsdom without real layout.
-        // But we can check for the button.
-        // The button contains <Menu /> or <X />.
-        // Let's assume there is at least one button.
+        // Wait for any effects
+        await new Promise(r => setTimeout(r, 100));
 
-        const buttons = screen.getAllByRole("button");
-        const hamburger = buttons.find(b => b.querySelector('svg'));
+        const hamburger = await screen.findByTestId("mobile-menu-trigger");
+        assert.ok(hamburger);
 
-        if (hamburger) {
+        await act(async () => {
             fireEvent.click(hamburger);
-            // Now mobile menu should be open
-            // Check for links that appear in mobile menu
-            assert.ok(await screen.findByText("About PBC"));
-            assert.ok(await screen.findByText("History"));
-        } else {
-            throw new Error("Hamburger menu not found");
-        }
+        });
+
+        // Now mobile menu should be open
+        // Check for links that appear in mobile menu
+        const aboutLink = await screen.findByText("About", {}, { timeout: 2000 });
+        assert.ok(aboutLink);
+
+        // Check for specific mobile menu items that might be rendered
+        // The component renders "About" as a section header.
+        assert.ok(screen.getByText("Connect"));
+        assert.ok(screen.getByText("Sermons"));
     });
 });

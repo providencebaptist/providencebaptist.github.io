@@ -48,22 +48,19 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className={`sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border shadow-sm transition-all duration-300 ${
-      isScrolled ? "shadow-md" : ""
-    }`}>
+    <nav className={`sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border shadow-sm transition-all duration-300 ${isScrolled ? "shadow-md" : ""
+      }`}>
       <div className="container mx-auto px-4">
-        <div className={`flex items-center justify-between transition-all duration-300 ${
-          isScrolled ? "h-16" : "h-20"
-        }`}>
+        <div className={`flex items-center justify-between transition-all duration-300 ${isScrolled ? "h-16" : "h-20"
+          }`}>
           <NavLink to="/" className="flex items-center space-x-2">
-            <img 
-              src={churchLogo} 
-              alt="Providence Baptist Church Logo" 
+            <img
+              src={churchLogo}
+              alt="Providence Baptist Church Logo"
               className={`transition-all duration-300 ${isScrolled ? "h-8 w-8" : "h-10 w-10"}`}
             />
-            <div className={`font-bold text-primary transition-all duration-300 ${
-              isScrolled ? "text-lg" : "text-xl"
-            }`}>
+            <div className={`font-bold text-primary transition-all duration-300 ${isScrolled ? "text-lg" : "text-xl"
+              }`}>
               Providence Baptist Church
             </div>
           </NavLink>
@@ -161,6 +158,8 @@ const Navigation = () => {
             size="icon"
             className="lg:hidden"
             onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle Menu"
+            data-testid="mobile-menu-trigger"
           >
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </Button>

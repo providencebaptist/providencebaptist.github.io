@@ -1,6 +1,6 @@
 import { test, mock } from "node:test";
 import assert from "node:assert";
-import { screen, cleanup, act, fireEvent } from "@testing-library/react";
+import { screen, cleanup, act, fireEvent, waitFor } from "@testing-library/react";
 import { renderWithProviders } from "../test-utils";
 import Sermons from "./Sermons";
 
@@ -188,8 +188,14 @@ test("Sermons Page Suite", async (t) => {
         assert.ok(searchInput);
 
         // Type in a mismatch search
-        await act(async () => {
-            fireEvent.change(searchInput, { target: { value: 'NonExistentTerm' } });
+        fireEvent.change(searchInput, { target: { value: 'NonExistentTerm' } });
+
+        await screen.findByDisplayValue('NonExistentTerm');
+
+        // Wait for sermon to disappear
+        await waitFor(() => {
+            const sermon = screen.queryByText("Test Sermon");
+            assert.strictEqual(sermon, null);
         });
 
         // Should see "No sermons found"
