@@ -1,6 +1,6 @@
 import { describe, it, beforeEach, afterEach, mock } from "node:test";
 import assert from "node:assert";
-import { screen, waitFor, cleanup, act } from "@testing-library/react";
+import { screen, waitFor, cleanup, act, fireEvent } from "@testing-library/react";
 import { renderWithProviders } from "../test-utils";
 import { Routes, Route } from "react-router-dom";
 import SermonDetail from "./SermonDetail";
@@ -112,5 +112,65 @@ describe("SermonDetail Page", () => {
 
         const notFound = await screen.findByText("Sermon Not Found");
         assert.ok(notFound);
+    });
+    it("renders Audio and Video players and interacts", async () => {
+        await act(async () => {
+            renderWithProviders(
+                <Routes>
+                    <Route path="/sermons/:id" element={<SermonDetail />} />
+                </Routes>,
+                { route: '/sermons/123' }
+            );
+        });
+
+        // Check for Audio Player
+        const audioTitle = await screen.findByText("Listen to Sermon");
+        assert.ok(audioTitle);
+
+        // Play button (Audio)
+        const playAudioBtn = screen.getByText("Play Audio");
+        assert.ok(playAudioBtn);
+        // We can't easily test actual audio playback in JSDOM, but we can click the button
+        await act(async () => {
+            fireEvent.click(playAudioBtn);
+        });
+        // Should change to Pause Audio
+        assert.ok(screen.getByText("Pause Audio"));
+
+        // Check for Video Player
+        const videoTitle = await screen.findByText("Watch Sermon");
+        assert.ok(videoTitle);
+
+        // Play button (Video)
+        const playVideoBtn = screen.getByText("Play Video");
+        assert.ok(playVideoBtn);
+
+        await act(async () => {
+            fireEvent.click(playVideoBtn);
+        });
+        assert.ok(screen.getByText("Pause Video"));
+    });
+
+    it("renders download options", async () => {
+        await act(async () => {
+            renderWithProviders(
+                <Routes>
+                    <Route path="/sermons/:id" element={<SermonDetail />} />
+                </Routes>,
+                { route: '/sermons/123' }
+            );
+        });
+
+        await screen.findByText("Test Sermon");
+
+        // Check for download dropdowns or buttons
+        // In the mock data, we have audio options, so "Download Audio" select trigger should be there
+        // Note: Shadcn Select component trigger contains the placeholder text "Download Audio"
+        const downloadAudio = screen.getByText("Download Audio");
+        assert.ok(downloadAudio);
+
+        // Video options exist too
+        const downloadVideo = screen.getByText("Download Video");
+        assert.ok(downloadVideo);
     });
 });

@@ -1,6 +1,6 @@
 import { test, mock } from "node:test";
 import assert from "node:assert";
-import { screen, cleanup, act } from "@testing-library/react";
+import { screen, cleanup, act, fireEvent } from "@testing-library/react";
 import { renderWithProviders } from "../test-utils";
 import Sermons from "./Sermons";
 
@@ -51,6 +51,21 @@ const mockSermonsData = {
             eventType: "Sunday - AM"
         }
     ]
+};
+
+// Larger mock data set for pagination testing
+const mockPaginationData = {
+    results: Array.from({ length: 50 }, (_, i) => ({
+        sermonID: `${i}`,
+        displayTitle: `Sermon ${i + 1}`,
+        preachDate: "2023-01-01",
+        speaker: { displayName: "Test Speaker" },
+        bibleText: "John 3:16",
+        broadcaster: { bibleVersion: "KJV" },
+        media: {},
+        audioDurationSeconds: 3600,
+        eventType: "Sunday - AM"
+    }))
 };
 
 test("Sermons Page Suite", async (t) => {
@@ -118,6 +133,120 @@ test("Sermons Page Suite", async (t) => {
         // Should show empty state message
         const emptyMessage = await screen.findByText("No sermons found in this category.");
         assert.ok(emptyMessage);
+
+        teardown();
+    });
+    await t.test("filters sermons by category from URL", async () => {
+        setup();
+        global.fetch = mock.fn(async (url) => {
+            if (url.toString().includes('sermons-data.json')) {
+                return {
+                    json: async () => mockSermonsData,
+                    ok: true,
+                    status: 200,
+                } as Response;
+            }
+            return originalFetch(url);
+        });
+
+        await act(async () => {
+            // Render with a specific category query param
+            renderWithProviders(<Sermons />, { route: '/sermons?category=Sunday+-+AM' });
+        });
+
+        // Should NOT see No sermons found if the category matches
+        const sermonTitle = await screen.findAllByText("Test Sermon", {}, { timeout: 3000 });
+        assert.ok(sermonTitle.length > 0);
+
+        // Assert that the category tab is active/selected (rendering dependent)
+        // Assuming visual indication or verify filtered results logic matches
+
+        teardown();
+    });
+
+    await t.test("handles search functionality", async () => {
+        setup();
+        global.fetch = mock.fn(async (url) => {
+            if (url.toString().includes('sermons-data.json')) {
+                return {
+                    json: async () => mockSermonsData,
+                    ok: true,
+                    status: 200,
+                } as Response;
+            }
+            return originalFetch(url);
+        });
+
+        await act(async () => {
+            renderWithProviders(<Sermons />);
+        });
+
+        await screen.findAllByText("Test Sermon", {}, { timeout: 3000 });
+
+        // Get search input
+        const searchInput = screen.getByPlaceholderText(/Search sermons/i);
+        assert.ok(searchInput);
+
+        // Type in a mismatch search
+        await act(async () => {
+            fireEvent.change(searchInput, { target: { value: 'NonExistentTerm' } });
+        });
+
+        // Should see "No sermons found"
+        const emptyState = await screen.findByText("No sermons found in this category.");
+        assert.ok(emptyState);
+
+        // Clear search
+        await act(async () => {
+            fireEvent.change(searchInput, { target: { value: '' } });
+        });
+
+        // Should see sermon again
+        const sermonTitle = await screen.findAllByText("Test Sermon");
+        assert.ok(sermonTitle.length > 0);
+
+        teardown();
+    });
+
+    await t.test("handles pagination", async () => {
+        setup();
+        global.fetch = mock.fn(async (url) => {
+            if (url.toString().includes('sermons-data.json')) {
+                return {
+                    json: async () => mockPaginationData,
+                    ok: true,
+                    status: 200,
+                } as Response;
+            }
+            return originalFetch(url);
+        });
+
+        await act(async () => {
+            renderWithProviders(<Sermons />);
+        });
+
+        // Wait for first page items
+        await screen.findAllByText("Sermon 1", {}, { timeout: 3000 });
+
+        // Find 'Next' button (pagination renders next button if > 1 page)
+        // Note: Shadcn pagination buttons might need specific selectors if text isn't displayed directly
+        // But usually "Next" text is there. Let's check for aria-label or text.
+        const nextButtons = screen.getAllByRole("link", { name: /Go to next page/i });
+        // Or looking at the code, it uses PaginationNext which might render text or icon. 
+        // Let's assume there is a next button we can find. Screen.getAllByRole('link') might find page numbers too.
+        // PaginationNext normally has aria-label="Go to next page"
+
+        const nextButton = nextButtons[0]; // Assuming valid
+        assert.ok(nextButton);
+
+        // Click next
+        await act(async () => {
+            fireEvent.click(nextButton);
+        });
+
+        // Should see Sermon 21 (page 2)
+        const sermonPage2 = await screen.findAllByText("Sermon 21");
+        assert.ok(sermonPage2.length > 0);
 
         teardown();
     });
