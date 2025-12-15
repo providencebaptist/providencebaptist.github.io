@@ -6,6 +6,8 @@ import { mergeProcessCovs } from "@bcoe/v8-coverage";
 import { convert } from "ast-v8-to-istanbul";
 import { parse } from "@babel/parser";
 import libCoverage from "istanbul-lib-coverage";
+import libReport from "istanbul-lib-report";
+import reports from "istanbul-reports";
 
 const repoRoot = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.join(repoRoot, "..");
@@ -92,6 +94,15 @@ async function writeCoverageSummary(summaryPath) {
       coverageMap.merge(converted);
     }
   }
+
+  const context = libReport.createContext({
+    dir: coverageRoot,
+    defaultSummarizer: "nested",
+    coverageMap,
+  });
+
+  const report = reports.create("text");
+  report.execute(context);
 
   const summary = coverageMap.getCoverageSummary().toJSON();
   fs.mkdirSync(path.dirname(summaryPath), { recursive: true });
