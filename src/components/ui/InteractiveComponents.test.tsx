@@ -118,16 +118,9 @@ describe("Interactive Components", () => {
         // We can check for a separator role
         assert.ok(screen.getByRole("separator"));
 
-        // We can check if we can type in it?
-        // The underlying InputOTP handles focus.
-        const input = screen.getByRole("textbox", { hidden: true }) || screen.getByRole("textbox");
-        if (input) {
-            await act(async () => {
-                fireEvent.change(input, { target: { value: "123456" } });
-            });
-            // Slots should update visually, but checking that is testing the library internals.
-            // We just want to ensure our wrapper components execute.
-        }
+        // We can check if the underlying input exists
+        const input = screen.queryByRole("textbox", { hidden: true }) || screen.queryByRole("textbox");
+        assert.ok(input, "Hidden input should be rendered");
     });
 
 });
