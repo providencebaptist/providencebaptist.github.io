@@ -165,12 +165,76 @@ describe("SermonDetail Page", () => {
 
         // Check for download dropdowns or buttons
         // In the mock data, we have audio options, so "Download Audio" select trigger should be there
-        // Note: Shadcn Select component trigger contains the placeholder text "Download Audio"
         const downloadAudio = screen.getByText("Download Audio");
         assert.ok(downloadAudio);
 
         // Video options exist too
         const downloadVideo = screen.getByText("Download Video");
         assert.ok(downloadVideo);
+    });
+
+    it("controls playback speed and seeking", async () => {
+        await act(async () => {
+            renderWithProviders(
+                <Routes>
+                    <Route path="/sermons/:id" element={<SermonDetail />} />
+                </Routes>,
+                { route: '/sermons/123' }
+            );
+        });
+
+        await screen.findByText("Test Sermon");
+
+        // Audio Speed Controls
+        const speedButtons = screen.getAllByText("1.5x");
+        assert.ok(speedButtons.length >= 1);
+
+        await act(async () => {
+            fireEvent.click(speedButtons[0]);
+        });
+
+        // Seek Audio
+        // Mock HTMLMediaElement duration to avoid NaN
+        Object.defineProperty(HTMLMediaElement.prototype, 'duration', {
+            configurable: true,
+            get() { return 100; }
+        });
+        const audioProgressBar = screen.getByTestId("audio-progress-bar");
+
+        // Mock getBoundingClientRect
+        const originalGetBoundingClientRect = Element.prototype.getBoundingClientRect;
+        Element.prototype.getBoundingClientRect = mock.fn(() => ({
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 100,
+            width: 100,
+            height: 10,
+            x: 0,
+            y: 0,
+            toJSON: () => { }
+        }));
+
+        await act(async () => {
+            // Click halfway
+            fireEvent.click(audioProgressBar, { clientX: 50 });
+        });
+
+        // Video interactions if video exists
+        const videoProgressBar = screen.queryByTestId("video-progress-bar");
+        if (videoProgressBar) {
+            await act(async () => {
+                fireEvent.click(videoProgressBar, { clientX: 50 });
+            });
+
+            if (speedButtons.length > 1) {
+                await act(async () => {
+                    fireEvent.click(speedButtons[1]);
+                });
+            }
+        }
+
+        // Restore mock
+        Element.prototype.getBoundingClientRect = originalGetBoundingClientRect;
     });
 });

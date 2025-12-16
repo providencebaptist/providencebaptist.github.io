@@ -127,7 +127,7 @@ const SermonDetail = () => {
     const handleScroll = () => {
       const audioPlayerTop = audioPlayerRef.current?.getBoundingClientRect().top || 0;
       const videoPlayerTop = videoPlayerRef.current?.getBoundingClientRect().top || 0;
-      
+
       // Show mini player when main players are scrolled out of view
       if ((isPlaying && audioPlayerTop < -100) || (isVideoPlaying && videoPlayerTop < -100)) {
         setShowMiniPlayer(true);
@@ -162,7 +162,7 @@ const SermonDetail = () => {
 
         // Find the specific sermon by ID
         const sermonData = data.results.find((item) => item.sermonID === id);
-        
+
         if (sermonData) {
           // Map audio options
           const audioOptions: MediaOption[] = sermonData.media?.audio?.map((audio) => ({
@@ -212,7 +212,7 @@ const SermonDetail = () => {
             audioDownloadCount: sermonData.downloadCount || 0,
             videoDownloadCount: sermonData.videoDownloadCount || 0
           };
-          
+
           setSermon(mappedSermon);
         }
         setLoading(false);
@@ -371,7 +371,7 @@ const SermonDetail = () => {
   useEffect(() => {
     const savedAudioSpeed = localStorage.getItem('sermon-audio-speed');
     const savedVideoSpeed = localStorage.getItem('sermon-video-speed');
-    
+
     if (savedAudioSpeed) {
       setAudioSpeed(parseFloat(savedAudioSpeed));
     }
@@ -463,7 +463,7 @@ const SermonDetail = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEO 
+      <SEO
         title={`${sermon.title} - Sermon`}
         description={sermon.description}
         image={sermon.thumbnailUrl || "https://pbcatx.org/placeholder.svg"}
@@ -474,7 +474,7 @@ const SermonDetail = () => {
 
       <div className="bg-gradient-to-r from-accent to-secondary text-accent-foreground py-8 sm:py-12">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <Link 
+          <Link
             to="/sermons"
             className="inline-flex items-center text-accent-foreground hover:underline mb-4"
           >
@@ -497,10 +497,10 @@ const SermonDetail = () => {
           <div className="flex flex-wrap gap-4 text-sm sm:text-base">
             <div className="flex items-center gap-2">
               <Calendar className="h-4 w-4" />
-              <span>{new Date(sermon.date).toLocaleDateString('en-US', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
+              <span>{new Date(sermon.date).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
               })}</span>
             </div>
             <div className="flex items-center gap-2">
@@ -544,7 +544,7 @@ const SermonDetail = () => {
                 Listen to Sermon
               </h3>
               <div className="flex flex-col sm:flex-row gap-4 mb-4">
-                <Button 
+                <Button
                   onClick={togglePlayPause}
                   variant="hero"
                   size="lg"
@@ -578,7 +578,7 @@ const SermonDetail = () => {
                   </Select>
                 )}
               </div>
-              
+
               {/* Playback Speed Controls */}
               <div className="mb-4">
                 <label className="text-sm font-medium text-foreground mb-2 block">
@@ -598,14 +598,14 @@ const SermonDetail = () => {
                   ))}
                 </div>
               </div>
-              
+
               <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
                 <div className="flex items-center gap-1">
                   <Download className="h-4 w-4" />
                   <span>{sermon.audioDownloadCount} downloads</span>
                 </div>
               </div>
-              <audio 
+              <audio
                 ref={audioRef}
                 src={sermon.audioUrl}
                 onEnded={() => setIsPlaying(false)}
@@ -613,14 +613,15 @@ const SermonDetail = () => {
                 onLoadedMetadata={handleAudioLoadedMetadata}
                 className="hidden"
               />
-              
+
               {/* Custom Progress Bar */}
               <div className="mt-4">
-                <div 
+                <div
                   className="w-full h-2 bg-muted rounded-full cursor-pointer overflow-hidden"
                   onClick={seekAudio}
+                  data-testid="audio-progress-bar"
                 >
-                  <div 
+                  <div
                     className="h-full bg-primary transition-all duration-100"
                     style={{ width: `${audioProgress}%` }}
                   />
@@ -641,7 +642,7 @@ const SermonDetail = () => {
                   Watch Sermon
                 </h3>
                 <div className="mb-4">
-                  <video 
+                  <video
                     ref={videoRef}
                     src={sermon.videoUrl}
                     onEnded={() => setIsVideoPlaying(false)}
@@ -650,14 +651,15 @@ const SermonDetail = () => {
                     className="w-full rounded-lg"
                     poster=""
                   />
-                  
+
                   {/* Custom Progress Bar */}
                   <div className="mt-4">
-                    <div 
+                    <div
                       className="w-full h-2 bg-muted rounded-full cursor-pointer overflow-hidden"
                       onClick={seekVideo}
+                      data-testid="video-progress-bar"
                     >
-                      <div 
+                      <div
                         className="h-full bg-primary transition-all duration-100"
                         style={{ width: `${videoProgress}%` }}
                       />
@@ -669,7 +671,7 @@ const SermonDetail = () => {
                   </div>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button 
+                  <Button
                     onClick={toggleVideoPlayPause}
                     variant="hero"
                     size="lg"
@@ -703,7 +705,7 @@ const SermonDetail = () => {
                     </Select>
                   )}
                 </div>
-                
+
                 {/* Playback Speed Controls */}
                 <div className="mt-4">
                   <label className="text-sm font-medium text-foreground mb-2 block">
@@ -723,7 +725,7 @@ const SermonDetail = () => {
                     ))}
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-4 text-sm text-muted-foreground mt-4">
                   <div className="flex items-center gap-1">
                     <Download className="h-4 w-4" />
@@ -767,13 +769,13 @@ const SermonDetail = () => {
                 Sermon Resources
               </h3>
               <div className="space-y-3">
-                <Button 
+                <Button
                   variant="outline"
                   size="lg"
                   className="w-full justify-start min-h-[44px]"
                   asChild
                 >
-                  <a 
+                  <a
                     href={`https://www.sermonaudio.com/sermoninfo.asp?SID=${sermon.id}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -795,7 +797,7 @@ const SermonDetail = () => {
                 </h3>
                 <div className="flex flex-col sm:flex-row gap-6 items-start">
                   {sermon.speakerData.portraitURL && (
-                    <img 
+                    <img
                       src={sermon.speakerData.portraitURL}
                       alt={sermon.speakerData.displayName}
                       className="w-32 h-32 rounded-lg object-cover"
@@ -833,9 +835,9 @@ const SermonDetail = () => {
                   </Link>
                 </Button>
                 <Button asChild variant="outline" size="lg" className="min-h-[44px]">
-                  <a 
-                    href="https://www.sermonaudio.com/solo/pbcatx/sermons/" 
-                    target="_blank" 
+                  <a
+                    href="https://www.sermonaudio.com/solo/pbcatx/sermons/"
+                    target="_blank"
                     rel="noopener noreferrer"
                   >
                     Subscribe to Podcast
@@ -855,8 +857,8 @@ const SermonDetail = () => {
           progress={activeMiniPlayer === 'audio' ? audioProgress : videoProgress}
           duration={activeMiniPlayer === 'audio' ? audioDuration : videoDuration}
           currentTime={
-            activeMiniPlayer === 'audio' 
-              ? audioRef.current?.currentTime || 0 
+            activeMiniPlayer === 'audio'
+              ? audioRef.current?.currentTime || 0
               : videoRef.current?.currentTime || 0
           }
           speed={activeMiniPlayer === 'audio' ? audioSpeed : videoSpeed}
