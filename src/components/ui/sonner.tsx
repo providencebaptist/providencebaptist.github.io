@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { useTheme } from "next-themes";
 import * as SonnerPkg from "sonner";
 

@@ -235,14 +235,9 @@ test("Sermons Page Suite", async (t) => {
         await screen.findAllByText("Sermon 1", {}, { timeout: 3000 });
 
         // Find 'Next' button (pagination renders next button if > 1 page)
-        // Note: Shadcn pagination buttons might need specific selectors if text isn't displayed directly
-        // But usually "Next" text is there. Let's check for aria-label or text.
-        const nextButtons = screen.getAllByRole("link", { name: /Go to next page/i });
-        // Or looking at the code, it uses PaginationNext which might render text or icon. 
-        // Let's assume there is a next button we can find. Screen.getAllByRole('link') might find page numbers too.
-        // PaginationNext normally has aria-label="Go to next page"
-
-        const nextButton = nextButtons[0]; // Assuming valid
+        // Note: Shadcn pagination uses anchor tags without hrefs for interactions, so they might not have 'link' role.
+        // But they have aria-label "Go to next page".
+        const nextButton = screen.getByLabelText(/Go to next page/i);
         assert.ok(nextButton);
 
         // Click next
