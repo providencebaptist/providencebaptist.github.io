@@ -47,7 +47,7 @@ fs.rmSync(coverageRoot, { recursive: true, force: true });
 
 const result = spawnSync(
   process.execPath,
-  ["--test", "--import", setupPath, "--loader", loaderPath, ...filesToRun],
+  ["--test", "--test-timeout=60000", "--import", setupPath, "--loader", loaderPath, ...filesToRun],
   {
     cwd: projectRoot,
     stdio: "inherit",

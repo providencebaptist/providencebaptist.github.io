@@ -2,7 +2,7 @@
 import { describe, it, afterEach } from "node:test";
 import assert from "node:assert";
 import { render, screen, cleanup, act, fireEvent } from "@testing-library/react";
-import { useToast, toast as toastFn } from "../../hooks/use-toast";
+import { useToast, toast as toastFn } from "@/hooks/use-toast";
 import { ToastProvider, ToastViewport, Toast, ToastTitle, ToastDescription, ToastClose, ToastAction } from "./toast";
 import { Toaster } from "./toaster";
 import React from "react";
