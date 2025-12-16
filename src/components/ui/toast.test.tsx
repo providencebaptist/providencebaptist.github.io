@@ -34,7 +34,7 @@ const CustomToaster = () => {
     return (
         <>
             {toasts.map(t => (
-                <Toast key={t.id} {...t}>
+                <Toast key={t.id} {...t} duration={Infinity}>
                     <div className="grid gap-1">
                         {t.title && <ToastTitle>{t.title}</ToastTitle>}
                         {t.description && <ToastDescription>{t.description}</ToastDescription>}
