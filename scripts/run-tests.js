@@ -53,6 +53,7 @@ const result = spawnSync(
     stdio: "inherit",
     env: {
       ...process.env,
+      NODE_ENV: "test",
       NODE_OPTIONS: "--experimental-vm-modules",
       NODE_V8_COVERAGE: coverageRequested ? rawCoverageDir : undefined,
     },

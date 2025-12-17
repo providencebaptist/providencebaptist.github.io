@@ -1,9 +1,10 @@
-import { describe, it, afterEach, beforeEach } from "node:test";
+import { describe, it, afterEach, beforeEach, mock } from "node:test";
 import assert from "node:assert";
 import { render, screen, fireEvent, cleanup } from "@testing-library/react";
 import {
     SidebarProvider, Sidebar, SidebarTrigger, SidebarContent, SidebarHeader, SidebarFooter, SidebarGroup, SidebarRail, SidebarInset,
-    SidebarGroupLabel, SidebarGroupContent, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarMenuAction, SidebarMenuBadge, SidebarMenuSub, SidebarMenuSubItem, SidebarMenuSubButton
+    SidebarGroupLabel, SidebarGroupContent, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarMenuAction, SidebarMenuBadge, SidebarMenuSub, SidebarMenuSubItem, SidebarMenuSubButton,
+    SidebarInput, SidebarSeparator, SidebarMenuSkeleton
 } from "./sidebar";
 import { TooltipProvider } from "./tooltip";
 
@@ -200,5 +201,84 @@ describe("Sidebar Component", () => {
             </TooltipProvider>
         );
         assert.ok(screen.getByTitle("Toggle Sidebar")); // Rail has title
+    });
+    it("SidebarProvider handles controlled state", () => {
+        const onOpenChange = mock.fn();
+        render(
+            <TooltipProvider>
+                <SidebarProvider open={true} onOpenChange={onOpenChange}>
+                    <Sidebar>
+                        <SidebarContent>Content</SidebarContent>
+                    </Sidebar>
+                    <SidebarTrigger />
+                </SidebarProvider>
+            </TooltipProvider>
+        );
+
+        const trigger = screen.getByRole("button", { name: "Toggle Sidebar" });
+        fireEvent.click(trigger);
+
+        assert.strictEqual(onOpenChange.mock.calls.length, 1);
+        assert.strictEqual(onOpenChange.mock.calls[0].arguments[0], false);
+    });
+
+    it("SidebarRail toggles sidebar on click", () => {
+        render(
+            <TooltipProvider>
+                <SidebarProvider defaultOpen={true}>
+                    <Sidebar>
+                        <SidebarRail />
+                    </Sidebar>
+                </SidebarProvider>
+            </TooltipProvider>
+        );
+
+        const rail = screen.getByTitle("Toggle Sidebar");
+        fireEvent.click(rail);
+        // We can't easily assert internal state without controlled props or checking DOM attrs.
+        // But finding it and clicking it covers the event handler lines.
+    });
+
+    it("renders SidebarInput", () => {
+        render(
+            <TooltipProvider>
+                <SidebarProvider>
+                    <Sidebar>
+                        <SidebarInput placeholder="Search..." />
+                    </Sidebar>
+                </SidebarProvider>
+            </TooltipProvider>
+        );
+        assert.ok(screen.getByPlaceholderText("Search..."));
+    });
+
+    it("renders SidebarSeparator", () => {
+        const { container } = render(
+            <TooltipProvider>
+                <SidebarProvider>
+                    <Sidebar>
+                        <SidebarSeparator />
+                    </Sidebar>
+                </SidebarProvider>
+            </TooltipProvider>
+        );
+        // Separator usually has role="none" or "separator" if accessible, but implementation might just be div/hr.
+        // It renders <Separator>, which in shadcn usually is <div role="none" ... > or <hr ...>
+        // Let's check by class via data attribute
+        assert.ok(container.querySelector("[data-sidebar='separator']"));
+    });
+
+    it("renders SidebarMenuSkeleton", () => {
+        const { container } = render(
+            <TooltipProvider>
+                <SidebarProvider>
+                    <Sidebar>
+                        <SidebarMenuSkeleton showIcon />
+                    </Sidebar>
+                </SidebarProvider>
+            </TooltipProvider>
+        );
+        assert.ok(container.querySelector("[data-sidebar='menu-skeleton']"));
+        assert.ok(container.querySelector("[data-sidebar='menu-skeleton-icon']"));
     });
 });

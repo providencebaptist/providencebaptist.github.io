@@ -81,18 +81,17 @@ describe("Chart Component", () => {
         assert.ok(screen.getByTestId("chart-content"));
     });
 
-    it.skip("renders ChartTooltipContent", () => {
+    it("renders ChartTooltipContent", () => {
         render(
             <ChartContainer config={chartConfig}>
-                {/* Simulate usage context */}
                 <ChartTooltipContent
                     active={true}
-                    payload={[{ name: "Desktop", value: 100, color: "#2563eb", dataKey: "desktop", payload: { fill: "#2563eb" } }]}
+                    payload={[{ name: "desktop", value: 100, color: "#2563eb", dataKey: "desktop", payload: { fill: "#2563eb" } }] as any}
                 />
             </ChartContainer>
         );
-        // Should verify text presence
-        assert.ok(screen.getByText("Desktop"));
+        // "Desktop" comes from config label for "desktop" key.
+        assert.ok(screen.getAllByText("Desktop").length >= 1);
         assert.ok(screen.getByText("100"));
     });
 
