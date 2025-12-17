@@ -66,13 +66,13 @@ export const MiniPlayer = ({
                 {formatTime(currentTime)} / {formatTime(duration)}
               </span>
             </div>
-            
+
             {/* Progress Bar */}
-            <div 
+            <div
               className="w-full h-2 bg-muted rounded-full cursor-pointer overflow-hidden"
               onClick={onSeek}
             >
-              <div 
+              <div
                 className="h-full bg-primary transition-all duration-100"
                 style={{ width: `${progress}%` }}
               />
@@ -103,6 +103,7 @@ export const MiniPlayer = ({
             variant="ghost"
             size="icon"
             className="flex-shrink-0"
+            aria-label="Close"
           >
             <X className="h-4 w-4" />
           </Button>
