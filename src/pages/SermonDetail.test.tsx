@@ -59,6 +59,7 @@ describe("SermonDetail Page", () => {
     const originalFetch = global.fetch;
     const originalScrollTo = global.window.scrollTo;
 
+    // Mock HTMLMediaElement methods
     beforeEach(() => {
         cleanup();
         global.fetch = mock.fn(async (url) => {
@@ -73,6 +74,15 @@ describe("SermonDetail Page", () => {
         });
 
         global.window.scrollTo = mock.fn();
+
+        Object.defineProperty(HTMLMediaElement.prototype, 'play', {
+            configurable: true,
+            value: mock.fn(async () => { }),
+        });
+        Object.defineProperty(HTMLMediaElement.prototype, 'pause', {
+            configurable: true,
+            value: mock.fn(),
+        });
     });
 
     afterEach(() => {
@@ -80,6 +90,7 @@ describe("SermonDetail Page", () => {
         global.fetch = originalFetch;
         global.window.scrollTo = originalScrollTo;
         mock.reset();
+        // Restore prototypes if modified heavily, though JSDOM resets often
     });
 
     it("renders SermonDetail page and fetches data", async () => {
@@ -235,6 +246,121 @@ describe("SermonDetail Page", () => {
         }
 
         // Restore mock
+        Element.prototype.getBoundingClientRect = originalGetBoundingClientRect;
+    });
+    it("handles time updates and saves playback position", async () => {
+        // Mock localStorage via Storage prototype to ensure it catches calls
+        const setItemSpy = mock.fn();
+        const getItemSpy = mock.fn(() => "10.0");
+        const originalSetItem = Storage.prototype.setItem;
+        const originalGetItem = Storage.prototype.getItem;
+
+        Storage.prototype.setItem = setItemSpy;
+        Storage.prototype.getItem = getItemSpy;
+
+        await act(async () => {
+            renderWithProviders(
+                <Routes>
+                    <Route path="/sermons/:id" element={<SermonDetail />} />
+                </Routes>,
+                { route: '/sermons/123' }
+            );
+        });
+
+        await screen.findByText("Listen to Sermon");
+
+        const audioEl = document.querySelector('audio') as HTMLAudioElement;
+        assert.ok(audioEl, "Audio element not found");
+
+        // Mock duration/currentTime
+        Object.defineProperty(audioEl, 'duration', { configurable: true, get: () => 100 });
+
+        // Trigger loadedmetadata
+        await act(async () => {
+            fireEvent.loadedMetadata(audioEl);
+        });
+
+        // Trigger timeUpdate
+        await act(async () => {
+            audioEl.currentTime = 20;
+            fireEvent.timeUpdate(audioEl);
+        });
+
+        // Trigger timeUpdate at divisible by 5 for saving (25)
+        await act(async () => {
+            audioEl.currentTime = 25;
+            fireEvent.timeUpdate(audioEl);
+        });
+
+        const callArgs = setItemSpy.mock.calls.flatMap(c => c.arguments);
+        const hasSaved = callArgs.some(arg => typeof arg === 'string' && arg.includes('sermon-123-audio-position'));
+        assert.ok(hasSaved, "Did not save playback position to localStorage");
+
+        // Restore localStorage
+        Storage.prototype.setItem = originalSetItem;
+        Storage.prototype.getItem = originalGetItem;
+    });
+
+    it("toggles MiniPlayer on scroll", async () => {
+        await act(async () => {
+            renderWithProviders(
+                <Routes>
+                    <Route path="/sermons/:id" element={<SermonDetail />} />
+                </Routes>,
+                { route: '/sermons/123' }
+            );
+        });
+
+        await screen.findByText("Listen to Sermon");
+
+        // Mock getBoundingClientRect
+        const originalGetBoundingClientRect = Element.prototype.getBoundingClientRect;
+        Element.prototype.getBoundingClientRect = mock.fn(() => ({
+            top: -200, // Out of view
+            bottom: -100,
+            left: 0,
+            right: 0,
+            width: 100,
+            height: 100,
+            x: 0,
+            y: 0,
+            toJSON: () => { }
+        }));
+
+        // Need to be playing for mini player to show
+        const playAudioBtn = screen.getByText("Play Audio");
+        await act(async () => {
+            fireEvent.click(playAudioBtn);
+        });
+
+        // Trigger scroll
+        await act(async () => {
+            fireEvent.scroll(window, { target: { scrollY: 500 } });
+        });
+
+        // Check for MiniPlayer presence
+        // MiniPlayer has a "Close Player" button or title? 
+        // Looking at MiniPlayer.tsx, it renders a card.
+        // It has aria-label="Close mini player" on close button (added in previous session).
+        const closeBtn = await screen.findByLabelText("Close mini player");
+        assert.ok(closeBtn);
+
+        // Video logic
+        // Stop audio
+        await act(async () => {
+            fireEvent.click(screen.getByText("Pause Audio"));
+        });
+        // Start video
+        await act(async () => {
+            fireEvent.click(screen.getByText("Play Video"));
+        });
+        // Scroll again
+        await act(async () => {
+            fireEvent.scroll(window);
+        });
+        assert.ok(screen.getByLabelText("Close mini player"));
+
+        // Restore
         Element.prototype.getBoundingClientRect = originalGetBoundingClientRect;
     });
 });

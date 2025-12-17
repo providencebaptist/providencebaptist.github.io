@@ -4,7 +4,7 @@ import { render, screen, fireEvent, cleanup } from "@testing-library/react";
 import {
     SidebarProvider, Sidebar, SidebarTrigger, SidebarContent, SidebarHeader, SidebarFooter, SidebarGroup, SidebarRail, SidebarInset,
     SidebarGroupLabel, SidebarGroupContent, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarMenuAction, SidebarMenuBadge, SidebarMenuSub, SidebarMenuSubItem, SidebarMenuSubButton,
-    SidebarInput, SidebarSeparator, SidebarMenuSkeleton
+    SidebarInput, SidebarSeparator, SidebarMenuSkeleton, useSidebar
 } from "./sidebar";
 import { TooltipProvider } from "./tooltip";
 
@@ -280,5 +280,53 @@ describe("Sidebar Component", () => {
         );
         assert.ok(container.querySelector("[data-sidebar='menu-skeleton']"));
         assert.ok(container.querySelector("[data-sidebar='menu-skeleton-icon']"));
+    });
+    it("useSidebar throws error when used outside provider", () => {
+        // Suppress console.error for expected error
+        const originalError = console.error;
+        console.error = mock.fn();
+
+        const TestComponent = () => {
+            const { open } = useSidebar();
+            return <div>{open ? "open" : "closed"}</div>;
+        };
+
+        try {
+            render(<TestComponent />);
+            assert.fail("Should have thrown error");
+        } catch (e) {
+            assert.ok(e instanceof Error);
+            assert.ok((e as Error).message.includes("useSidebar must be used within a SidebarProvider"));
+        }
+
+        console.error = originalError;
+    });
+
+    it("renders SidebarMenuBadge with variants", () => {
+        render(
+            <TooltipProvider>
+                <SidebarProvider>
+                    <Sidebar>
+                        <SidebarContent>
+                            <SidebarGroup>
+                                <SidebarGroupContent>
+                                    <SidebarMenu>
+                                        <SidebarMenuItem>
+                                            <SidebarMenuButton size="lg" isActive>
+                                                <span>Button</span>
+                                                <SidebarMenuBadge className="custom-badge">10</SidebarMenuBadge>
+                                            </SidebarMenuButton>
+                                        </SidebarMenuItem>
+                                    </SidebarMenu>
+                                </SidebarGroupContent>
+                            </SidebarGroup>
+                        </SidebarContent>
+                    </Sidebar>
+                </SidebarProvider>
+            </TooltipProvider>
+        );
+        const badge = screen.getByText("10");
+        assert.ok(badge);
+        assert.ok(badge.className.includes("custom-badge"));
     });
 });

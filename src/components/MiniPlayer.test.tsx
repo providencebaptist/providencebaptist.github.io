@@ -65,7 +65,7 @@ describe("MiniPlayer", () => {
         const onClose = mock.fn();
         render(<MiniPlayer {...defaultProps} onClose={onClose} />);
 
-        const closeButton = screen.getByLabelText("Close");
+        const closeButton = screen.getByLabelText("Close mini player");
         fireEvent.click(closeButton);
 
         assert.strictEqual(onClose.mock.calls.length, 1);

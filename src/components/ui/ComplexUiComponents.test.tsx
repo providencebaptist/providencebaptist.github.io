@@ -4,7 +4,7 @@ import { render, screen, fireEvent, waitFor, cleanup } from "@testing-library/re
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "./accordion";
 import { Alert, AlertTitle, AlertDescription } from "./alert";
 import { Dialog, DialogTrigger, DialogContent, DialogTitle } from "./dialog";
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "./select";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem, SelectGroup, SelectLabel, SelectSeparator } from "./select";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "./tabs";
 import { Carousel, CarouselContent, CarouselItem } from "./carousel";
 
@@ -56,20 +56,25 @@ describe("Complex UI Components", () => {
         assert.ok(await screen.findByText("Dialog Title"));
     });
 
-    it("renders Select", async () => {
+    it("renders Select with all components", async () => {
         render(
             <Select>
                 <SelectTrigger>
                     <SelectValue placeholder="Theme" />
                 </SelectTrigger>
                 <SelectContent>
-                    <SelectItem value="light">Light</SelectItem>
-                    <SelectItem value="dark">Dark</SelectItem>
+                    <SelectGroup>
+                        <SelectLabel>Fruits</SelectLabel>
+                        <SelectItem value="apple">Apple</SelectItem>
+                        <SelectSeparator />
+                        <SelectItem value="banana">Banana</SelectItem>
+                    </SelectGroup>
                 </SelectContent>
             </Select>
         );
         fireEvent.click(screen.getByText("Theme"));
-        assert.ok(await screen.findByText("Light"));
+        assert.ok(await screen.findByText("Fruits"));
+        assert.ok(screen.getByText("Apple"));
     });
 
     it("renders Tabs", async () => {

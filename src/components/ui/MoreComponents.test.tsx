@@ -191,6 +191,17 @@ describe("More UI Components", () => {
         assert.ok(screen.getByText("A"));
     });
 
+    it("renders ToggleGroup with context variants", () => {
+        render(
+            <ToggleGroup type="single" variant="outline" size="lg">
+                <ToggleGroupItem value="a">A</ToggleGroupItem>
+            </ToggleGroup>
+        );
+        const item = screen.getByText("A").closest("button");
+        assert.ok(item);
+        // ToggleGroupItem uses context for variant/size
+    });
+
     it("renders Tooltip", () => {
         render(
             <TooltipProvider>

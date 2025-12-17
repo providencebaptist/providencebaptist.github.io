@@ -103,7 +103,7 @@ export const MiniPlayer = ({
             variant="ghost"
             size="icon"
             className="flex-shrink-0"
-            aria-label="Close"
+            aria-label="Close mini player"
           >
             <X className="h-4 w-4" />
           </Button>

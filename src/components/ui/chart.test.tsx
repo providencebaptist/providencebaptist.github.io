@@ -103,4 +103,45 @@ describe("Chart Component", () => {
         );
         assert.ok(screen.getByText("Desktop"));
     });
+    it("renders ChartTooltipContent with hideLabel and line indicator", () => {
+        render(
+            <ChartContainer config={chartConfig}>
+                <ChartTooltipContent
+                    active={true}
+                    hideLabel
+                    indicator="line"
+                    payload={[{ name: "desktop", value: 100, color: "#2563eb", dataKey: "desktop", payload: { fill: "#2563eb" } }] as any}
+                />
+            </ChartContainer>
+        );
+        // Assert value present
+        assert.ok(screen.getByText("100"));
+    });
+
+    it("renders ChartTooltipContent with labelFormatter", () => {
+        render(
+            <ChartContainer config={chartConfig}>
+                <ChartTooltipContent
+                    active={true}
+                    label="Test Label"
+                    labelFormatter={(label) => `Formatted ${label}`}
+                    payload={[{ name: "desktop", value: 100, color: "#2563eb", dataKey: "desktop", payload: { fill: "#2563eb" } }] as any}
+                />
+            </ChartContainer>
+        );
+        assert.ok(screen.getByText("Formatted Test Label"));
+    });
+
+    it("renders ChartLegendContent with hideIcon", () => {
+        render(
+            <ChartContainer config={chartConfig}>
+                <ChartLegendContent
+                    hideIcon
+                    verticalAlign="top"
+                    payload={[{ value: "desktop", color: "#2563eb", id: "desktop", type: "square" }]}
+                />
+            </ChartContainer>
+        );
+        assert.ok(screen.getByText("Desktop"));
+    });
 });
