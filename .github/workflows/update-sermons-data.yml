@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   fetch-and-commit:
-    if: ${{ secrets.SERMON_AUDIO_API_KEY != '' }}
+    if: ${{ env.SERMON_AUDIO_API_KEY != '' }}
     env:
       SERMON_AUDIO_API_KEY: ${{ secrets.SERMON_AUDIO_API_KEY }}
     runs-on: ubuntu-latest
@@ -31,6 +31,8 @@ jobs:
             -H 'accept: application/json' \
             -H "X-Api-Key: ${SERMON_AUDIO_API_KEY}" \
             -o public/sermons-data.json
+          env:
+            SERMON_AUDIO_API_KEY: ${{ env.SERMON_AUDIO_API_KEY }}
 
       - name: Commit changes
         run: |
@@ -47,7 +49,7 @@ jobs:
   deploy:
     needs: fetch-and-commit
     runs-on: ubuntu-latest
-    if: ${{ github.ref == 'refs/heads/main' && secrets.SERMON_AUDIO_API_KEY != '' && github.event.repository.has_pages }}
+    if: ${{ github.ref == 'refs/heads/main' && env.SERMON_AUDIO_API_KEY != '' && github.event.repository.has_pages }}
     env:
       NODE_ENV: production
       VITE_ENABLE_ANALYTICS: 'true'
