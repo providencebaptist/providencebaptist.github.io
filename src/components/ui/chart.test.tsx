@@ -59,6 +59,18 @@ const chartConfig = {
     },
 };
 
+type ChartTooltipPayload = NonNullable<React.ComponentProps<typeof ChartTooltipContent>["payload"]>;
+
+const tooltipPayload: ChartTooltipPayload = [
+    {
+        name: "desktop",
+        value: 100,
+        color: "#2563eb",
+        dataKey: "desktop",
+        payload: { fill: "#2563eb" },
+    },
+];
+
 describe("Chart Component", () => {
     afterEach(() => {
         cleanup();
@@ -86,7 +98,7 @@ describe("Chart Component", () => {
             <ChartContainer config={chartConfig}>
                 <ChartTooltipContent
                     active={true}
-                    payload={[{ name: "desktop", value: 100, color: "#2563eb", dataKey: "desktop", payload: { fill: "#2563eb" } }] as any}
+                    payload={tooltipPayload}
                 />
             </ChartContainer>
         );
@@ -110,7 +122,7 @@ describe("Chart Component", () => {
                     active={true}
                     hideLabel
                     indicator="line"
-                    payload={[{ name: "desktop", value: 100, color: "#2563eb", dataKey: "desktop", payload: { fill: "#2563eb" } }] as any}
+                    payload={tooltipPayload}
                 />
             </ChartContainer>
         );
@@ -125,7 +137,7 @@ describe("Chart Component", () => {
                     active={true}
                     label="Test Label"
                     labelFormatter={(label) => `Formatted ${label}`}
-                    payload={[{ name: "desktop", value: 100, color: "#2563eb", dataKey: "desktop", payload: { fill: "#2563eb" } }] as any}
+                    payload={tooltipPayload}
                 />
             </ChartContainer>
         );
