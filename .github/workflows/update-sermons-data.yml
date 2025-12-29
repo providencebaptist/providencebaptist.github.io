@@ -23,6 +23,8 @@ jobs:
           fetch-depth: 0
 
       - name: Fetch sermons data
+        env:
+          SERMON_AUDIO_API_KEY: ${{ env.SERMON_AUDIO_API_KEY }}
         run: |
           curl -X GET \
             'https://api.sermonaudio.com/v2/node/sermons?page=1&exactRefMatch=false&featured=false&includeTranscripts=false&requireAudio=false&requireVideo=false&requirePDF=false&noMedia=false&vacantPulpit=false&staffPick=false&listenerRecommended=false&lite=false&liteBroadcaster=false&cache=false&includeDrafts=false&includeScheduled=false&includePublished=true&includeGlobalChildren=false' \
