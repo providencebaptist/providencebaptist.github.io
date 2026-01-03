@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   fetch-and-commit:
-    if: ${{ secrets.SERMON_AUDIO_API_KEY != '' }}
+    if: github.repository == 'providencebaptist/providencebaptist.github.io'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -45,7 +45,7 @@ jobs:
   deploy:
     needs: fetch-and-commit
     runs-on: ubuntu-latest
-    if: ${{ github.ref == 'refs/heads/main' && secrets.SERMON_AUDIO_API_KEY != '' && github.event.repository.has_pages }}
+    if: ${{ github.ref == 'refs/heads/main' && github.repository == 'providencebaptist/providencebaptist.github.io' && github.event.repository.has_pages }}
     env:
       NODE_ENV: production
       VITE_ENABLE_ANALYTICS: 'true'
