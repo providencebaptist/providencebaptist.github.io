@@ -10,12 +10,9 @@ permissions:
   pages: write
   id-token: write
 
-env:
-  SERMON_AUDIO_API_KEY: ${{ secrets.SERMON_AUDIO_API_KEY }}
-
 jobs:
   fetch-and-commit:
-    if: ${{ env.SERMON_AUDIO_API_KEY != '' }}
+    if: ${{ secrets.SERMON_AUDIO_API_KEY != '' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -25,7 +22,7 @@ jobs:
 
       - name: Fetch sermons data
         env:
-          SERMON_AUDIO_API_KEY: ${{ env.SERMON_AUDIO_API_KEY }}
+          SERMON_AUDIO_API_KEY: ${{ secrets.SERMON_AUDIO_API_KEY }}
         run: |
           curl -X GET \
             'https://api.sermonaudio.com/v2/node/sermons?page=1&exactRefMatch=false&featured=false&includeTranscripts=false&requireAudio=false&requireVideo=false&requirePDF=false&noMedia=false&vacantPulpit=false&staffPick=false&listenerRecommended=false&lite=false&liteBroadcaster=false&cache=false&includeDrafts=false&includeScheduled=false&includePublished=true&includeGlobalChildren=false' \
@@ -48,7 +45,7 @@ jobs:
   deploy:
     needs: fetch-and-commit
     runs-on: ubuntu-latest
-    if: ${{ github.ref == 'refs/heads/main' && env.SERMON_AUDIO_API_KEY != '' && github.event.repository.has_pages }}
+    if: ${{ github.ref == 'refs/heads/main' && secrets.SERMON_AUDIO_API_KEY != '' && github.event.repository.has_pages }}
     env:
       NODE_ENV: production
       VITE_ENABLE_ANALYTICS: 'true'
