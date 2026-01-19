@@ -11,6 +11,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { buildImageCdnUrl } from "@/lib/imageCdn";
 import heroImage from "@/assets/hero-community.jpg";
 import galleryWorship from "@/assets/gallery-worship.jpg";
 import galleryChildren from "@/assets/gallery-children.jpg";
@@ -19,6 +20,40 @@ import galleryOutreach from "@/assets/gallery-outreach.jpg";
 import galleryBiblestudy from "@/assets/gallery-biblestudy.jpg";
 
 const Home = () => {
+  const heroImageUrl = buildImageCdnUrl(heroImage, { width: 1600, quality: 80 });
+  const galleryImages = [
+    {
+      src: galleryWorship,
+      alt: "Pastor preaching from the pulpit",
+      title: "Biblical Preaching",
+      subtitle: "Verse by verse teaching",
+    },
+    {
+      src: galleryChildren,
+      alt: "Children's ministry with kids learning and playing",
+      title: "Children's Ministry",
+      subtitle: "Nurturing young hearts",
+    },
+    {
+      src: galleryFellowship,
+      alt: "Fellowship meal with families sharing together",
+      title: "Fellowship Meals",
+      subtitle: "Building relationships",
+    },
+    {
+      src: galleryOutreach,
+      alt: "Community service and outreach volunteers helping",
+      title: "Community Outreach",
+      subtitle: "Serving our neighbors",
+    },
+    {
+      src: galleryBiblestudy,
+      alt: "Small group Bible study discussion",
+      title: "Bible Study",
+      subtitle: "Growing in the Word",
+    },
+  ];
+
   return (
     <div className="min-h-screen">
       <SEO 
@@ -30,9 +65,12 @@ const Home = () => {
       <section className="relative h-[500px] sm:h-[600px] md:h-[700px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
-            src={heroImage} 
+            src={heroImageUrl}
             alt="Providence Baptist Church community" 
             className="w-full h-full object-cover object-[center_25%]"
+            fetchPriority="high"
+            decoding="async"
+            sizes="100vw"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary/70" />
         </div>
@@ -91,85 +129,26 @@ const Home = () => {
             className="w-full max-w-6xl mx-auto"
           >
             <CarouselContent className="-ml-2 md:-ml-4">
-              <CarouselItem className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
-                <Card className="overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
-                  <CardContent className="p-0">
-                    <img
-                      src={galleryWorship}
-                      alt="Pastor preaching from the pulpit"
-                      className="w-full h-64 md:h-80 object-cover"
-                    />
-                    <div className="p-4 bg-card">
-                      <h3 className="text-lg font-semibold text-foreground">Biblical Preaching</h3>
-                      <p className="text-sm text-muted-foreground">Verse by verse teaching</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </CarouselItem>
-              
-              <CarouselItem className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
-                <Card className="overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
-                  <CardContent className="p-0">
-                    <img
-                      src={galleryChildren}
-                      alt="Children's ministry with kids learning and playing"
-                      className="w-full h-64 md:h-80 object-cover"
-                    />
-                    <div className="p-4 bg-card">
-                      <h3 className="text-lg font-semibold text-foreground">Children's Ministry</h3>
-                      <p className="text-sm text-muted-foreground">Nurturing young hearts</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </CarouselItem>
-              
-              <CarouselItem className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
-                <Card className="overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
-                  <CardContent className="p-0">
-                    <img
-                      src={galleryFellowship}
-                      alt="Fellowship meal with families sharing together"
-                      className="w-full h-64 md:h-80 object-cover"
-                    />
-                    <div className="p-4 bg-card">
-                      <h3 className="text-lg font-semibold text-foreground">Fellowship Meals</h3>
-                      <p className="text-sm text-muted-foreground">Building relationships</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </CarouselItem>
-              
-              <CarouselItem className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
-                <Card className="overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
-                  <CardContent className="p-0">
-                    <img
-                      src={galleryOutreach}
-                      alt="Community service and outreach volunteers helping"
-                      className="w-full h-64 md:h-80 object-cover"
-                    />
-                    <div className="p-4 bg-card">
-                      <h3 className="text-lg font-semibold text-foreground">Community Outreach</h3>
-                      <p className="text-sm text-muted-foreground">Serving our neighbors</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </CarouselItem>
-              
-              <CarouselItem className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
-                <Card className="overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
-                  <CardContent className="p-0">
-                    <img
-                      src={galleryBiblestudy}
-                      alt="Small group Bible study discussion"
-                      className="w-full h-64 md:h-80 object-cover"
-                    />
-                    <div className="p-4 bg-card">
-                      <h3 className="text-lg font-semibold text-foreground">Bible Study</h3>
-                      <p className="text-sm text-muted-foreground">Growing in the Word</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </CarouselItem>
+              {galleryImages.map((image) => (
+                <CarouselItem key={image.title} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
+                  <Card className="overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
+                    <CardContent className="p-0">
+                      <img
+                        src={buildImageCdnUrl(image.src, { width: 1200, quality: 75 })}
+                        alt={image.alt}
+                        className="w-full h-64 md:h-80 object-cover"
+                        loading="lazy"
+                        decoding="async"
+                        sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                      />
+                      <div className="p-4 bg-card">
+                        <h3 className="text-lg font-semibold text-foreground">{image.title}</h3>
+                        <p className="text-sm text-muted-foreground">{image.subtitle}</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </CarouselItem>
+              ))}
             </CarouselContent>
             <CarouselPrevious className="hidden md:flex" />
             <CarouselNext className="hidden md:flex" />
