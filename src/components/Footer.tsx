@@ -9,7 +9,7 @@ export const Footer = () => {
           <div>
             <div className="flex items-center gap-3 mb-4">
               <img
-                src="/favicon.svg"
+                src="/church-logo-fixed-40.png"
                 alt="Providence Baptist Church Logo"
                 className="h-10 w-10"
                 loading="lazy"
@@ -21,15 +21,15 @@ export const Footer = () => {
               A caring church family dedicated to glorifying God, lifting up Christ, and walking in the Spirit.
             </p>
             <div className="flex gap-3">
-              <Link 
-                to="/sermons" 
+              <Link
+                to="/sermons"
                 className="inline-flex items-center gap-2 text-primary-foreground/80 hover:text-accent transition-colors text-sm"
               >
                 <BookOpen className="h-4 w-4" />
                 <span>Sermons</span>
               </Link>
-              <Link 
-                to="/livestream" 
+              <Link
+                to="/livestream"
                 className="inline-flex items-center gap-2 text-primary-foreground/80 hover:text-accent transition-colors text-sm"
               >
                 <span>Watch Live</span>

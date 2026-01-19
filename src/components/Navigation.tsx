@@ -54,9 +54,9 @@ const Navigation = () => {
           }`}>
           <NavLink to="/" className="flex items-center space-x-2">
             <img
-              src="/favicon.svg"
+              src="/church-logo-fixed-40.png"
               alt="Providence Baptist Church Logo"
-              className={`transition-all duration-300 ${isScrolled ? "h-8 w-8" : "h-10 w-10"}`}
+              className="h-10 w-10"
               decoding="async"
             />
             <div className={`font-bold text-primary transition-all duration-300 ${isScrolled ? "text-lg" : "text-xl"
