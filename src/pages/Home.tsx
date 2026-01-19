@@ -62,7 +62,7 @@ const Home = () => {
               <div className="flex flex-col sm:flex-row items-center sm:items-start gap-3 sm:gap-4 text-center sm:text-left">
                 <Calendar className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 flex-shrink-0" />
                 <div>
-                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold">Christmas Sunday Service</h3>
+                  <h2 className="text-lg sm:text-xl md:text-2xl font-bold">Christmas Sunday Service</h2>
                   <p className="text-sm sm:text-base md:text-lg">December 21, 2025 • Join Us in Celebrating Christ's Birth</p>
                 </div>
               </div>
