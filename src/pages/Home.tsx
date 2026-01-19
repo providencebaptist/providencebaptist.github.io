@@ -33,8 +33,9 @@ const Home = () => {
             src={heroImage} 
             alt="Providence Baptist Church community" 
             className="w-full h-full object-cover object-[center_25%]"
-            decoding="async"
+            loading="eager"
             fetchPriority="high"
+            decoding="async"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary/70" />
         </div>
