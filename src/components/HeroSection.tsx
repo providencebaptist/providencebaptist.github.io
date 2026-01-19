@@ -10,6 +10,8 @@ export const HeroSection = () => {
           src={heroImage}
           alt="Providence Baptist Church interior"
           className="w-full h-full object-cover"
+          decoding="async"
+          fetchPriority="high"
         />
         <div className="absolute inset-0 bg-gradient-hero" />
       </div>

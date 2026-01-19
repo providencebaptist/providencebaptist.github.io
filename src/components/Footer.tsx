@@ -1,6 +1,5 @@
 import { Mail, MapPin, Clock, BookOpen } from "lucide-react";
 import { Link } from "react-router-dom";
-import churchLogo from "@/assets/church-logo.png";
 
 export const Footer = () => {
   return (
@@ -9,7 +8,13 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <img src={churchLogo} alt="Providence Baptist Church Logo" className="h-10 w-10" />
+              <img
+                src="/favicon.svg"
+                alt="Providence Baptist Church Logo"
+                className="h-10 w-10"
+                loading="lazy"
+                decoding="async"
+              />
               <h3 className="text-xl font-bold">Providence Baptist Church</h3>
             </div>
             <p className="text-primary-foreground/80 mb-4">

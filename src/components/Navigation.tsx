@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { NavLink } from "./NavLink";
 import { Menu, X, Video } from "lucide-react";
-import churchLogo from "@/assets/church-logo.png";
 import { Button } from "./ui/button";
 import {
   NavigationMenu,
@@ -55,9 +54,10 @@ const Navigation = () => {
           }`}>
           <NavLink to="/" className="flex items-center space-x-2">
             <img
-              src={churchLogo}
+              src="/favicon.svg"
               alt="Providence Baptist Church Logo"
               className={`transition-all duration-300 ${isScrolled ? "h-8 w-8" : "h-10 w-10"}`}
+              decoding="async"
             />
             <div className={`font-bold text-primary transition-all duration-300 ${isScrolled ? "text-lg" : "text-xl"
               }`}>
