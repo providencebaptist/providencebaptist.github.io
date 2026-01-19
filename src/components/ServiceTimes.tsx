@@ -40,7 +40,7 @@ export const ServiceTimes = () => {
                   {service.events.map((event) => (
                     <div key={event.name} className="flex flex-col">
                       <span className="font-semibold text-foreground">{event.name}</span>
-                      <span className="text-muted-foreground">{event.time}</span>
+                      <span className="text-foreground">{event.time}</span>
                     </div>
                   ))}
                 </div>
@@ -48,7 +48,7 @@ export const ServiceTimes = () => {
             </Card>
           ))}
         </div>
-        <p className="text-center mt-4 sm:mt-6 text-sm sm:text-base text-muted-foreground px-4">All times are Central Time (CT)</p>
+        <p className="text-center mt-4 sm:mt-6 text-sm sm:text-base text-foreground px-4">All times are Central Time (CT)</p>
       </div>
     </section>
   );

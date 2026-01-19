@@ -71,6 +71,7 @@ const Home = () => {
             fetchPriority="high"
             decoding="async"
             sizes="100vw"
+            loading="eager"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary/70" />
         </div>
