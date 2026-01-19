@@ -67,6 +67,8 @@ const Leadership = () => {
               src={pastorImage} 
               alt="Pastor Kyle Pope and his wife Celeste" 
               className="rounded-2xl shadow-2xl max-w-md w-full object-cover"
+              loading="lazy"
+              decoding="async"
             />
           </div>
 

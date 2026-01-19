@@ -101,6 +101,9 @@ const Home = () => {
                       src={galleryWorship}
                       alt="Pastor preaching from the pulpit"
                       className="w-full h-64 md:h-80 object-cover"
+                      loading="lazy"
+                      decoding="async"
+                      fetchPriority="low"
                     />
                     <div className="p-4 bg-card">
                       <h3 className="text-lg font-semibold text-foreground">Biblical Preaching</h3>
@@ -117,6 +120,9 @@ const Home = () => {
                       src={galleryChildren}
                       alt="Children's ministry with kids learning and playing"
                       className="w-full h-64 md:h-80 object-cover"
+                      loading="lazy"
+                      decoding="async"
+                      fetchPriority="low"
                     />
                     <div className="p-4 bg-card">
                       <h3 className="text-lg font-semibold text-foreground">Children's Ministry</h3>
@@ -133,6 +139,9 @@ const Home = () => {
                       src={galleryFellowship}
                       alt="Fellowship meal with families sharing together"
                       className="w-full h-64 md:h-80 object-cover"
+                      loading="lazy"
+                      decoding="async"
+                      fetchPriority="low"
                     />
                     <div className="p-4 bg-card">
                       <h3 className="text-lg font-semibold text-foreground">Fellowship Meals</h3>
@@ -149,6 +158,9 @@ const Home = () => {
                       src={galleryOutreach}
                       alt="Community service and outreach volunteers helping"
                       className="w-full h-64 md:h-80 object-cover"
+                      loading="lazy"
+                      decoding="async"
+                      fetchPriority="low"
                     />
                     <div className="p-4 bg-card">
                       <h3 className="text-lg font-semibold text-foreground">Community Outreach</h3>
@@ -165,6 +177,9 @@ const Home = () => {
                       src={galleryBiblestudy}
                       alt="Small group Bible study discussion"
                       className="w-full h-64 md:h-80 object-cover"
+                      loading="lazy"
+                      decoding="async"
+                      fetchPriority="low"
                     />
                     <div className="p-4 bg-card">
                       <h3 className="text-lg font-semibold text-foreground">Bible Study</h3>
