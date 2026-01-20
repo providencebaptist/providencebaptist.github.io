@@ -17,8 +17,10 @@ import galleryChildren from "@/assets/gallery-children.jpg";
 import galleryFellowship from "@/assets/gallery-fellowship.jpg";
 import galleryOutreach from "@/assets/gallery-outreach.jpg";
 import galleryBiblestudy from "@/assets/gallery-biblestudy.jpg";
+import { useChurchData } from "@/hooks/useChurchData";
 
 const Home = () => {
+  const { businessMeeting } = useChurchData();
   return (
     <div className="min-h-screen">
       <SEO 
@@ -59,22 +61,26 @@ const Home = () => {
       </section>
 
       {/* Special Event Banner */}
-      <section className="bg-gradient-to-r from-secondary to-accent text-accent-foreground py-6 sm:py-8">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      {businessMeeting && (
+        <section className="bg-gradient-to-r from-secondary to-accent text-accent-foreground py-6 sm:py-8">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6">
               <div className="flex flex-col sm:flex-row items-center sm:items-start gap-3 sm:gap-4 text-center sm:text-left">
                 <Calendar className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 flex-shrink-0" />
                 <div>
-                  <h2 className="text-lg sm:text-xl md:text-2xl font-bold">Church Business Meeting</h2>
-                  <p className="text-sm sm:text-base md:text-lg">January 26, 2026 • Following the Sunday evening service</p>
+                  <h2 className="text-lg sm:text-xl md:text-2xl font-bold">{businessMeeting.name}</h2>
+                  <p className="text-sm sm:text-base md:text-lg">
+                    {businessMeeting.date} • {businessMeeting.timeInfo}
+                  </p>
                 </div>
               </div>
-            <Button asChild variant="default" size="lg" className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 min-h-[44px] w-full sm:w-auto">
-              <Link to="/contact">Plan Your Visit</Link>
-            </Button>
+              <Button asChild variant="default" size="lg" className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 min-h-[44px] w-full sm:w-auto">
+                <Link to="/contact">Plan Your Visit</Link>
+              </Button>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Photo Gallery Section */}
       <section className="py-12 sm:py-16 bg-background">
@@ -275,58 +281,60 @@ const Home = () => {
       </section>
 
       {/* Church Business Meeting Details */}
-      <section id="business-meeting" className="py-12 sm:py-16 bg-background">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto">
-            <Card className="shadow-2xl overflow-hidden">
-              <div className="bg-gradient-to-r from-accent to-secondary p-4 sm:p-6 md:p-8 text-accent-foreground">
-                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
-                  <Calendar className="h-10 w-10 sm:h-12 sm:w-12 md:h-16 md:w-16 flex-shrink-0" />
-                  <div>
-                    <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">Church Business Meeting</h2>
-                    <p className="text-base sm:text-lg md:text-xl">Yearly Meeting & Budget Presentation</p>
+      {businessMeeting && (
+        <section id="business-meeting" className="py-12 sm:py-16 bg-background">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-4xl mx-auto">
+              <Card className="shadow-2xl overflow-hidden">
+                <div className="bg-gradient-to-r from-accent to-secondary p-4 sm:p-6 md:p-8 text-accent-foreground">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+                    <Calendar className="h-10 w-10 sm:h-12 sm:w-12 md:h-16 md:w-16 flex-shrink-0" />
+                    <div>
+                      <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">{businessMeeting.name}</h2>
+                      <p className="text-base sm:text-lg md:text-xl">Yearly Meeting & Budget Presentation</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <CardContent className="p-4 sm:p-6 md:p-8">
-                <div className="space-y-6">
-                  <div>
-                    <h3 className="text-xl md:text-2xl font-bold mb-2 text-foreground">Sunday, January 26, 2026</h3>
-                    <p className="text-base md:text-lg text-muted-foreground">Join us for our yearly church business meeting!</p>
-                  </div>
-                  
-                  <div className="space-y-3">
-                    <h4 className="text-lg md:text-xl font-semibold text-foreground">Meeting Agenda:</h4>
-                    <ul className="space-y-3 text-sm md:text-base text-muted-foreground">
-                      <li className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-2">
-                        <span className="font-semibold text-foreground sm:w-32 flex-shrink-0">Time:</span>
-                        <span>Following the Sunday evening service</span>
-                      </li>
-                      <li className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-2">
-                        <span className="font-semibold text-foreground sm:w-32 flex-shrink-0">Deacon's Report:</span>
-                        <span>Update from our deacons on church ministry and activities</span>
-                      </li>
-                      <li className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-2">
-                        <span className="font-semibold text-foreground sm:w-32 flex-shrink-0">2026 Budget:</span>
-                        <span>Presentation of the proposed Church Budget for 2026</span>
-                      </li>
-                    </ul>
-                  </div>
+                <CardContent className="p-4 sm:p-6 md:p-8">
+                  <div className="space-y-6">
+                    <div>
+                      <h3 className="text-xl md:text-2xl font-bold mb-2 text-foreground">{businessMeeting.formattedDate}</h3>
+                      <p className="text-base md:text-lg text-muted-foreground">Join us for our yearly church business meeting!</p>
+                    </div>
+                    
+                    <div className="space-y-3">
+                      <h4 className="text-lg md:text-xl font-semibold text-foreground">Meeting Agenda:</h4>
+                      <ul className="space-y-3 text-sm md:text-base text-muted-foreground">
+                        <li className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-2">
+                          <span className="font-semibold text-foreground sm:w-32 flex-shrink-0">Time:</span>
+                          <span>{businessMeeting.timeInfo}</span>
+                        </li>
+                        <li className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-2">
+                          <span className="font-semibold text-foreground sm:w-32 flex-shrink-0">Deacon's Report:</span>
+                          <span>Update from our deacons on church ministry and activities</span>
+                        </li>
+                        <li className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-2">
+                          <span className="font-semibold text-foreground sm:w-32 flex-shrink-0">2026 Budget:</span>
+                          <span>Presentation of the proposed Church Budget for 2026</span>
+                        </li>
+                      </ul>
+                    </div>
 
-                  <p className="text-muted-foreground">
-                    All members are encouraged to attend this important meeting as we review our ministry progress 
-                    and plan for the year ahead. Your participation and input are valued as we seek God's direction for our church.
-                  </p>
+                    <p className="text-muted-foreground">
+                      All members are encouraged to attend this important meeting as we review our ministry progress 
+                      and plan for the year ahead. Your participation and input are valued as we seek God's direction for our church.
+                    </p>
 
-                  <Button asChild variant="hero" size="lg" className="w-full sm:w-auto min-h-[44px]">
-                    <Link to="/contact">Contact Us</Link>
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+                    <Button asChild variant="hero" size="lg" className="w-full sm:w-auto min-h-[44px]">
+                      <Link to="/contact">Contact Us</Link>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Contact Section */}
       <section className="py-16 bg-muted/30">

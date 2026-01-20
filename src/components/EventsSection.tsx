@@ -1,17 +1,25 @@
 import { Button } from "@/components/ui/button";
 import { Calendar, ArrowRight } from "lucide-react";
-
-const events = [
-  {
-    date: "Jan 26",
-    title: "Church Business Meeting",
-    time: "Following the Sunday evening service",
-    description:
-      "Yearly business meeting featuring the Deacon's Report and presentation of the proposed Church Budget for 2026.",
-  },
-];
+import { useChurchData } from "@/hooks/useChurchData";
 
 export const EventsSection = () => {
+  const { businessMeeting } = useChurchData();
+
+  // Build events array from church data
+  const events = businessMeeting
+    ? [
+        {
+          date: new Date(businessMeeting.date).toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+          }).replace(" ", " "), // e.g., "Jan 26"
+          title: businessMeeting.name,
+          time: businessMeeting.timeInfo,
+          description: businessMeeting.description,
+        },
+      ]
+    : [];
+
   return (
     <section id="events" className="py-20 md:py-28 bg-primary">
       <div className="container mx-auto px-4">
