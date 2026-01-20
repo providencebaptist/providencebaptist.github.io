@@ -66,7 +66,7 @@ const Home = () => {
                 <Calendar className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 flex-shrink-0" />
                 <div>
                   <h2 className="text-lg sm:text-xl md:text-2xl font-bold">Church Business Meeting</h2>
-                  <p className="text-sm sm:text-base md:text-lg">January 26, 2026 • Sunday Evening at 5:30 PM</p>
+                  <p className="text-sm sm:text-base md:text-lg">January 26, 2026 • Following the Sunday evening service</p>
                 </div>
               </div>
             <Button asChild variant="default" size="lg" className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 min-h-[44px] w-full sm:w-auto">
@@ -284,7 +284,7 @@ const Home = () => {
                   <Calendar className="h-10 w-10 sm:h-12 sm:w-12 md:h-16 md:w-16 flex-shrink-0" />
                   <div>
                     <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">Church Business Meeting</h2>
-                    <p className="text-base sm:text-lg md:text-xl">Quarterly Meeting & Budget Presentation</p>
+                    <p className="text-base sm:text-lg md:text-xl">Yearly Meeting & Budget Presentation</p>
                   </div>
                 </div>
               </div>
@@ -292,7 +292,7 @@ const Home = () => {
                 <div className="space-y-6">
                   <div>
                     <h3 className="text-xl md:text-2xl font-bold mb-2 text-foreground">Sunday, January 26, 2026</h3>
-                    <p className="text-base md:text-lg text-muted-foreground">Join us for our quarterly church business meeting!</p>
+                    <p className="text-base md:text-lg text-muted-foreground">Join us for our yearly church business meeting!</p>
                   </div>
                   
                   <div className="space-y-3">
@@ -300,7 +300,7 @@ const Home = () => {
                     <ul className="space-y-3 text-sm md:text-base text-muted-foreground">
                       <li className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-2">
                         <span className="font-semibold text-foreground sm:w-32 flex-shrink-0">Time:</span>
-                        <span>Sunday Evening at 5:30 PM</span>
+                        <span>Following the Sunday evening service</span>
                       </li>
                       <li className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-2">
                         <span className="font-semibold text-foreground sm:w-32 flex-shrink-0">Deacon's Report:</span>
