@@ -5,8 +5,9 @@ const events = [
   {
     date: "Jan 26",
     title: "Church Business Meeting",
-    time: "5:30 PM",
-    description: "Join us for our quarterly business meeting featuring the Deacon's Report and presentation of the proposed Church Budget for 2026.",
+    time: "Following the Sunday evening service",
+    description:
+      "Yearly business meeting featuring the Deacon's Report and presentation of the proposed Church Budget for 2026.",
   },
 ];
 
