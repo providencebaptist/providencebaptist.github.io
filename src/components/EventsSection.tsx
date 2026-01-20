@@ -3,28 +3,10 @@ import { Calendar, ArrowRight } from "lucide-react";
 
 const events = [
   {
-    date: "Dec 8",
-    title: "Christmas Choir Concert",
-    time: "6:00 PM",
-    description: "An evening of beloved Christmas hymns and carols performed by our choir.",
-  },
-  {
-    date: "Dec 15",
-    title: "Children's Christmas Program",
-    time: "10:30 AM",
-    description: "Our children share the Christmas story through song and performance.",
-  },
-  {
-    date: "Dec 24",
-    title: "Christmas Eve Candlelight Service",
-    time: "7:00 PM",
-    description: "A beautiful service of carols, Scripture, and candlelight.",
-  },
-  {
-    date: "Dec 31",
-    title: "New Year's Eve Prayer Service",
-    time: "10:00 PM",
-    description: "Ring in the new year together in prayer and reflection.",
+    date: "Jan 26",
+    title: "Church Business Meeting",
+    time: "5:30 PM",
+    description: "Join us for our quarterly business meeting featuring the Deacon's Report and presentation of the proposed Church Budget for 2026.",
   },
 ];
 
