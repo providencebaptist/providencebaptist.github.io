@@ -65,8 +65,8 @@ const Home = () => {
               <div className="flex flex-col sm:flex-row items-center sm:items-start gap-3 sm:gap-4 text-center sm:text-left">
                 <Calendar className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 flex-shrink-0" />
                 <div>
-                  <h2 className="text-lg sm:text-xl md:text-2xl font-bold">Christmas Sunday Service</h2>
-                  <p className="text-sm sm:text-base md:text-lg">December 21, 2025 • Join Us in Celebrating Christ's Birth</p>
+                  <h2 className="text-lg sm:text-xl md:text-2xl font-bold">Church Business Meeting</h2>
+                  <p className="text-sm sm:text-base md:text-lg">January 26, 2026 • Sunday Evening at 5:30 PM</p>
                 </div>
               </div>
             <Button asChild variant="default" size="lg" className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 min-h-[44px] w-full sm:w-auto">
@@ -274,8 +274,8 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Christmas Service Details */}
-      <section id="christmas-service" className="py-12 sm:py-16 bg-background">
+      {/* Church Business Meeting Details */}
+      <section id="business-meeting" className="py-12 sm:py-16 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <Card className="shadow-2xl overflow-hidden">
@@ -283,43 +283,43 @@ const Home = () => {
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
                   <Calendar className="h-10 w-10 sm:h-12 sm:w-12 md:h-16 md:w-16 flex-shrink-0" />
                   <div>
-                    <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">Christmas Sunday Service</h2>
-                    <p className="text-base sm:text-lg md:text-xl">Celebrating the Birth of Our Savior</p>
+                    <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">Church Business Meeting</h2>
+                    <p className="text-base sm:text-lg md:text-xl">Quarterly Meeting & Budget Presentation</p>
                   </div>
                 </div>
               </div>
               <CardContent className="p-4 sm:p-6 md:p-8">
                 <div className="space-y-6">
                   <div>
-                    <h3 className="text-xl md:text-2xl font-bold mb-2 text-foreground">December 21, 2025</h3>
-                    <p className="text-base md:text-lg text-muted-foreground">Join us for a special Christmas celebration!</p>
+                    <h3 className="text-xl md:text-2xl font-bold mb-2 text-foreground">Sunday, January 26, 2026</h3>
+                    <p className="text-base md:text-lg text-muted-foreground">Join us for our quarterly church business meeting!</p>
                   </div>
                   
                   <div className="space-y-3">
-                    <h4 className="text-lg md:text-xl font-semibold text-foreground">Service Details:</h4>
+                    <h4 className="text-lg md:text-xl font-semibold text-foreground">Meeting Agenda:</h4>
                     <ul className="space-y-3 text-sm md:text-base text-muted-foreground">
                       <li className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-2">
                         <span className="font-semibold text-foreground sm:w-32 flex-shrink-0">Time:</span>
-                        <span>Regular service times (check Service Times section above)</span>
+                        <span>Sunday Evening at 5:30 PM</span>
                       </li>
                       <li className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-2">
-                        <span className="font-semibold text-foreground sm:w-32 flex-shrink-0">Message:</span>
-                        <span>Special Christmas sermon celebrating the birth of Jesus Christ</span>
+                        <span className="font-semibold text-foreground sm:w-32 flex-shrink-0">Deacon's Report:</span>
+                        <span>Update from our deacons on church ministry and activities</span>
                       </li>
                       <li className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-2">
-                        <span className="font-semibold text-foreground sm:w-32 flex-shrink-0">Music:</span>
-                        <span>Traditional Christmas hymns and special songs of worship</span>
+                        <span className="font-semibold text-foreground sm:w-32 flex-shrink-0">2026 Budget:</span>
+                        <span>Presentation of the proposed Church Budget for 2026</span>
                       </li>
                     </ul>
                   </div>
 
                   <p className="text-muted-foreground">
-                    We invite you to join us as we celebrate the greatest gift ever given - Jesus Christ, our Savior. 
-                    Come worship with us and experience the true meaning of Christmas with our church family!
+                    All members are encouraged to attend this important meeting as we review our ministry progress 
+                    and plan for the year ahead. Your participation and input are valued as we seek God's direction for our church.
                   </p>
 
                   <Button asChild variant="hero" size="lg" className="w-full sm:w-auto min-h-[44px]">
-                    <Link to="/contact">Plan Your Visit</Link>
+                    <Link to="/contact">Contact Us</Link>
                   </Button>
                 </div>
               </CardContent>
