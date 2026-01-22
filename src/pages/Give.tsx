@@ -1,17 +1,10 @@
-import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Heart, DollarSign, Gift } from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import SEO from "@/components/SEO";
 
 const Give = () => {
-  const [isDonateModalOpen, setIsDonateModalOpen] = useState(false);
+  const donateUrl = "https://secure.anedot.com/providence-baptist-church-adcd4df3-f08b-4275-9bb3-db67bff9c43f/donate";
 
   return (
     <div className="min-h-screen bg-background">
@@ -118,9 +111,11 @@ const Give = () => {
                   variant="hero" 
                   size="lg" 
                   className="text-base sm:text-lg px-6 sm:px-8 min-h-[44px]"
-                  onClick={() => setIsDonateModalOpen(true)}
+                  asChild
                 >
-                  Give Online
+                  <a href={donateUrl} target="_blank" rel="noopener noreferrer">
+                    Give Online
+                  </a>
                 </Button>
               </div>
             </CardContent>
@@ -187,25 +182,6 @@ const Give = () => {
           </Card>
         </div>
       </div>
-
-      {/* Donation Modal */}
-      <Dialog open={isDonateModalOpen} onOpenChange={setIsDonateModalOpen}>
-        <DialogContent className="max-w-4xl w-[95vw] sm:w-[90vw] h-[90vh] p-0 gap-0 flex flex-col">
-          <DialogHeader className="px-4 sm:px-6 pt-4 sm:pt-6 pb-2 flex-shrink-0">
-            <DialogTitle className="text-lg sm:text-xl">Give Online</DialogTitle>
-          </DialogHeader>
-          <div className="flex-1 overflow-hidden px-4 sm:px-6 pb-4 sm:pb-6">
-            <iframe 
-              src="https://secure.anedot.com/providence-baptist-church-adcd4df3-f08b-4275-9bb3-db67bff9c43f/donate"
-              width="100%" 
-              height="100%"
-              frameBorder="0"
-              className="rounded-lg"
-              title="Online Giving"
-            />
-          </div>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 };
