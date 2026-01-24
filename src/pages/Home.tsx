@@ -60,6 +60,25 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Winter Storm Alert */}
+      <section className="bg-destructive text-destructive-foreground py-4 sm:py-6">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6 text-center md:text-left">
+            <div className="flex items-center gap-3">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+              <div>
+                <h2 className="text-lg sm:text-xl font-bold">Winter Storm Alert</h2>
+                <p className="text-sm sm:text-base">
+                  Sunday services (morning & evening) are <strong>cancelled</strong> due to the winter storm. Church Business Meeting rescheduled to <strong>Sunday, February 2nd</strong>.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Special Event Banner */}
       {businessMeeting && (
         <section className="bg-gradient-to-r from-secondary to-accent text-accent-foreground py-6 sm:py-8">
