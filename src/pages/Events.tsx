@@ -14,15 +14,15 @@ const Events = () => {
       />
 
       {/* Hero Section */}
-      <section className="bg-primary py-16 md:py-24">
+      <section className="bg-primary text-primary-foreground py-16 md:py-24">
         <div className="container mx-auto px-4 text-center">
-          <p className="text-gold-light font-body text-sm tracking-[0.2em] uppercase mb-3">
+          <p className="text-primary-foreground/70 font-body text-sm tracking-[0.2em] uppercase mb-3">
             What's Happening
           </p>
-          <h1 className="font-display text-4xl md:text-6xl text-cream font-bold mb-4">
+          <h1 className="font-display text-4xl md:text-6xl font-bold mb-4">
             Upcoming Events
           </h1>
-          <p className="text-cream/80 font-body max-w-2xl mx-auto text-lg">
+          <p className="text-primary-foreground/80 font-body max-w-2xl mx-auto text-lg">
             Join us for special gatherings, celebrations, and opportunities to grow together as a church family.
           </p>
         </div>
