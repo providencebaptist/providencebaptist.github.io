@@ -169,14 +169,36 @@ const Events = () => {
   const [visibleCount, setVisibleCount] = useState(EVENTS_PER_PAGE);
   const loadMoreRef = useRef<HTMLDivElement>(null);
 
+  // Filter events first
   const filteredEvents = useMemo(() => {
     if (activeFilter === "all") return events;
     return events.filter((event) => getEventCategories(event.name).includes(activeFilter));
   }, [events, activeFilter]);
 
+  // Group filtered events by date
+  const groupedEvents = useMemo(() => {
+    const groups: Record<string, typeof filteredEvents> = {};
+    filteredEvents.forEach((event) => {
+      if (!groups[event.date]) {
+        groups[event.date] = [];
+      }
+      groups[event.date].push(event);
+    });
+    return groups;
+  }, [filteredEvents]);
+
+  // Get sorted date keys for display
+  const sortedDates = useMemo(() => {
+    return Object.keys(groupedEvents).sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
+  }, [groupedEvents]);
+
+  // Paginate by date groups
+  const visibleDates = sortedDates.slice(0, visibleCount);
+  const totalEventCount = filteredEvents.length;
+
   const loadMore = useCallback(() => {
-    setVisibleCount((prev) => Math.min(prev + EVENTS_PER_PAGE, filteredEvents.length));
-  }, [filteredEvents.length]);
+    setVisibleCount((prev) => Math.min(prev + EVENTS_PER_PAGE, sortedDates.length));
+  }, [sortedDates.length]);
 
   // Reset visible count when filter changes
   useEffect(() => {
@@ -186,7 +208,7 @@ const Events = () => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && visibleCount < filteredEvents.length) {
+        if (entries[0].isIntersecting && visibleCount < sortedDates.length) {
           loadMore();
         }
       },
@@ -203,9 +225,7 @@ const Events = () => {
         observer.unobserve(currentRef);
       }
     };
-  }, [visibleCount, filteredEvents.length, loadMore]);
-
-  const visibleEvents = filteredEvents.slice(0, visibleCount);
+  }, [visibleCount, sortedDates.length, loadMore]);
 
   return (
     <>
@@ -263,10 +283,10 @@ const Events = () => {
               </div>
 
               <p className="text-center text-muted-foreground mb-8">
-                Showing {Math.min(visibleCount, filteredEvents.length)} of {filteredEvents.length} events
+                Showing {visibleDates.reduce((acc, date) => acc + groupedEvents[date].length, 0)} of {totalEventCount} events across {visibleDates.length} of {sortedDates.length} dates
               </p>
 
-              {filteredEvents.length === 0 ? (
+              {totalEventCount === 0 ? (
                 <div className="text-center py-12">
                   <p className="text-muted-foreground text-lg">No events found for this filter.</p>
                   <Button
@@ -278,122 +298,135 @@ const Events = () => {
                   </Button>
                 </div>
               ) : (
-                <div className="grid gap-6 max-w-3xl mx-auto">
-                  {visibleEvents.map((event, index) => {
-                    const dateObj = new Date(event.date);
+                <div className="space-y-8 max-w-4xl mx-auto">
+                  {visibleDates.map((date) => {
+                    const dateEvents = groupedEvents[date];
+                    const dateObj = new Date(date);
                     const dayName = dateObj.toLocaleDateString("en-US", { weekday: "long" });
                     const monthName = dateObj.toLocaleDateString("en-US", { month: "long" });
                     const dayNum = dateObj.getDate();
                     const year = dateObj.getFullYear();
-                    const categories = getEventCategories(event.name);
-                    const hasLivestream = isLivestreamed(event.name);
 
                     return (
-                      <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
-                        <div className="flex flex-col sm:flex-row">
-                          {/* Date Badge */}
-                          <div className="bg-accent text-accent-foreground p-6 flex flex-col items-center justify-center min-w-[120px]">
-                            <span className="text-sm uppercase font-medium">{monthName.slice(0, 3)}</span>
-                            <span className="font-display text-4xl font-bold">{dayNum}</span>
-                            <span className="text-sm">{year}</span>
+                      <div key={date} className="relative">
+                        {/* Date Header */}
+                        <div className="flex items-start gap-4 mb-4">
+                          <div className="bg-accent text-accent-foreground rounded-lg p-4 text-center min-w-[100px] shadow-md">
+                            <span className="text-xs uppercase font-medium tracking-wide">{monthName.slice(0, 3)}</span>
+                            <div className="font-display text-3xl font-bold">{dayNum}</div>
+                            <span className="text-xs">{dayName}</span>
                           </div>
-
-                          {/* Event Details */}
-                          <div className="flex-1">
-                            <CardHeader className="pb-2">
-                              <div className="flex flex-col gap-2">
-                                <div className="flex flex-wrap items-center gap-2">
-                                  {categories.map((cat) => (
-                                    <Badge key={cat} variant="secondary" className={`text-xs ${CATEGORY_COLORS[cat]}`}>
-                                      {CATEGORY_LABELS[cat]}
-                                    </Badge>
-                                  ))}
-                                  {hasLivestream && (
-                                    <Badge variant="outline" className="text-xs border-primary/30 text-primary bg-primary/5">
-                                      <Video className="w-3 h-3 mr-1" />
-                                      Livestream
-                                    </Badge>
-                                  )}
-                                </div>
-                                <CardTitle className="font-display text-xl md:text-2xl text-foreground">
-                                  {event.name}
-                                </CardTitle>
-                              </div>
-                            </CardHeader>
-                            <CardContent className="space-y-3">
-                              <p className="text-muted-foreground">{event.description}</p>
-                              
-                              <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-muted-foreground">
-                                <div className="flex items-center gap-1.5">
-                                  <Calendar className="w-4 h-4 flex-shrink-0" />
-                                  <span>{dayName}, {monthName} {dayNum}, {year}</span>
-                                </div>
-                                {event.time && (
-                                  <div className="flex items-center gap-1.5">
-                                    <Clock className="w-4 h-4 flex-shrink-0" />
-                                    <span>{event.time}</span>
-                                  </div>
-                                )}
-                                {event.location && (
-                                  <div className="flex items-center gap-1.5">
-                                    <MapPin className="w-4 h-4 flex-shrink-0" />
-                                    <span>{event.location}</span>
-                                  </div>
-                                )}
-                              </div>
-                              
-                              <div className="pt-3 mt-3 border-t border-border flex flex-wrap gap-2">
-                                <Button
-                                  asChild
-                                  variant="outline"
-                                  size="sm"
-                                  className="w-full sm:w-auto"
-                                >
-                                  <a
-                                    href={GOOGLE_MAPS_URL}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                  >
-                                    <Navigation className="w-4 h-4" />
-                                    Directions
-                                  </a>
-                                </Button>
-                                <Button
-                                  variant="outline"
-                                  size="sm"
-                                  className="w-full sm:w-auto"
-                                  onClick={() => downloadICalFile(event)}
-                                >
-                                  <Download className="w-4 h-4" />
-                                  iCal
-                                </Button>
-                                <Button
-                                  asChild
-                                  variant="outline"
-                                  size="sm"
-                                  className="w-full sm:w-auto"
-                                >
-                                  <a
-                                    href={generateGoogleCalendarUrl(event)}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                  >
-                                    <CalendarPlus className="w-4 h-4" />
-                                    Google Calendar
-                                  </a>
-                                </Button>
-                              </div>
-                            </CardContent>
+                          <div className="flex-1 pt-2">
+                            <h3 className="font-display text-lg font-semibold text-foreground">
+                              {dayName}, {monthName} {dayNum}, {year}
+                            </h3>
+                            <p className="text-sm text-muted-foreground">
+                              {dateEvents.length} event{dateEvents.length > 1 ? "s" : ""} scheduled
+                            </p>
                           </div>
                         </div>
-                      </Card>
+
+                        {/* Events for this date */}
+                        <div className="ml-0 sm:ml-[116px] space-y-3">
+                          {dateEvents.map((event, eventIndex) => {
+                            const categories = getEventCategories(event.name);
+                            const hasLivestream = isLivestreamed(event.name);
+
+                            return (
+                              <Card key={eventIndex} className="overflow-hidden hover:shadow-md transition-shadow border-l-4 border-l-primary/30">
+                                <CardHeader className="pb-2 pt-4">
+                                  <div className="flex flex-col gap-2">
+                                    <div className="flex flex-wrap items-center gap-2">
+                                      {event.time && (
+                                        <Badge variant="outline" className="text-xs font-semibold">
+                                          <Clock className="w-3 h-3 mr-1" />
+                                          {event.time}
+                                        </Badge>
+                                      )}
+                                      {categories.map((cat) => (
+                                        <Badge key={cat} variant="secondary" className={`text-xs ${CATEGORY_COLORS[cat]}`}>
+                                          {CATEGORY_LABELS[cat]}
+                                        </Badge>
+                                      ))}
+                                      {hasLivestream && (
+                                        <Badge variant="outline" className="text-xs border-primary/30 text-primary bg-primary/5">
+                                          <Video className="w-3 h-3 mr-1" />
+                                          Livestream
+                                        </Badge>
+                                      )}
+                                    </div>
+                                    <CardTitle className="font-display text-lg md:text-xl text-foreground">
+                                      {event.name}
+                                    </CardTitle>
+                                  </div>
+                                </CardHeader>
+                                <CardContent className="space-y-3 pt-0">
+                                  <p className="text-muted-foreground text-sm">{event.description}</p>
+                                  
+                                  {event.location && (
+                                    <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                                      <MapPin className="w-4 h-4 flex-shrink-0" />
+                                      <span>{event.location}</span>
+                                    </div>
+                                  )}
+                                  
+                                  <div className="pt-2 flex flex-wrap gap-2">
+                                    <Button
+                                      asChild
+                                      variant="ghost"
+                                      size="sm"
+                                      className="h-8 text-xs"
+                                    >
+                                      <a
+                                        href={GOOGLE_MAPS_URL}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                      >
+                                        <Navigation className="w-3 h-3" />
+                                        Directions
+                                      </a>
+                                    </Button>
+                                    <Button
+                                      variant="ghost"
+                                      size="sm"
+                                      className="h-8 text-xs"
+                                      onClick={() => downloadICalFile(event)}
+                                    >
+                                      <Download className="w-3 h-3" />
+                                      iCal
+                                    </Button>
+                                    <Button
+                                      asChild
+                                      variant="ghost"
+                                      size="sm"
+                                      className="h-8 text-xs"
+                                    >
+                                      <a
+                                        href={generateGoogleCalendarUrl(event)}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                      >
+                                        <CalendarPlus className="w-3 h-3" />
+                                        Add to Calendar
+                                      </a>
+                                    </Button>
+                                  </div>
+                                </CardContent>
+                              </Card>
+                            );
+                          })}
+                        </div>
+
+                        {/* Separator between dates */}
+                        <div className="border-b border-border/50 mt-8" />
+                      </div>
                     );
                   })}
                 </div>
               )}
 
               {/* Load more trigger */}
-              {visibleCount < filteredEvents.length && (
+              {visibleCount < sortedDates.length && (
                 <div ref={loadMoreRef} className="flex justify-center py-8">
                   <div className="text-muted-foreground animate-pulse">Loading more events...</div>
                 </div>
