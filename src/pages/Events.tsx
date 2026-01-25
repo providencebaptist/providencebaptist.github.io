@@ -2,9 +2,42 @@ import { Calendar, MapPin, Clock } from "lucide-react";
 import { useChurchData } from "@/hooks/useChurchData";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import SEO from "@/components/SEO";
+import { useState, useEffect, useRef, useCallback } from "react";
+
+const EVENTS_PER_PAGE = 12;
 
 const Events = () => {
   const { events, loading } = useChurchData();
+  const [visibleCount, setVisibleCount] = useState(EVENTS_PER_PAGE);
+  const loadMoreRef = useRef<HTMLDivElement>(null);
+
+  const loadMore = useCallback(() => {
+    setVisibleCount((prev) => Math.min(prev + EVENTS_PER_PAGE, events.length));
+  }, [events.length]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && visibleCount < events.length) {
+          loadMore();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    const currentRef = loadMoreRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
+    }
+
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+    };
+  }, [visibleCount, events.length, loadMore]);
+
+  const visibleEvents = events.slice(0, visibleCount);
 
   return (
     <>
@@ -39,59 +72,71 @@ const Events = () => {
               <p className="text-muted-foreground mt-2">Check back soon for updates!</p>
             </div>
           ) : (
-            <div className="grid gap-6 max-w-3xl mx-auto">
-              {events.map((event, index) => {
-                const dateObj = new Date(event.date);
-                const dayName = dateObj.toLocaleDateString("en-US", { weekday: "long" });
-                const monthName = dateObj.toLocaleDateString("en-US", { month: "long" });
-                const dayNum = dateObj.getDate();
-                const year = dateObj.getFullYear();
+            <>
+              <p className="text-center text-muted-foreground mb-8">
+                Showing {visibleCount} of {events.length} events
+              </p>
+              <div className="grid gap-6 max-w-3xl mx-auto">
+                {visibleEvents.map((event, index) => {
+                  const dateObj = new Date(event.date);
+                  const dayName = dateObj.toLocaleDateString("en-US", { weekday: "long" });
+                  const monthName = dateObj.toLocaleDateString("en-US", { month: "long" });
+                  const dayNum = dateObj.getDate();
+                  const year = dateObj.getFullYear();
 
-                return (
-                  <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
-                    <div className="flex flex-col sm:flex-row">
-                      {/* Date Badge */}
-                      <div className="bg-accent text-accent-foreground p-6 flex flex-col items-center justify-center min-w-[120px]">
-                        <span className="text-sm uppercase font-medium">{monthName.slice(0, 3)}</span>
-                        <span className="font-display text-4xl font-bold">{dayNum}</span>
-                        <span className="text-sm">{year}</span>
-                      </div>
+                  return (
+                    <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
+                      <div className="flex flex-col sm:flex-row">
+                        {/* Date Badge */}
+                        <div className="bg-accent text-accent-foreground p-6 flex flex-col items-center justify-center min-w-[120px]">
+                          <span className="text-sm uppercase font-medium">{monthName.slice(0, 3)}</span>
+                          <span className="font-display text-4xl font-bold">{dayNum}</span>
+                          <span className="text-sm">{year}</span>
+                        </div>
 
-                      {/* Event Details */}
-                      <div className="flex-1">
-                        <CardHeader>
-                          <CardTitle className="font-display text-xl md:text-2xl text-foreground">
-                            {event.name}
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent className="space-y-3">
-                          <p className="text-muted-foreground">{event.description}</p>
-                          
-                          <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
-                            <div className="flex items-center gap-1.5">
-                              <Calendar className="w-4 h-4" />
-                              <span>{dayName}, {monthName} {dayNum}, {year}</span>
+                        {/* Event Details */}
+                        <div className="flex-1">
+                          <CardHeader>
+                            <CardTitle className="font-display text-xl md:text-2xl text-foreground">
+                              {event.name}
+                            </CardTitle>
+                          </CardHeader>
+                          <CardContent className="space-y-3">
+                            <p className="text-muted-foreground">{event.description}</p>
+                            
+                            <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
+                              <div className="flex items-center gap-1.5">
+                                <Calendar className="w-4 h-4" />
+                                <span>{dayName}, {monthName} {dayNum}, {year}</span>
+                              </div>
+                              {event.time && (
+                                <div className="flex items-center gap-1.5">
+                                  <Clock className="w-4 h-4" />
+                                  <span>{event.time}</span>
+                                </div>
+                              )}
+                              {event.location && (
+                                <div className="flex items-center gap-1.5">
+                                  <MapPin className="w-4 h-4" />
+                                  <span>{event.location}</span>
+                                </div>
+                              )}
                             </div>
-                            {event.time && (
-                              <div className="flex items-center gap-1.5">
-                                <Clock className="w-4 h-4" />
-                                <span>{event.time}</span>
-                              </div>
-                            )}
-                            {event.location && (
-                              <div className="flex items-center gap-1.5">
-                                <MapPin className="w-4 h-4" />
-                                <span>{event.location}</span>
-                              </div>
-                            )}
-                          </div>
-                        </CardContent>
+                          </CardContent>
+                        </div>
                       </div>
-                    </div>
-                  </Card>
-                );
-              })}
-            </div>
+                    </Card>
+                  );
+                })}
+              </div>
+
+              {/* Load more trigger */}
+              {visibleCount < events.length && (
+                <div ref={loadMoreRef} className="flex justify-center py-8">
+                  <div className="text-muted-foreground animate-pulse">Loading more events...</div>
+                </div>
+              )}
+            </>
           )}
         </div>
       </section>
