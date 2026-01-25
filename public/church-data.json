@@ -253,6 +253,8 @@
         { "name": "Kid's Sunday School", "date": "June 21, 2026", "time": "11:00 AM", "description": "Weekly Sunday School for children during the morning worship service." },
         { "name": "Sunday Morning Worship", "date": "June 21, 2026", "time": "11:00 AM", "description": "Join us for Sunday morning worship service with hymns, prayer, and Bible preaching." },
         { "name": "Sunday Evening Service", "date": "June 21, 2026", "time": "5:30 PM", "description": "Family worship service with teaching from God's Word." },
+        { "name": "Teen Church Camp", "date": "June 15, 2026", "time": "7:00 AM", "location": "Southland Camp, Louisiana", "description": "Teen Church Camp at Southland Camp in Louisiana, June 15-20. Meet at the church parking lot Monday morning at 7:00 AM or earlier to pack up and travel to camp with Sponsors." },
+        { "name": "Kid's Church Camp", "date": "June 22, 2026", "time": "7:00 AM", "location": "Southland Camp, Louisiana", "description": "Kid's Church Camp at Southland Camp in Louisiana, June 22-27. Meet at the church parking lot Monday morning at 7:00 AM or earlier to pack up and travel to camp with Sponsors." },
         { "name": "Ladies Bible Study", "date": "June 24, 2026", "time": "10:00 AM", "description": "Weekly ladies Bible study and fellowship." },
         { "name": "Wednesday Prayer & Bible Study", "date": "June 24, 2026", "time": "7:00 PM", "description": "Midweek prayer meeting and Bible study." },
         { "name": "Men's Prayer Breakfast", "date": "June 27, 2026", "time": "8:00 AM", "description": "Men's fellowship and prayer breakfast. Come for food, fellowship, and prayer." },
