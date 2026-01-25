@@ -56,13 +56,26 @@ export function useChurchData() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Helper to parse time string like "10:00 AM" or "5:30 PM" into hours and minutes
+    const parseTime = (timeStr: string | undefined): { hours: number; minutes: number } | null => {
+      if (!timeStr) return null;
+      const match = timeStr.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
+      if (!match) return null;
+      let hours = parseInt(match[1], 10);
+      const minutes = parseInt(match[2], 10);
+      const period = match[3].toUpperCase();
+      if (period === "PM" && hours !== 12) hours += 12;
+      if (period === "AM" && hours === 12) hours = 0;
+      return { hours, minutes };
+    };
+
     fetch("/church-data.json")
       .then((res) => res.json())
       .then((data: ChurchData) => {
-        const today = new Date();
-        today.setHours(0, 0, 0, 0); // Start of today
+        const now = new Date();
+        const cutoffTime = new Date(now.getTime() - 30 * 60 * 1000); // 30 minutes ago
 
-        // Get all upcoming events and filter out past ones
+        // Get all upcoming events and filter out past ones (accounting for time)
         const upcomingEvents = data.organization.events.upcoming
           .map((e) => ({
             name: e.name,
@@ -73,8 +86,18 @@ export function useChurchData() {
           }))
           .filter((e) => {
             const eventDate = new Date(e.date);
-            eventDate.setHours(0, 0, 0, 0);
-            return eventDate >= today;
+            const parsedTime = parseTime(e.time);
+            
+            if (parsedTime) {
+              // Set the event's actual start time
+              eventDate.setHours(parsedTime.hours, parsedTime.minutes, 0, 0);
+            } else {
+              // If no time, assume start of day
+              eventDate.setHours(0, 0, 0, 0);
+            }
+            
+            // Event is valid if it starts after the cutoff (now - 30 minutes)
+            return eventDate > cutoffTime;
           });
         setEvents(upcomingEvents);
 
