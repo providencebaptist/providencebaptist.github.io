@@ -59,8 +59,11 @@ const getEventCategories = (eventName: string): FilterType[] => {
   if (name.includes("ladies bible study")) {
     categories.push("bible-study");
   }
-  if (name.includes("choir practice") || name.includes("church choir")) {
+  if (name.includes("choir practice") || name.includes("church choir") || name.includes("kid's choir")) {
     categories.push("choir");
+  }
+  if (name.includes("sunday school") || name.includes("kid's choir")) {
+    categories.push("sunday-school");
   }
   
   // Remove duplicates and return
