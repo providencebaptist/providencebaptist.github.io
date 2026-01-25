@@ -1,4 +1,5 @@
 import { Calendar, MapPin, Clock, Filter, Video, Navigation, CalendarPlus, Download } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useChurchData } from "@/hooks/useChurchData";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -62,7 +63,7 @@ const getEventCategories = (eventName: string): FilterType[] => {
   if (name.includes("choir practice") || name.includes("church choir") || name.includes("kid's choir")) {
     categories.push("choir");
   }
-  if (name.includes("sunday school") || name.includes("kid's choir")) {
+  if (name.includes("sunday school")) {
     categories.push("sunday-school");
   }
   
@@ -349,10 +350,12 @@ const Events = () => {
                                         </Badge>
                                       ))}
                                       {hasLivestream && (
-                                        <Badge variant="outline" className="text-xs border-primary/30 text-primary bg-primary/5">
-                                          <Video className="w-3 h-3 mr-1" />
-                                          Livestream
-                                        </Badge>
+                                        <Link to="/livestream">
+                                          <Badge variant="outline" className="text-xs border-primary/30 text-primary bg-primary/5 hover:bg-primary/10 cursor-pointer transition-colors">
+                                            <Video className="w-3 h-3 mr-1" />
+                                            Livestream
+                                          </Badge>
+                                        </Link>
                                       )}
                                     </div>
                                     <CardTitle className="font-display text-lg md:text-xl text-foreground">
