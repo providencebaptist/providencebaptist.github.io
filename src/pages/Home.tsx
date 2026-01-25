@@ -20,7 +20,7 @@ import galleryBiblestudy from "@/assets/gallery-biblestudy.jpg";
 import { useChurchData } from "@/hooks/useChurchData";
 
 const Home = () => {
-  const { businessMeeting } = useChurchData();
+  const { businessMeeting, nextEvent } = useChurchData();
   return (
     <div className="min-h-screen">
       <SEO 
@@ -79,22 +79,23 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Special Event Banner */}
-      {businessMeeting && (
+      {/* Next Event Banner */}
+      {nextEvent && (
         <section className="bg-gradient-to-r from-secondary to-accent text-accent-foreground py-6 sm:py-8">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6">
               <div className="flex flex-col sm:flex-row items-center sm:items-start gap-3 sm:gap-4 text-center sm:text-left">
                 <Calendar className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 flex-shrink-0" />
                 <div>
-                  <h2 className="text-lg sm:text-xl md:text-2xl font-bold">{businessMeeting.name}</h2>
+                  <p className="text-xs sm:text-sm uppercase tracking-wider opacity-80 mb-1">Next Event</p>
+                  <h2 className="text-lg sm:text-xl md:text-2xl font-bold">{nextEvent.name}</h2>
                   <p className="text-sm sm:text-base md:text-lg">
-                    {businessMeeting.date} • {businessMeeting.timeInfo}
+                    {nextEvent.date}{nextEvent.time ? ` • ${nextEvent.time}` : ""}
                   </p>
                 </div>
               </div>
               <Button asChild variant="default" size="lg" className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 min-h-[44px] w-full sm:w-auto">
-                <Link to="/contact">Plan Your Visit</Link>
+                <Link to="/events">View All Events</Link>
               </Button>
             </div>
           </div>
