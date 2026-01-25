@@ -7,12 +7,11 @@ import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 
 const EVENTS_PER_PAGE = 12;
 
-type FilterType = "all" | "sunday-am" | "sunday-pm" | "wednesday" | "bible-study" | "special";
+type FilterType = "all" | "sunday" | "wednesday" | "bible-study" | "special";
 
 const FILTERS: { value: FilterType; label: string }[] = [
   { value: "all", label: "All Events" },
-  { value: "sunday-am", label: "Sunday AM" },
-  { value: "sunday-pm", label: "Sunday PM" },
+  { value: "sunday", label: "Sunday" },
   { value: "wednesday", label: "Wednesday" },
   { value: "bible-study", label: "Bible Studies" },
   { value: "special", label: "Special Events" },
@@ -20,11 +19,8 @@ const FILTERS: { value: FilterType; label: string }[] = [
 
 const getEventCategory = (eventName: string): FilterType => {
   const name = eventName.toLowerCase();
-  if (name.includes("sunday morning") || name.includes("sunday am")) {
-    return "sunday-am";
-  }
-  if (name.includes("sunday evening") || name.includes("sunday pm")) {
-    return "sunday-pm";
+  if (name.includes("sunday morning") || name.includes("sunday am") || name.includes("sunday evening") || name.includes("sunday pm")) {
+    return "sunday";
   }
   if (name.includes("wednesday") || name.includes("prayer & bible study") || name.includes("midweek")) {
     return "wednesday";
