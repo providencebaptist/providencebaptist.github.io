@@ -34,7 +34,7 @@ export interface EventData {
 }
 
 // Helper to categorize events
-const getEventCategory = (eventName: string): "sunday" | "wednesday" | "bible-study" | "special" => {
+const getEventCategory = (eventName: string): "sunday" | "wednesday" | "sunday-school" | "bible-study" | "special" => {
   const name = eventName.toLowerCase();
   if (name.includes("sunday morning") || name.includes("sunday am") || name.includes("sunday evening") || name.includes("sunday pm")) {
     return "sunday";
@@ -42,7 +42,10 @@ const getEventCategory = (eventName: string): "sunday" | "wednesday" | "bible-st
   if (name.includes("wednesday") || name.includes("prayer & bible study") || name.includes("midweek")) {
     return "wednesday";
   }
-  if (name.includes("ladies bible study") || name.includes("teen bible study") || name.includes("adult bible study")) {
+  if (name.includes("sunday school")) {
+    return "sunday-school";
+  }
+  if (name.includes("ladies bible study")) {
     return "bible-study";
   }
   return "special";
