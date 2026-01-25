@@ -45,7 +45,7 @@ const getEventCategory = (eventName: string): "sunday-am" | "sunday-pm" | "wedne
   if (name.includes("wednesday") || name.includes("prayer & bible study") || name.includes("midweek")) {
     return "wednesday";
   }
-  if (name.includes("ladies bible study")) {
+  if (name.includes("ladies bible study") || name.includes("teen bible study") || name.includes("adult bible study")) {
     return "bible-study";
   }
   return "special";
