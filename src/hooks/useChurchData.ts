@@ -34,13 +34,10 @@ export interface EventData {
 }
 
 // Helper to categorize events
-const getEventCategory = (eventName: string): "sunday-am" | "sunday-pm" | "wednesday" | "bible-study" | "special" => {
+const getEventCategory = (eventName: string): "sunday" | "wednesday" | "bible-study" | "special" => {
   const name = eventName.toLowerCase();
-  if (name.includes("sunday morning") || name.includes("sunday am")) {
-    return "sunday-am";
-  }
-  if (name.includes("sunday evening") || name.includes("sunday pm")) {
-    return "sunday-pm";
+  if (name.includes("sunday morning") || name.includes("sunday am") || name.includes("sunday evening") || name.includes("sunday pm")) {
+    return "sunday";
   }
   if (name.includes("wednesday") || name.includes("prayer & bible study") || name.includes("midweek")) {
     return "wednesday";
@@ -81,8 +78,8 @@ export function useChurchData() {
           });
         setEvents(upcomingEvents);
 
-        // Set the next upcoming regular service (Sunday AM, Sunday PM, or Wednesday only)
-        const regularServiceCategories = ["sunday-am", "sunday-pm", "wednesday"];
+        // Set the next upcoming regular service (Sunday or Wednesday only)
+        const regularServiceCategories = ["sunday", "wednesday"];
         const nextRegularService = upcomingEvents.find(
           (e) => regularServiceCategories.includes(getEventCategory(e.name))
         );
