@@ -264,15 +264,15 @@ const Events = () => {
       />
 
       {/* Hero Section */}
-      <section className="bg-primary text-primary-foreground py-16 md:py-24">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-primary-foreground/70 font-body text-sm tracking-[0.2em] uppercase mb-3">
-            What's Happening
-          </p>
-          <h1 className="font-display text-4xl md:text-6xl font-bold mb-4">
-            Upcoming Events
-          </h1>
-          <p className="text-primary-foreground/80 font-body max-w-2xl mx-auto text-lg">
+      <section className="bg-gradient-to-r from-accent to-secondary text-accent-foreground py-12 sm:py-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+            <Calendar className="h-10 w-10 sm:h-12 sm:w-12" />
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center">
+              Upcoming Events
+            </h1>
+          </div>
+          <p className="text-lg sm:text-xl text-center max-w-3xl mx-auto px-4">
             Join us for special gatherings, celebrations, and opportunities to grow together as a church family.
           </p>
         </div>
