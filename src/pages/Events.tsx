@@ -37,21 +37,29 @@ const CATEGORY_COLORS: Record<FilterType, string> = {
   "special": "bg-destructive/10 text-destructive",
 };
 
-const getEventCategory = (eventName: string): FilterType => {
+const getEventCategories = (eventName: string): FilterType[] => {
   const name = eventName.toLowerCase();
+  const categories: FilterType[] = [];
+  
   if (name.includes("sunday morning") || name.includes("sunday am") || name.includes("sunday evening") || name.includes("sunday pm")) {
-    return "sunday";
+    categories.push("sunday");
   }
-  if (name.includes("wednesday") || name.includes("prayer & bible study") || name.includes("midweek")) {
-    return "wednesday";
+  if (name.includes("wednesday") || name.includes("midweek")) {
+    categories.push("wednesday");
+  }
+  if (name.includes("prayer & bible study")) {
+    categories.push("wednesday", "bible-study");
   }
   if (name.includes("sunday school")) {
-    return "sunday-school";
+    categories.push("sunday-school");
   }
   if (name.includes("ladies bible study")) {
-    return "bible-study";
+    categories.push("bible-study");
   }
-  return "special";
+  
+  // Remove duplicates and return
+  const uniqueCategories = [...new Set(categories)];
+  return uniqueCategories.length > 0 ? uniqueCategories : ["special"];
 };
 
 const isLivestreamed = (eventName: string): boolean => {
@@ -72,7 +80,7 @@ const Events = () => {
 
   const filteredEvents = useMemo(() => {
     if (activeFilter === "all") return events;
-    return events.filter((event) => getEventCategory(event.name) === activeFilter);
+    return events.filter((event) => getEventCategories(event.name).includes(activeFilter));
   }, [events, activeFilter]);
 
   const loadMore = useCallback(() => {
@@ -186,7 +194,7 @@ const Events = () => {
                     const monthName = dateObj.toLocaleDateString("en-US", { month: "long" });
                     const dayNum = dateObj.getDate();
                     const year = dateObj.getFullYear();
-                    const category = getEventCategory(event.name);
+                    const categories = getEventCategories(event.name);
                     const hasLivestream = isLivestreamed(event.name);
 
                     return (
@@ -204,9 +212,11 @@ const Events = () => {
                             <CardHeader className="pb-2">
                               <div className="flex flex-col gap-2">
                                 <div className="flex flex-wrap items-center gap-2">
-                                  <Badge variant="secondary" className={`text-xs ${CATEGORY_COLORS[category]}`}>
-                                    {CATEGORY_LABELS[category]}
-                                  </Badge>
+                                  {categories.map((cat) => (
+                                    <Badge key={cat} variant="secondary" className={`text-xs ${CATEGORY_COLORS[cat]}`}>
+                                      {CATEGORY_LABELS[cat]}
+                                    </Badge>
+                                  ))}
                                   {hasLivestream && (
                                     <Badge variant="outline" className="text-xs border-primary/30 text-primary bg-primary/5">
                                       <Video className="w-3 h-3 mr-1" />
