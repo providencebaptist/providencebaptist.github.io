@@ -51,6 +51,7 @@ const getEventCategory = (eventName: string): "sunday-am" | "sunday-pm" | "wedne
 export function useChurchData() {
   const [businessMeeting, setBusinessMeeting] = useState<BusinessMeetingData | null>(null);
   const [nextEvent, setNextEvent] = useState<EventData | null>(null);
+  const [nextSpecialEvent, setNextSpecialEvent] = useState<EventData | null>(null);
   const [events, setEvents] = useState<EventData[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -86,6 +87,14 @@ export function useChurchData() {
           setNextEvent(nextRegularService);
         }
 
+        // Set the next upcoming special event
+        const nextSpecial = upcomingEvents.find(
+          (e) => getEventCategory(e.name) === "special"
+        );
+        if (nextSpecial) {
+          setNextSpecialEvent(nextSpecial);
+        }
+
         // Get business meeting specifically (for backward compatibility)
         const event = upcomingEvents.find(
           (e) => e.name === "Church Business Meeting"
@@ -113,5 +122,5 @@ export function useChurchData() {
       .catch(() => setLoading(false));
   }, []);
 
-  return { businessMeeting, nextEvent, events, loading };
+  return { businessMeeting, nextEvent, nextSpecialEvent, events, loading };
 }

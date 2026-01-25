@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Calendar, Heart, Users, MapPin, Mail, BookOpen } from "lucide-react";
+import { Calendar, Heart, Users, MapPin, Mail, BookOpen, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
 import ServiceTimes from "@/components/ServiceTimes";
 import SEO from "@/components/SEO";
@@ -20,7 +20,7 @@ import galleryBiblestudy from "@/assets/gallery-biblestudy.jpg";
 import { useChurchData } from "@/hooks/useChurchData";
 
 const Home = () => {
-  const { businessMeeting, nextEvent } = useChurchData();
+  const { nextEvent, nextSpecialEvent } = useChurchData();
   return (
     <div className="min-h-screen">
       <SEO 
@@ -300,9 +300,9 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Church Business Meeting Details */}
-      {businessMeeting && (
-        <section id="business-meeting" className="py-12 sm:py-16 bg-background">
+      {/* Special Event Details */}
+      {nextSpecialEvent && (
+        <section id="special-event" className="py-12 sm:py-16 bg-background">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
               <Card className="shadow-2xl overflow-hidden">
@@ -310,44 +310,37 @@ const Home = () => {
                   <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
                     <Calendar className="h-10 w-10 sm:h-12 sm:w-12 md:h-16 md:w-16 flex-shrink-0" />
                     <div>
-                      <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">{businessMeeting.name}</h2>
-                      <p className="text-base sm:text-lg md:text-xl">Yearly Meeting & Budget Presentation</p>
+                      <p className="text-xs sm:text-sm uppercase tracking-wider opacity-80 mb-1">Upcoming Special Event</p>
+                      <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">{nextSpecialEvent.name}</h2>
                     </div>
                   </div>
                 </div>
                 <CardContent className="p-4 sm:p-6 md:p-8">
                   <div className="space-y-6">
                     <div>
-                      <h3 className="text-xl md:text-2xl font-bold mb-2 text-foreground">{businessMeeting.formattedDate}</h3>
-                      <p className="text-base md:text-lg text-muted-foreground">Join us for our yearly church business meeting!</p>
+                      <h3 className="text-xl md:text-2xl font-bold mb-2 text-foreground">
+                        {new Date(nextSpecialEvent.date).toLocaleDateString("en-US", { weekday: "long" })}, {nextSpecialEvent.date}
+                      </h3>
+                      {nextSpecialEvent.time && (
+                        <p className="text-base md:text-lg text-muted-foreground flex items-center gap-2">
+                          <Clock className="w-5 h-5" />
+                          {nextSpecialEvent.time}
+                        </p>
+                      )}
                     </div>
                     
-                    <div className="space-y-3">
-                      <h4 className="text-lg md:text-xl font-semibold text-foreground">Meeting Agenda:</h4>
-                      <ul className="space-y-3 text-sm md:text-base text-muted-foreground">
-                        <li className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-2">
-                          <span className="font-semibold text-foreground sm:w-32 flex-shrink-0">Time:</span>
-                          <span>{businessMeeting.timeInfo}</span>
-                        </li>
-                        <li className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-2">
-                          <span className="font-semibold text-foreground sm:w-32 flex-shrink-0">Deacon's Report:</span>
-                          <span>Update from our deacons on church ministry and activities</span>
-                        </li>
-                        <li className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-2">
-                          <span className="font-semibold text-foreground sm:w-32 flex-shrink-0">2026 Budget:</span>
-                          <span>Presentation of the proposed Church Budget for 2026</span>
-                        </li>
-                      </ul>
-                    </div>
-
-                    <p className="text-muted-foreground">
-                      All members are encouraged to attend this important meeting as we review our ministry progress 
-                      and plan for the year ahead. Your participation and input are valued as we seek God's direction for our church.
+                    <p className="text-muted-foreground text-base md:text-lg">
+                      {nextSpecialEvent.description}
                     </p>
 
-                    <Button asChild variant="hero" size="lg" className="w-full sm:w-auto min-h-[44px]">
-                      <Link to="/contact">Contact Us</Link>
-                    </Button>
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <Button asChild variant="hero" size="lg" className="min-h-[44px]">
+                        <Link to="/events">View All Events</Link>
+                      </Button>
+                      <Button asChild variant="outline" size="lg" className="min-h-[44px]">
+                        <Link to="/contact">Contact Us</Link>
+                      </Button>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
