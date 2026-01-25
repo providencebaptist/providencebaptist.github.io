@@ -1,9 +1,10 @@
-import { Calendar, MapPin, Clock, Filter, Video, Navigation, CalendarPlus, Download, List, CalendarDays } from "lucide-react";
+import { Calendar, MapPin, Clock, Filter, Video, Navigation, CalendarPlus, Download, List, CalendarDays, Search, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useChurchData } from "@/hooks/useChurchData";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import SEO from "@/components/SEO";
 import { EventsCalendar } from "@/components/EventsCalendar";
@@ -178,14 +179,30 @@ const Events = () => {
   const { events, loading } = useChurchData();
   const [activeFilter, setActiveFilter] = useState<FilterType>("all");
   const [viewMode, setViewMode] = useState<ViewMode>("list");
+  const [searchQuery, setSearchQuery] = useState("");
   const [visibleCount, setVisibleCount] = useState(EVENTS_PER_PAGE);
   const loadMoreRef = useRef<HTMLDivElement>(null);
 
-  // Filter events first
+  // Search and filter events
   const filteredEvents = useMemo(() => {
-    if (activeFilter === "all") return events;
-    return events.filter((event) => getEventCategories(event.name).includes(activeFilter));
-  }, [events, activeFilter]);
+    let result = events;
+    
+    // Apply search filter
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase().trim();
+      result = result.filter((event) => 
+        event.name.toLowerCase().includes(query) || 
+        event.description.toLowerCase().includes(query)
+      );
+    }
+    
+    // Apply category filter
+    if (activeFilter !== "all") {
+      result = result.filter((event) => getEventCategories(event.name).includes(activeFilter));
+    }
+    
+    return result;
+  }, [events, activeFilter, searchQuery]);
 
   // Group filtered events by date
   const groupedEvents = useMemo(() => {
@@ -212,10 +229,10 @@ const Events = () => {
     setVisibleCount((prev) => Math.min(prev + EVENTS_PER_PAGE, sortedDates.length));
   }, [sortedDates.length]);
 
-  // Reset visible count when filter changes
+  // Reset visible count when filter or search changes
   useEffect(() => {
     setVisibleCount(EVENTS_PER_PAGE);
-  }, [activeFilter]);
+  }, [activeFilter, searchQuery]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -273,9 +290,33 @@ const Events = () => {
             </div>
           ) : (
             <>
-              {/* Filter and View Toggle */}
-              <div className="mb-8 max-w-4xl mx-auto">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+              {/* Search and Controls */}
+              <div className="mb-8 max-w-4xl mx-auto space-y-4">
+                {/* Search Input */}
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <Input
+                    type="text"
+                    placeholder="Search events by name or description..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-10 pr-10"
+                    maxLength={100}
+                  />
+                  {searchQuery && (
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
+                      onClick={() => setSearchQuery("")}
+                    >
+                      <X className="w-4 h-4" />
+                    </Button>
+                  )}
+                </div>
+
+                {/* Filter and View Toggle */}
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                   <div className="flex items-center gap-2">
                     <Filter className="w-4 h-4 text-muted-foreground" />
                     <span className="text-sm font-medium text-muted-foreground">Filter by type:</span>
@@ -308,17 +349,22 @@ const Events = () => {
 
               {totalEventCount === 0 ? (
                 <div className="text-center py-12">
-                  <p className="text-muted-foreground text-lg">No events found for this filter.</p>
+                  <p className="text-muted-foreground text-lg">
+                    {searchQuery ? `No events found matching "${searchQuery}"` : "No events found for this filter."}
+                  </p>
                   <Button
                     variant="link"
-                    onClick={() => setActiveFilter("all")}
+                    onClick={() => {
+                      setSearchQuery("");
+                      setActiveFilter("all");
+                    }}
                     className="mt-2"
                   >
-                    View all events
+                    Clear filters
                   </Button>
                 </div>
               ) : viewMode === "calendar" ? (
-                <EventsCalendar events={events} activeFilter={activeFilter} />
+                <EventsCalendar events={events} activeFilter={activeFilter} searchQuery={searchQuery} />
               ) : (
                 <>
                   <p className="text-center text-muted-foreground mb-8">
