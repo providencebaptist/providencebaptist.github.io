@@ -71,7 +71,7 @@ const Home = () => {
               <div>
                 <h2 className="text-lg sm:text-xl font-bold">Winter Storm Alert</h2>
                 <p className="text-sm sm:text-base">
-                  Sunday services (morning & evening) are <strong>cancelled</strong> due to the winter storm. Church Business Meeting rescheduled to <strong>Sunday, February 1st</strong>.
+                  On-site services are <strong>canceled</strong> due to the winter storm. Join us online via <Link to="/livestream" className="underline font-semibold hover:text-primary-foreground/80">livestream</Link>. Church Business Meeting rescheduled to <strong>Sunday, February 1st</strong>.
                 </p>
               </div>
             </div>
