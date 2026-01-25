@@ -60,7 +60,7 @@ const Events = () => {
                       {/* Event Details */}
                       <div className="flex-1">
                         <CardHeader>
-                          <CardTitle className="font-display text-xl md:text-2xl">
+                          <CardTitle className="font-display text-xl md:text-2xl text-foreground">
                             {event.name}
                           </CardTitle>
                         </CardHeader>
