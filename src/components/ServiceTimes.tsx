@@ -4,19 +4,22 @@ import { Card, CardContent } from "./ui/card";
 export const ServiceTimes = () => {
   const services = [
     {
-      day: "Sunday Morning",
+      day: "Sunday",
       events: [
-        { name: "Bible Study Classes", time: "10:00 AM" },
-        { name: "Worship Service", time: "11:00 AM" },
+        { name: "Sunday School", time: "10:00 AM" },
+        { name: "Morning Worship", time: "11:00 AM" },
+        { name: "Evening Service", time: "5:30 PM" },
       ],
-    },
-    {
-      day: "Sunday Evening",
-      events: [{ name: "Family Worship Service", time: "5:30 PM" }],
     },
     {
       day: "Wednesday",
       events: [{ name: "Prayer & Bible Study", time: "7:00 PM" }],
+    },
+    {
+      day: "Bible Studies",
+      events: [
+        { name: "Ladies Bible Study", time: "Wed 10:00 AM" },
+      ],
     },
   ];
 

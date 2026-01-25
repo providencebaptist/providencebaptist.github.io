@@ -44,9 +44,9 @@ export const Footer = () => {
                 <Clock className="h-5 w-5 mt-0.5 flex-shrink-0" />
                 <div>
                   <p className="font-medium">Sunday</p>
-                  <p>Bible Study: 10:00 AM</p>
-                  <p>Worship Service: 11:00 AM</p>
-                  <p>Family Worship: 5:30 PM</p>
+                  <p>Sunday School: 10:00 AM</p>
+                  <p>Morning Worship: 11:00 AM</p>
+                  <p>Evening Service: 5:30 PM</p>
                 </div>
               </div>
               <div className="flex items-start gap-2">
@@ -54,6 +54,7 @@ export const Footer = () => {
                 <div>
                   <p className="font-medium">Wednesday</p>
                   <p>Prayer & Bible Study: 7:00 PM</p>
+                  <p>Ladies Bible Study: 10:00 AM</p>
                 </div>
               </div>
             </div>

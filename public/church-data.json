@@ -41,16 +41,17 @@
           "day": "Sunday",
           "services": [
             {
-              "name": "Bible Study Classes",
+              "name": "Sunday School (Teen & Adult)",
               "time": "10:00 AM"
             },
             {
-              "name": "Worship Service",
+              "name": "Sunday Morning Worship",
               "time": "11:00 AM",
-              "livestreamed": true
+              "livestreamed": true,
+              "note": "Kid's Sunday School available during service"
             },
             {
-              "name": "Family Worship Service",
+              "name": "Sunday Evening Service",
               "time": "5:30 PM",
               "livestreamed": true
             }
@@ -59,6 +60,10 @@
         {
           "day": "Wednesday",
           "services": [
+            {
+              "name": "Ladies Bible Study",
+              "time": "10:00 AM"
+            },
             {
               "name": "Prayer & Bible Study",
               "time": "7:00 PM",

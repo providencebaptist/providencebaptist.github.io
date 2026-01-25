@@ -124,15 +124,15 @@ const Livestream = () => {
                 </div>
                 <div className="space-y-3 text-muted-foreground">
                   <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                    <span className="font-semibold text-foreground min-w-[180px]">Sunday Morning:</span>
+                    <span className="font-semibold text-foreground min-w-[180px]">Sunday Morning Worship:</span>
                     <span>11:00 AM</span>
                   </div>
                   <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                    <span className="font-semibold text-foreground min-w-[180px]">Sunday Evening:</span>
+                    <span className="font-semibold text-foreground min-w-[180px]">Sunday Evening Service:</span>
                     <span>5:30 PM</span>
                   </div>
                   <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                    <span className="font-semibold text-foreground min-w-[180px]">Wednesday Bible Study:</span>
+                    <span className="font-semibold text-foreground min-w-[180px]">Wednesday Prayer & Bible Study:</span>
                     <span>7:00 PM (Broadcast begins around 7:30 PM)</span>
                   </div>
                 </div>

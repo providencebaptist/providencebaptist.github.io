@@ -70,9 +70,16 @@ const Contact = () => {
               {
                 "@type": "OpeningHoursSpecification",
                 "dayOfWeek": "Sunday",
+                "opens": "10:00",
+                "closes": "10:45",
+                "description": "Sunday School"
+              },
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": "Sunday",
                 "opens": "11:00",
                 "closes": "12:00",
-                "description": "Sunday Morning Service"
+                "description": "Sunday Morning Worship"
               },
               {
                 "@type": "OpeningHoursSpecification",
@@ -84,9 +91,16 @@ const Contact = () => {
               {
                 "@type": "OpeningHoursSpecification",
                 "dayOfWeek": "Wednesday",
+                "opens": "10:00",
+                "closes": "11:00",
+                "description": "Ladies Bible Study"
+              },
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": "Wednesday",
                 "opens": "19:00",
                 "closes": "20:00",
-                "description": "Wednesday Bible Study"
+                "description": "Prayer & Bible Study"
               }
             ]
           }
