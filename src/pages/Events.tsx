@@ -1,4 +1,4 @@
-import { Calendar, MapPin, Clock, Filter, Video } from "lucide-react";
+import { Calendar, MapPin, Clock, Filter, Video, Navigation } from "lucide-react";
 import { useChurchData } from "@/hooks/useChurchData";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -71,6 +71,9 @@ const isLivestreamed = (eventName: string): boolean => {
     name.includes("prayer & bible study")
   );
 };
+
+const CHURCH_ADDRESS = "505 W. University Ave, Ste. #109, Georgetown, TX 78626";
+const GOOGLE_MAPS_URL = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(CHURCH_ADDRESS)}`;
 
 const Events = () => {
   const { events, loading } = useChurchData();
@@ -232,23 +235,41 @@ const Events = () => {
                             <CardContent className="space-y-3">
                               <p className="text-muted-foreground">{event.description}</p>
                               
-                              <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
+                              <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-muted-foreground">
                                 <div className="flex items-center gap-1.5">
-                                  <Calendar className="w-4 h-4" />
+                                  <Calendar className="w-4 h-4 flex-shrink-0" />
                                   <span>{dayName}, {monthName} {dayNum}, {year}</span>
                                 </div>
                                 {event.time && (
                                   <div className="flex items-center gap-1.5">
-                                    <Clock className="w-4 h-4" />
+                                    <Clock className="w-4 h-4 flex-shrink-0" />
                                     <span>{event.time}</span>
                                   </div>
                                 )}
                                 {event.location && (
                                   <div className="flex items-center gap-1.5">
-                                    <MapPin className="w-4 h-4" />
+                                    <MapPin className="w-4 h-4 flex-shrink-0" />
                                     <span>{event.location}</span>
                                   </div>
                                 )}
+                              </div>
+                              
+                              <div className="pt-3 mt-3 border-t border-border">
+                                <Button
+                                  asChild
+                                  variant="outline"
+                                  size="sm"
+                                  className="w-full sm:w-auto"
+                                >
+                                  <a
+                                    href={GOOGLE_MAPS_URL}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    <Navigation className="w-4 h-4" />
+                                    Get Directions
+                                  </a>
+                                </Button>
                               </div>
                             </CardContent>
                           </div>
