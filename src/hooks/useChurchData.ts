@@ -35,6 +35,7 @@ export interface EventData {
 
 export function useChurchData() {
   const [businessMeeting, setBusinessMeeting] = useState<BusinessMeetingData | null>(null);
+  const [nextEvent, setNextEvent] = useState<EventData | null>(null);
   const [events, setEvents] = useState<EventData[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -61,15 +62,20 @@ export function useChurchData() {
           });
         setEvents(upcomingEvents);
 
+        // Set the next upcoming event (first in the filtered list)
+        if (upcomingEvents.length > 0) {
+          setNextEvent(upcomingEvents[0]);
+        }
+
         // Get business meeting specifically (for backward compatibility)
-        const event = data.organization.events.upcoming.find(
+        const event = upcomingEvents.find(
           (e) => e.name === "Church Business Meeting"
         );
         if (event) {
           const hasFollowingEvening = event.description.toLowerCase().includes("following the sunday evening service");
           const timeInfo = hasFollowingEvening 
             ? "Following the Sunday evening service" 
-            : "";
+            : event.time || "";
           
           const dateObj = new Date(event.date);
           const dayName = dateObj.toLocaleDateString("en-US", { weekday: "long" });
@@ -88,5 +94,5 @@ export function useChurchData() {
       .catch(() => setLoading(false));
   }, []);
 
-  return { businessMeeting, events, loading };
+  return { businessMeeting, nextEvent, events, loading };
 }
