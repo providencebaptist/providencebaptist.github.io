@@ -95,14 +95,14 @@
     
     "events": {
       "upcoming": [
+        { "name": "Sunday Morning Worship", "date": "February 1, 2026", "time": "11:00 AM", "description": "Join us for Sunday morning worship service with hymns, prayer, and Bible preaching." },
+        { "name": "Sunday Evening Service", "date": "February 1, 2026", "time": "5:30 PM", "description": "Family worship service with teaching from God's Word." },
         {
           "name": "Church Business Meeting",
           "date": "February 1, 2026",
           "time": "Following the 5:30 PM service",
           "description": "Yearly business meeting following the Sunday evening service, featuring the Deacon's Report and presentation of the proposed Church Budget for 2026"
         },
-        { "name": "Sunday Morning Worship", "date": "February 1, 2026", "time": "11:00 AM", "description": "Join us for Sunday morning worship service with hymns, prayer, and Bible preaching." },
-        { "name": "Sunday Evening Service", "date": "February 1, 2026", "time": "5:30 PM", "description": "Family worship service with teaching from God's Word." },
         { "name": "Wednesday Prayer & Bible Study", "date": "February 4, 2026", "time": "7:00 PM", "description": "Midweek prayer meeting and Bible study." },
         { "name": "Sunday Morning Worship", "date": "February 8, 2026", "time": "11:00 AM", "description": "Join us for Sunday morning worship service with hymns, prayer, and Bible preaching." },
         { "name": "Sunday Evening Service", "date": "February 8, 2026", "time": "5:30 PM", "description": "Family worship service with teaching from God's Word." },
