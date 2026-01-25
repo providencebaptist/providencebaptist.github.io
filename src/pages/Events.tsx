@@ -9,7 +9,7 @@ import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 
 const EVENTS_PER_PAGE = 12;
 
-type FilterType = "all" | "sunday" | "wednesday" | "sunday-school" | "bible-study" | "choir" | "special";
+type FilterType = "all" | "sunday" | "wednesday" | "sunday-school" | "bible-study" | "choir" | "outreach" | "special";
 
 const FILTERS: { value: FilterType; label: string }[] = [
   { value: "all", label: "All Events" },
@@ -18,6 +18,7 @@ const FILTERS: { value: FilterType; label: string }[] = [
   { value: "sunday-school", label: "Sunday School" },
   { value: "bible-study", label: "Bible Studies" },
   { value: "choir", label: "Choir" },
+  { value: "outreach", label: "Outreach" },
   { value: "special", label: "Special Events" },
 ];
 
@@ -28,6 +29,7 @@ const CATEGORY_LABELS: Record<FilterType, string> = {
   "sunday-school": "Sunday School",
   "bible-study": "Bible Study",
   "choir": "Choir",
+  "outreach": "Outreach",
   "special": "Special Event",
 };
 
@@ -38,6 +40,7 @@ const CATEGORY_COLORS: Record<FilterType, string> = {
   "sunday-school": "bg-accent/20 text-accent-foreground",
   "bible-study": "bg-muted text-foreground",
   "choir": "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300",
+  "outreach": "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300",
   "special": "bg-destructive/10 text-destructive",
 };
 
@@ -65,6 +68,9 @@ const getEventCategories = (eventName: string): FilterType[] => {
   }
   if (name.includes("sunday school")) {
     categories.push("sunday-school");
+  }
+  if (name.includes("outreach") || name.includes("door knocking") || name.includes("tract")) {
+    categories.push("outreach");
   }
   
   // Remove duplicates and return
