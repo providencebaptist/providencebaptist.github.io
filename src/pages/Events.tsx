@@ -1,4 +1,4 @@
-import { Calendar, MapPin, Clock, Filter, Video, Navigation } from "lucide-react";
+import { Calendar, MapPin, Clock, Filter, Video, Navigation, CalendarPlus, Download } from "lucide-react";
 import { useChurchData } from "@/hooks/useChurchData";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -83,6 +83,85 @@ const isLivestreamed = (eventName: string): boolean => {
 
 const CHURCH_ADDRESS = "505 W. University Ave, Ste. #109, Georgetown, TX 78626";
 const GOOGLE_MAPS_URL = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(CHURCH_ADDRESS)}`;
+
+// Helper to parse time and create a Date object
+const parseEventDateTime = (dateStr: string, timeStr?: string): Date => {
+  const date = new Date(dateStr);
+  if (timeStr) {
+    const match = timeStr.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
+    if (match) {
+      let hours = parseInt(match[1], 10);
+      const minutes = parseInt(match[2], 10);
+      const period = match[3].toUpperCase();
+      if (period === "PM" && hours !== 12) hours += 12;
+      if (period === "AM" && hours === 12) hours = 0;
+      date.setHours(hours, minutes, 0, 0);
+    }
+  }
+  return date;
+};
+
+// Generate iCal format string
+const generateICalEvent = (event: { name: string; date: string; description: string; time?: string; location?: string }): string => {
+  const startDate = parseEventDateTime(event.date, event.time);
+  const endDate = new Date(startDate.getTime() + 60 * 60 * 1000); // Default 1 hour duration
+  
+  const formatDate = (d: Date) => {
+    return d.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
+  };
+  
+  const escapeText = (text: string) => {
+    return text.replace(/[,;\\]/g, (match) => "\\" + match).replace(/\n/g, "\\n");
+  };
+  
+  return [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//Providence Baptist Church//Events//EN",
+    "BEGIN:VEVENT",
+    `DTSTART:${formatDate(startDate)}`,
+    `DTEND:${formatDate(endDate)}`,
+    `SUMMARY:${escapeText(event.name)}`,
+    `DESCRIPTION:${escapeText(event.description)}`,
+    `LOCATION:${escapeText(event.location || CHURCH_ADDRESS)}`,
+    "END:VEVENT",
+    "END:VCALENDAR"
+  ].join("\r\n");
+};
+
+// Download iCal file
+const downloadICalFile = (event: { name: string; date: string; description: string; time?: string; location?: string }) => {
+  const icalContent = generateICalEvent(event);
+  const blob = new Blob([icalContent], { type: "text/calendar;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `${event.name.replace(/[^a-z0-9]/gi, "-").toLowerCase()}.ics`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+};
+
+// Generate Google Calendar URL
+const generateGoogleCalendarUrl = (event: { name: string; date: string; description: string; time?: string; location?: string }): string => {
+  const startDate = parseEventDateTime(event.date, event.time);
+  const endDate = new Date(startDate.getTime() + 60 * 60 * 1000);
+  
+  const formatGoogleDate = (d: Date) => {
+    return d.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
+  };
+  
+  const params = new URLSearchParams({
+    action: "TEMPLATE",
+    text: event.name,
+    dates: `${formatGoogleDate(startDate)}/${formatGoogleDate(endDate)}`,
+    details: event.description,
+    location: event.location || CHURCH_ADDRESS,
+  });
+  
+  return `https://calendar.google.com/calendar/render?${params.toString()}`;
+};
 
 const Events = () => {
   const { events, loading } = useChurchData();
@@ -263,7 +342,7 @@ const Events = () => {
                                 )}
                               </div>
                               
-                              <div className="pt-3 mt-3 border-t border-border">
+                              <div className="pt-3 mt-3 border-t border-border flex flex-wrap gap-2">
                                 <Button
                                   asChild
                                   variant="outline"
@@ -276,7 +355,31 @@ const Events = () => {
                                     rel="noopener noreferrer"
                                   >
                                     <Navigation className="w-4 h-4" />
-                                    Get Directions
+                                    Directions
+                                  </a>
+                                </Button>
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  className="w-full sm:w-auto"
+                                  onClick={() => downloadICalFile(event)}
+                                >
+                                  <Download className="w-4 h-4" />
+                                  iCal
+                                </Button>
+                                <Button
+                                  asChild
+                                  variant="outline"
+                                  size="sm"
+                                  className="w-full sm:w-auto"
+                                >
+                                  <a
+                                    href={generateGoogleCalendarUrl(event)}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    <CalendarPlus className="w-4 h-4" />
+                                    Google Calendar
                                   </a>
                                 </Button>
                               </div>
