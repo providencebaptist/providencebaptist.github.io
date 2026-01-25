@@ -1,10 +1,12 @@
-import { Calendar, MapPin, Clock, Filter, Video, Navigation, CalendarPlus, Download } from "lucide-react";
+import { Calendar, MapPin, Clock, Filter, Video, Navigation, CalendarPlus, Download, List, CalendarDays } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useChurchData } from "@/hooks/useChurchData";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import SEO from "@/components/SEO";
+import { EventsCalendar } from "@/components/EventsCalendar";
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 
 const EVENTS_PER_PAGE = 12;
@@ -170,9 +172,12 @@ const generateGoogleCalendarUrl = (event: { name: string; date: string; descript
   return `https://calendar.google.com/calendar/render?${params.toString()}`;
 };
 
+type ViewMode = "list" | "calendar";
+
 const Events = () => {
   const { events, loading } = useChurchData();
   const [activeFilter, setActiveFilter] = useState<FilterType>("all");
+  const [viewMode, setViewMode] = useState<ViewMode>("list");
   const [visibleCount, setVisibleCount] = useState(EVENTS_PER_PAGE);
   const loadMoreRef = useRef<HTMLDivElement>(null);
 
@@ -268,11 +273,23 @@ const Events = () => {
             </div>
           ) : (
             <>
-              {/* Filter Buttons */}
-              <div className="mb-8 max-w-3xl mx-auto">
-                <div className="flex items-center gap-2 mb-4">
-                  <Filter className="w-4 h-4 text-muted-foreground" />
-                  <span className="text-sm font-medium text-muted-foreground">Filter by type:</span>
+              {/* Filter and View Toggle */}
+              <div className="mb-8 max-w-4xl mx-auto">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+                  <div className="flex items-center gap-2">
+                    <Filter className="w-4 h-4 text-muted-foreground" />
+                    <span className="text-sm font-medium text-muted-foreground">Filter by type:</span>
+                  </div>
+                  <ToggleGroup type="single" value={viewMode} onValueChange={(value) => value && setViewMode(value as ViewMode)}>
+                    <ToggleGroupItem value="list" aria-label="List view" className="gap-1.5">
+                      <List className="w-4 h-4" />
+                      <span className="hidden sm:inline">List</span>
+                    </ToggleGroupItem>
+                    <ToggleGroupItem value="calendar" aria-label="Calendar view" className="gap-1.5">
+                      <CalendarDays className="w-4 h-4" />
+                      <span className="hidden sm:inline">Calendar</span>
+                    </ToggleGroupItem>
+                  </ToggleGroup>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {FILTERS.map((filter) => (
@@ -289,10 +306,6 @@ const Events = () => {
                 </div>
               </div>
 
-              <p className="text-center text-muted-foreground mb-8">
-                Showing {visibleDates.reduce((acc, date) => acc + groupedEvents[date].length, 0)} of {totalEventCount} events across {visibleDates.length} of {sortedDates.length} dates
-              </p>
-
               {totalEventCount === 0 ? (
                 <div className="text-center py-12">
                   <p className="text-muted-foreground text-lg">No events found for this filter.</p>
@@ -304,15 +317,21 @@ const Events = () => {
                     View all events
                   </Button>
                 </div>
+              ) : viewMode === "calendar" ? (
+                <EventsCalendar events={events} activeFilter={activeFilter} />
               ) : (
-                <div className="space-y-8 max-w-4xl mx-auto">
-                  {visibleDates.map((date) => {
-                    const dateEvents = groupedEvents[date];
-                    const dateObj = new Date(date);
-                    const dayName = dateObj.toLocaleDateString("en-US", { weekday: "long" });
-                    const monthName = dateObj.toLocaleDateString("en-US", { month: "long" });
-                    const dayNum = dateObj.getDate();
-                    const year = dateObj.getFullYear();
+                <>
+                  <p className="text-center text-muted-foreground mb-8">
+                    Showing {visibleDates.reduce((acc, date) => acc + groupedEvents[date].length, 0)} of {totalEventCount} events across {visibleDates.length} of {sortedDates.length} dates
+                  </p>
+                  <div className="space-y-8 max-w-4xl mx-auto">
+                    {visibleDates.map((date) => {
+                      const dateEvents = groupedEvents[date];
+                      const dateObj = new Date(date);
+                      const dayName = dateObj.toLocaleDateString("en-US", { weekday: "long" });
+                      const monthName = dateObj.toLocaleDateString("en-US", { month: "long" });
+                      const dayNum = dateObj.getDate();
+                      const year = dateObj.getFullYear();
 
                     return (
                       <div key={date} className="relative">
@@ -432,13 +451,14 @@ const Events = () => {
                     );
                   })}
                 </div>
-              )}
 
-              {/* Load more trigger */}
-              {visibleCount < sortedDates.length && (
-                <div ref={loadMoreRef} className="flex justify-center py-8">
-                  <div className="text-muted-foreground animate-pulse">Loading more events...</div>
-                </div>
+                {/* Load more trigger */}
+                {visibleCount < sortedDates.length && (
+                  <div ref={loadMoreRef} className="flex justify-center py-8">
+                    <div className="text-muted-foreground animate-pulse">Loading more events...</div>
+                  </div>
+                )}
+              </>
               )}
             </>
           )}
