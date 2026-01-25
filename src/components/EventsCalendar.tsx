@@ -144,21 +144,37 @@ const generateMonthlyICalEvents = (events: EventData[], monthName: string): stri
 interface EventsCalendarProps {
   events: EventData[];
   activeFilter: FilterType;
+  searchQuery?: string;
 }
 
 const DAYS_OF_WEEK = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-export function EventsCalendar({ events, activeFilter }: EventsCalendarProps) {
+export function EventsCalendar({ events, activeFilter, searchQuery = "" }: EventsCalendarProps) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const { toast } = useToast();
 
-  // Filter events based on active filter
+  // Filter events based on active filter and search query
   const filteredEvents = useMemo(() => {
-    if (activeFilter === "all") return events;
-    return events.filter((event) => getEventCategories(event.name).includes(activeFilter));
-  }, [events, activeFilter]);
+    let result = events;
+    
+    // Apply search filter
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase().trim();
+      result = result.filter((event) => 
+        event.name.toLowerCase().includes(query) || 
+        event.description.toLowerCase().includes(query)
+      );
+    }
+    
+    // Apply category filter
+    if (activeFilter !== "all") {
+      result = result.filter((event) => getEventCategories(event.name).includes(activeFilter));
+    }
+    
+    return result;
+  }, [events, activeFilter, searchQuery]);
 
   // Group events by date string
   const eventsByDate = useMemo(() => {
