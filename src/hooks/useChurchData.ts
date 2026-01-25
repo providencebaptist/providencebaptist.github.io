@@ -33,6 +33,21 @@ export interface EventData {
   location?: string;
 }
 
+// Helper to categorize events
+const getEventCategory = (eventName: string): "sunday-am" | "sunday-pm" | "wednesday" | "special" => {
+  const name = eventName.toLowerCase();
+  if (name.includes("sunday morning") || name.includes("sunday am")) {
+    return "sunday-am";
+  }
+  if (name.includes("sunday evening") || name.includes("sunday pm")) {
+    return "sunday-pm";
+  }
+  if (name.includes("wednesday") || name.includes("prayer & bible study") || name.includes("midweek")) {
+    return "wednesday";
+  }
+  return "special";
+};
+
 export function useChurchData() {
   const [businessMeeting, setBusinessMeeting] = useState<BusinessMeetingData | null>(null);
   const [nextEvent, setNextEvent] = useState<EventData | null>(null);
@@ -62,9 +77,13 @@ export function useChurchData() {
           });
         setEvents(upcomingEvents);
 
-        // Set the next upcoming event (first in the filtered list)
-        if (upcomingEvents.length > 0) {
-          setNextEvent(upcomingEvents[0]);
+        // Set the next upcoming regular service (Sunday AM, Sunday PM, or Wednesday only)
+        const regularServiceCategories = ["sunday-am", "sunday-pm", "wednesday"];
+        const nextRegularService = upcomingEvents.find(
+          (e) => regularServiceCategories.includes(getEventCategory(e.name))
+        );
+        if (nextRegularService) {
+          setNextEvent(nextRegularService);
         }
 
         // Get business meeting specifically (for backward compatibility)
