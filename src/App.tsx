@@ -22,6 +22,7 @@ const Contact = lazy(() => import("./pages/Contact"));
 const Give = lazy(() => import("./pages/Give"));
 const Sermons = lazy(() => import("./pages/Sermons"));
 const SermonDetail = lazy(() => import("./pages/SermonDetail"));
+const Events = lazy(() => import("./pages/Events"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -61,6 +62,7 @@ const App = () => (
                     <Route path="/give" element={<Give />} />
                     <Route path="/sermons" element={<Sermons />} />
                     <Route path="/sermons/:id" element={<SermonDetail />} />
+                    <Route path="/events" element={<Events />} />
                     {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                     <Route path="*" element={<NotFound />} />
                   </Routes>

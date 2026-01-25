@@ -4,6 +4,8 @@ interface UpcomingEvent {
   name: string;
   date: string;
   description: string;
+  time?: string;
+  location?: string;
 }
 
 interface ChurchData {
@@ -23,25 +25,43 @@ export interface BusinessMeetingData {
   timeInfo: string;
 }
 
+export interface EventData {
+  name: string;
+  date: string;
+  description: string;
+  time?: string;
+  location?: string;
+}
+
 export function useChurchData() {
   const [businessMeeting, setBusinessMeeting] = useState<BusinessMeetingData | null>(null);
+  const [events, setEvents] = useState<EventData[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch("/church-data.json")
       .then((res) => res.json())
       .then((data: ChurchData) => {
+        // Get all upcoming events
+        const upcomingEvents = data.organization.events.upcoming.map((e) => ({
+          name: e.name,
+          date: e.date,
+          description: e.description,
+          time: e.time,
+          location: e.location,
+        }));
+        setEvents(upcomingEvents);
+
+        // Get business meeting specifically (for backward compatibility)
         const event = data.organization.events.upcoming.find(
           (e) => e.name === "Church Business Meeting"
         );
         if (event) {
-          // Parse "following the Sunday evening service" from description
           const hasFollowingEvening = event.description.toLowerCase().includes("following the sunday evening service");
           const timeInfo = hasFollowingEvening 
             ? "Following the Sunday evening service" 
             : "";
           
-          // Format date for display (e.g., "Sunday, January 26, 2026")
           const dateObj = new Date(event.date);
           const dayName = dateObj.toLocaleDateString("en-US", { weekday: "long" });
           const formattedDate = `${dayName}, ${event.date}`;
@@ -59,5 +79,5 @@ export function useChurchData() {
       .catch(() => setLoading(false));
   }, []);
 
-  return { businessMeeting, loading };
+  return { businessMeeting, events, loading };
 }

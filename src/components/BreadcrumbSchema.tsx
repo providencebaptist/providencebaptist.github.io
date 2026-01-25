@@ -31,7 +31,8 @@ const BreadcrumbSchema = () => {
     contact: "Contact Us",
     give: "Give",
     livestream: "Watch Live",
-    sermons: "Sermons & Messages"
+    sermons: "Sermons & Messages",
+    events: "Upcoming Events"
   };
 
   // Handle dynamic sermon detail pages
