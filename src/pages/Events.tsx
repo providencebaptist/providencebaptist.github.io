@@ -1,7 +1,8 @@
-import { Calendar, MapPin, Clock, Filter } from "lucide-react";
+import { Calendar, MapPin, Clock, Filter, Video } from "lucide-react";
 import { useChurchData } from "@/hooks/useChurchData";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import SEO from "@/components/SEO";
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 
@@ -18,6 +19,24 @@ const FILTERS: { value: FilterType; label: string }[] = [
   { value: "special", label: "Special Events" },
 ];
 
+const CATEGORY_LABELS: Record<FilterType, string> = {
+  "all": "All",
+  "sunday": "Sunday Service",
+  "wednesday": "Wednesday",
+  "sunday-school": "Sunday School",
+  "bible-study": "Bible Study",
+  "special": "Special Event",
+};
+
+const CATEGORY_COLORS: Record<FilterType, string> = {
+  "all": "bg-muted text-muted-foreground",
+  "sunday": "bg-primary/10 text-primary",
+  "wednesday": "bg-secondary/80 text-secondary-foreground",
+  "sunday-school": "bg-accent/20 text-accent-foreground",
+  "bible-study": "bg-muted text-foreground",
+  "special": "bg-destructive/10 text-destructive",
+};
+
 const getEventCategory = (eventName: string): FilterType => {
   const name = eventName.toLowerCase();
   if (name.includes("sunday morning") || name.includes("sunday am") || name.includes("sunday evening") || name.includes("sunday pm")) {
@@ -33,6 +52,16 @@ const getEventCategory = (eventName: string): FilterType => {
     return "bible-study";
   }
   return "special";
+};
+
+const isLivestreamed = (eventName: string): boolean => {
+  const name = eventName.toLowerCase();
+  return (
+    name.includes("sunday morning worship") ||
+    name.includes("sunday evening service") ||
+    name.includes("wednesday prayer & bible study") ||
+    name.includes("prayer & bible study")
+  );
 };
 
 const Events = () => {
@@ -158,6 +187,7 @@ const Events = () => {
                     const dayNum = dateObj.getDate();
                     const year = dateObj.getFullYear();
                     const category = getEventCategory(event.name);
+                    const hasLivestream = isLivestreamed(event.name);
 
                     return (
                       <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
@@ -172,15 +202,21 @@ const Events = () => {
                           {/* Event Details */}
                           <div className="flex-1">
                             <CardHeader className="pb-2">
-                              <div className="flex items-start justify-between gap-2">
+                              <div className="flex flex-col gap-2">
+                                <div className="flex flex-wrap items-center gap-2">
+                                  <Badge variant="secondary" className={`text-xs ${CATEGORY_COLORS[category]}`}>
+                                    {CATEGORY_LABELS[category]}
+                                  </Badge>
+                                  {hasLivestream && (
+                                    <Badge variant="outline" className="text-xs border-primary/30 text-primary bg-primary/5">
+                                      <Video className="w-3 h-3 mr-1" />
+                                      Livestream
+                                    </Badge>
+                                  )}
+                                </div>
                                 <CardTitle className="font-display text-xl md:text-2xl text-foreground">
                                   {event.name}
                                 </CardTitle>
-                                {category === "special" && (
-                                  <span className="text-xs bg-secondary text-secondary-foreground px-2 py-1 rounded-full font-medium whitespace-nowrap">
-                                    Special Event
-                                  </span>
-                                )}
                               </div>
                             </CardHeader>
                             <CardContent className="space-y-3">
