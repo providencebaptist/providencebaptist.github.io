@@ -35,6 +35,7 @@ const Navigation = () => {
 
   const connectLinks = [
     { to: "/", label: "I'm New", description: "First time visiting?" },
+    { to: "/events", label: "Events", description: "Upcoming church events" },
     { to: "/eternity", label: "Eternity", description: "Questions about salvation" },
     { to: "/contact", label: "Contact", description: "Get in touch" },
   ];
