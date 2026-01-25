@@ -42,14 +42,23 @@ export function useChurchData() {
     fetch("/church-data.json")
       .then((res) => res.json())
       .then((data: ChurchData) => {
-        // Get all upcoming events
-        const upcomingEvents = data.organization.events.upcoming.map((e) => ({
-          name: e.name,
-          date: e.date,
-          description: e.description,
-          time: e.time,
-          location: e.location,
-        }));
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Start of today
+
+        // Get all upcoming events and filter out past ones
+        const upcomingEvents = data.organization.events.upcoming
+          .map((e) => ({
+            name: e.name,
+            date: e.date,
+            description: e.description,
+            time: e.time,
+            location: e.location,
+          }))
+          .filter((e) => {
+            const eventDate = new Date(e.date);
+            eventDate.setHours(0, 0, 0, 0);
+            return eventDate >= today;
+          });
         setEvents(upcomingEvents);
 
         // Get business meeting specifically (for backward compatibility)
