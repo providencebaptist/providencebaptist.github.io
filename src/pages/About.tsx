@@ -55,12 +55,15 @@ const About = () => {
           }
         }}
       />
-      <div className="bg-primary text-primary-foreground py-12 sm:py-16">
+      <div className="bg-gradient-to-r from-accent to-secondary text-accent-foreground py-12 sm:py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-3 sm:mb-4">
-            About PBC
-          </h1>
-          <p className="text-lg sm:text-xl text-center text-primary-foreground/90 max-w-3xl mx-auto px-4">
+          <div className="flex items-center justify-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+            <Church className="h-10 w-10 sm:h-12 sm:w-12" />
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center">
+              About PBC
+            </h1>
+          </div>
+          <p className="text-lg sm:text-xl text-center max-w-3xl mx-auto px-4">
             An Independent Baptist Church that believes the Bible
           </p>
         </div>

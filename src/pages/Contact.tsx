@@ -70,9 +70,16 @@ const Contact = () => {
               {
                 "@type": "OpeningHoursSpecification",
                 "dayOfWeek": "Sunday",
+                "opens": "10:00",
+                "closes": "10:45",
+                "description": "Sunday School"
+              },
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": "Sunday",
                 "opens": "11:00",
                 "closes": "12:00",
-                "description": "Sunday Morning Service"
+                "description": "Sunday Morning Worship"
               },
               {
                 "@type": "OpeningHoursSpecification",
@@ -84,15 +91,22 @@ const Contact = () => {
               {
                 "@type": "OpeningHoursSpecification",
                 "dayOfWeek": "Wednesday",
+                "opens": "10:00",
+                "closes": "11:00",
+                "description": "Ladies Bible Study"
+              },
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": "Wednesday",
                 "opens": "19:00",
                 "closes": "20:00",
-                "description": "Wednesday Bible Study"
+                "description": "Prayer & Bible Study"
               }
             ]
           }
         }}
       />
-      <div className="bg-primary text-primary-foreground py-12 sm:py-16">
+      <div className="bg-gradient-to-r from-accent to-secondary text-accent-foreground py-12 sm:py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center gap-3 sm:gap-4 mb-3 sm:mb-4">
             <Mail className="h-10 w-10 sm:h-12 sm:w-12" />
@@ -100,7 +114,7 @@ const Contact = () => {
               Contact Us
             </h1>
           </div>
-          <p className="text-lg sm:text-xl text-center text-primary-foreground/90 max-w-3xl mx-auto px-4">
+          <p className="text-lg sm:text-xl text-center max-w-3xl mx-auto px-4">
             Questions, Comments, or Prayer Requests
           </p>
         </div>

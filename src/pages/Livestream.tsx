@@ -89,12 +89,15 @@ const Livestream = () => {
           ]
         }}
       />
-      <div className="bg-primary text-primary-foreground py-12 sm:py-16">
+      <div className="bg-gradient-to-r from-accent to-secondary text-accent-foreground py-12 sm:py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-3 sm:mb-4">
-            Watch Live
-          </h1>
-          <p className="text-lg sm:text-xl text-center text-primary-foreground/90 max-w-3xl mx-auto px-4">
+          <div className="flex items-center justify-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+            <Video className="h-10 w-10 sm:h-12 sm:w-12" />
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center">
+              Watch Live
+            </h1>
+          </div>
+          <p className="text-lg sm:text-xl text-center max-w-3xl mx-auto px-4">
             Join us online for all our public services
           </p>
         </div>
@@ -124,15 +127,15 @@ const Livestream = () => {
                 </div>
                 <div className="space-y-3 text-muted-foreground">
                   <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                    <span className="font-semibold text-foreground min-w-[180px]">Sunday Morning:</span>
+                    <span className="font-semibold text-foreground min-w-[180px]">Sunday Morning Worship:</span>
                     <span>11:00 AM</span>
                   </div>
                   <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                    <span className="font-semibold text-foreground min-w-[180px]">Sunday Evening:</span>
+                    <span className="font-semibold text-foreground min-w-[180px]">Sunday Evening Service:</span>
                     <span>5:30 PM</span>
                   </div>
                   <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                    <span className="font-semibold text-foreground min-w-[180px]">Wednesday Bible Study:</span>
+                    <span className="font-semibold text-foreground min-w-[180px]">Wednesday Prayer & Bible Study:</span>
                     <span>7:00 PM (Broadcast begins around 7:30 PM)</span>
                   </div>
                 </div>

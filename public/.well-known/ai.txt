@@ -23,10 +23,15 @@ Mission: To glorify God through souls being saved, lives changed, families stren
 - Pre-tribulation rapture and premillennial return of Christ
 
 # Service Times (Central Time)
-Sunday Bible Study: 10:00 AM
-Sunday Morning Worship: 11:00 AM
-Sunday Evening Service: 5:30 PM
-Wednesday Prayer & Bible Study: 7:00 PM (Broadcast begins ~7:30 PM)
+
+## Sunday
+- Sunday School (Teen & Adult): 10:00 AM
+- Sunday Morning Worship: 11:00 AM (Kid's Sunday School during service)
+- Sunday Evening Service: 5:30 PM
+
+## Wednesday
+- Ladies Bible Study: 10:00 AM
+- Prayer & Bible Study: 7:00 PM (Broadcast begins ~7:30 PM)
 
 # Important Pages and Content
 Homepage: https://pbcatx.org/
@@ -39,6 +44,7 @@ Sermons & Messages: https://pbcatx.org/sermons
 Sermon Detail Pages: https://pbcatx.org/sermons/{id}
 Salvation Information: https://pbcatx.org/eternity
 Live Stream: https://pbcatx.org/livestream
+Events: https://pbcatx.org/events
 Give: https://pbcatx.org/give
 Contact: https://pbcatx.org/contact
 
