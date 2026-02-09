@@ -36,6 +36,10 @@ export interface EventData {
 // Helper to categorize events
 const getEventCategory = (eventName: string): "sunday" | "wednesday" | "sunday-school" | "bible-study" | "choir" | "outreach" | "special" | "regular" => {
   const name = eventName.toLowerCase();
+  // Check for special holiday events BEFORE regular sunday check
+  if (name.includes("easter") || name.includes("mother's day") || name.includes("father's day") || name.includes("christmas candlelight")) {
+    return "special";
+  }
   if (name.includes("sunday morning") || name.includes("sunday am") || name.includes("sunday evening") || name.includes("sunday pm")) {
     return "sunday";
   }
