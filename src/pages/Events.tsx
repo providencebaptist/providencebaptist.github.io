@@ -50,6 +50,11 @@ const CATEGORY_COLORS: Record<FilterType, string> = {
 const getEventCategories = (eventName: string): FilterType[] => {
   const name = eventName.toLowerCase();
   const categories: FilterType[] = [];
+
+  // Special holiday events (also tagged as sunday)
+  if (name.includes("easter") || name.includes("mother's day") || name.includes("father's day") || name.includes("christmas candlelight")) {
+    categories.push("special", "sunday");
+  }
   
   if (name.includes("sunday morning") || name.includes("sunday am") || name.includes("sunday evening") || name.includes("sunday pm")) {
     categories.push("sunday");

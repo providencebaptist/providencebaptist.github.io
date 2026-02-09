@@ -33,31 +33,41 @@ export interface EventData {
   location?: string;
 }
 
-// Helper to categorize events
-const getEventCategory = (eventName: string): "sunday" | "wednesday" | "sunday-school" | "bible-study" | "choir" | "outreach" | "special" | "regular" => {
+// Helper to categorize events (returns array for multi-tagging)
+type EventCategory = "sunday" | "wednesday" | "sunday-school" | "bible-study" | "choir" | "outreach" | "special" | "regular";
+
+const getEventCategories = (eventName: string): EventCategory[] => {
   const name = eventName.toLowerCase();
-  if (name.includes("sunday morning") || name.includes("sunday am") || name.includes("sunday evening") || name.includes("sunday pm")) {
-    return "sunday";
+  const categories: EventCategory[] = [];
+
+  // Special holiday events (can also be sunday)
+  if (name.includes("easter") || name.includes("mother's day") || name.includes("father's day") || name.includes("christmas candlelight")) {
+    categories.push("special");
+  }
+
+  if (name.includes("sunday morning") || name.includes("sunday am") || name.includes("sunday evening") || name.includes("sunday pm") || categories.some(c => c === "special" && (name.includes("sunday") || name.includes("celebration") || name.includes("service")))) {
+    categories.push("sunday");
   }
   if (name.includes("wednesday") || name.includes("prayer & bible study") || name.includes("midweek")) {
-    return "wednesday";
+    categories.push("wednesday");
   }
   if (name.includes("sunday school")) {
-    return "sunday-school";
+    categories.push("sunday-school");
   }
   if (name.includes("ladies bible study")) {
-    return "bible-study";
+    categories.push("bible-study");
   }
   if (name.includes("choir practice") || name.includes("church choir") || name.includes("kid's choir")) {
-    return "choir";
+    categories.push("choir");
   }
   if (name.includes("outreach") || name.includes("door knocking") || name.includes("tract")) {
-    return "outreach";
+    categories.push("outreach");
   }
   if (name.includes("men's prayer breakfast")) {
-    return "regular";
+    categories.push("regular");
   }
-  return "special";
+
+  return categories.length > 0 ? categories : ["special"];
 };
 
 export function useChurchData() {
@@ -116,7 +126,7 @@ export function useChurchData() {
         // Set the next upcoming regular service (Sunday or Wednesday only)
         const regularServiceCategories = ["sunday", "wednesday"];
         const nextRegularService = upcomingEvents.find(
-          (e) => regularServiceCategories.includes(getEventCategory(e.name))
+          (e) => getEventCategories(e.name).some(cat => regularServiceCategories.includes(cat))
         );
         if (nextRegularService) {
           setNextEvent(nextRegularService);
@@ -124,7 +134,7 @@ export function useChurchData() {
 
         // Set the next upcoming special event
         const nextSpecial = upcomingEvents.find(
-          (e) => getEventCategory(e.name) === "special"
+          (e) => getEventCategories(e.name).includes("special")
         );
         if (nextSpecial) {
           setNextSpecialEvent(nextSpecial);
