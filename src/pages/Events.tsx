@@ -90,6 +90,7 @@ const isLivestreamed = (eventName: string): boolean => {
   const name = eventName.toLowerCase();
   return (
     name.includes("sunday morning worship") ||
+    name.includes("easter sunday") ||
     name.includes("sunday evening service") ||
     name.includes("wednesday prayer & bible study") ||
     name.includes("prayer & bible study")
