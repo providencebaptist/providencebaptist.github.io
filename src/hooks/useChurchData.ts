@@ -111,15 +111,21 @@ export function useChurchData() {
             const parsedTime = parseTime(e.time);
             
             if (parsedTime) {
-              // Set the event's actual start time
               eventDate.setHours(parsedTime.hours, parsedTime.minutes, 0, 0);
             } else {
-              // If no time, assume start of day
               eventDate.setHours(0, 0, 0, 0);
             }
             
-            // Event is valid if it starts after the cutoff (now - 30 minutes)
             return eventDate > cutoffTime;
+          })
+          .sort((a, b) => {
+            const dateA = new Date(a.date);
+            const dateB = new Date(b.date);
+            const timeA = parseTime(a.time);
+            const timeB = parseTime(b.time);
+            if (timeA) dateA.setHours(timeA.hours, timeA.minutes, 0, 0);
+            if (timeB) dateB.setHours(timeB.hours, timeB.minutes, 0, 0);
+            return dateA.getTime() - dateB.getTime();
           });
         setEvents(upcomingEvents);
 
