@@ -648,8 +648,9 @@ const SermonDetail = () => {
                     onEnded={() => setIsVideoPlaying(false)}
                     onTimeUpdate={handleVideoTimeUpdate}
                     onLoadedMetadata={handleVideoLoadedMetadata}
-                    className="w-full rounded-lg"
-                    poster=""
+                    className="w-full rounded-lg bg-black"
+                    poster={sermon.thumbnailUrl || undefined}
+                    preload="metadata"
                   />
 
                   {/* Custom Progress Bar */}
