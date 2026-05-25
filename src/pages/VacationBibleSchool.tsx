@@ -296,17 +296,17 @@ const VacationBibleSchool = () => {
               transform: `translate3d(0, ${(scrollY - 3000) * 0.2}px, 0)`,
             }}
           />
-          <div className="absolute inset-0 z-0 bg-[#0d1a14]/85" />
-          <div className="container mx-auto px-6">
+          <div className="absolute inset-0 z-0 bg-[#0d1a14]/90" />
+          <div className="container relative z-20 mx-auto px-6">
             <div className="mx-auto max-w-2xl">
-              <div className="mb-8 text-center">
+              <div className="mb-8 rounded-3xl bg-[#0d1a14]/70 px-6 py-6 text-center backdrop-blur-sm ring-1 ring-[#d4a24a]/20">
                 <p className="mb-3 font-display text-xs font-bold uppercase tracking-[0.3em] text-[#d4a24a]">
                   Sign Up Below
                 </p>
                 <h2 className="font-display text-4xl font-black uppercase text-[#f5e9c9] md:text-5xl">
                   Reserve Your Spot
                 </h2>
-                <p className="mt-3 text-[#f5e9c9]/70">
+                <p className="mt-3 text-[#f5e9c9]/90">
                   Fill out the form and we'll be in touch with everything you need.
                 </p>
               </div>
