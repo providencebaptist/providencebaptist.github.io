@@ -54,7 +54,11 @@ const getEventCategories = (eventName: string): FilterType[] => {
   if (name.includes("easter") || name.includes("mother's day") || name.includes("father's day") || name.includes("christmas candlelight")) {
     categories.push("special", "sunday");
   }
-  
+
+  if (name.includes("vacation bible school") || name.includes("vbs")) {
+    categories.push("special");
+  }
+
   if (name.includes("sunday morning") || name.includes("sunday am") || name.includes("sunday evening") || name.includes("sunday pm")) {
     categories.push("sunday");
   }
