@@ -371,20 +371,78 @@ const VacationBibleSchool = () => {
                     />
                     <Field name="email" label="Email" type="email" error={errors.email} />
                     <Field name="phone" label="Phone" type="tel" error={errors.phone} />
-                    <Field name="childAge" label="Child's Age" type="number" error={errors.childAge} />
                   </div>
-                  <Field name="childName" label="Child's Name" error={errors.childName} />
-                  <div>
-                    <label className="mb-2 block font-display text-xs font-bold uppercase tracking-[0.2em] text-[#d4a24a]">
-                      Notes / Allergies (optional)
-                    </label>
-                    <textarea
-                      name="notes"
-                      rows={4}
-                      maxLength={500}
-                      className="w-full rounded-xl border border-[#d4a24a]/30 bg-[#0d1a14]/60 px-4 py-3 text-[#f5e9c9] placeholder:text-[#f5e9c9]/40 focus:border-[#d4a24a] focus:outline-none focus:ring-2 focus:ring-[#d4a24a]/50"
-                    />
+
+                  <div className="space-y-4 pt-2">
+                    <div className="flex items-center justify-between">
+                      <h3 className="font-display text-sm font-bold uppercase tracking-[0.2em] text-[#7fb069]">
+                        Children Attending
+                      </h3>
+                      <span className="text-xs text-[#f5e9c9]/60">
+                        {children.length} {children.length === 1 ? "child" : "children"}
+                      </span>
+                    </div>
+
+                    {children.map((child, idx) => (
+                      <div
+                        key={idx}
+                        className="relative rounded-2xl border border-[#d4a24a]/30 bg-[#0d1a14]/60 p-5 backdrop-blur-sm"
+                      >
+                        <div className="mb-3 flex items-center justify-between">
+                          <span className="font-display text-xs font-bold uppercase tracking-[0.2em] text-[#d4a24a]">
+                            Child {idx + 1}
+                          </span>
+                          {children.length > 1 && (
+                            <button
+                              type="button"
+                              onClick={() => removeChild(idx)}
+                              aria-label={`Remove child ${idx + 1}`}
+                              className="flex h-7 w-7 items-center justify-center rounded-full bg-[#1b2a1f] text-[#f5e9c9]/70 transition-colors hover:bg-[#e8773a] hover:text-white"
+                            >
+                              <X className="h-4 w-4" />
+                            </button>
+                          )}
+                        </div>
+                        <div className="grid grid-cols-1 gap-4 md:grid-cols-[1fr_120px]">
+                          <ChildField
+                            label="Name"
+                            value={child.name}
+                            onChange={(v) => updateChild(idx, "name", v)}
+                            error={errors[`child-${idx}-name`]}
+                          />
+                          <ChildField
+                            label="Age"
+                            type="number"
+                            value={child.age}
+                            onChange={(v) => updateChild(idx, "age", v)}
+                            error={errors[`child-${idx}-age`]}
+                          />
+                        </div>
+                        <div className="mt-4">
+                          <label className="mb-2 block font-display text-xs font-bold uppercase tracking-[0.2em] text-[#d4a24a]">
+                            Notes / Allergies (optional)
+                          </label>
+                          <textarea
+                            rows={2}
+                            maxLength={500}
+                            value={child.notes}
+                            onChange={(e) => updateChild(idx, "notes", e.target.value)}
+                            className="w-full rounded-xl border border-[#d4a24a]/30 bg-[#0d1a14]/70 px-4 py-2.5 text-[#f5e9c9] placeholder:text-[#f5e9c9]/40 focus:border-[#d4a24a] focus:outline-none focus:ring-2 focus:ring-[#d4a24a]/50"
+                          />
+                        </div>
+                      </div>
+                    ))}
+
+                    <button
+                      type="button"
+                      onClick={addChild}
+                      className="inline-flex w-full items-center justify-center gap-2 rounded-xl border-2 border-dashed border-[#7fb069]/50 bg-transparent px-4 py-3 font-display text-sm font-bold uppercase tracking-wider text-[#7fb069] transition-all hover:border-[#7fb069] hover:bg-[#7fb069]/10"
+                    >
+                      <Plus className="h-4 w-4" />
+                      Add Another Child
+                    </button>
                   </div>
+
                   <button
                     type="submit"
                     disabled={formState.submitting}
