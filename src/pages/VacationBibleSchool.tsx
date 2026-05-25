@@ -146,7 +146,7 @@ const VacationBibleSchool = () => {
       />
       <div className="relative w-full overflow-hidden bg-[#0d1a14] text-[#f5e9c9]">
         {/* ========== HERO: VBS Sign ========== */}
-        <section className="relative flex min-h-[100vh] items-center justify-center overflow-hidden bg-[#0d1a14]">
+        <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#0d1a14] py-20 sm:py-24 md:py-32">
           <div
             className="absolute inset-0 z-0 scale-110"
             style={{
@@ -165,11 +165,11 @@ const VacationBibleSchool = () => {
               July 20–24, 2026
             </p>
             <h1
-              className="font-display text-6xl font-black uppercase leading-[0.9] tracking-tight text-[#f5e9c9] drop-shadow-[0_6px_30px_rgba(0,0,0,0.7)] sm:text-7xl md:text-8xl lg:text-9xl"
+              className="font-display text-5xl font-black uppercase leading-[0.9] tracking-tight text-[#f5e9c9] drop-shadow-[0_6px_30px_rgba(0,0,0,0.7)] sm:text-7xl md:text-8xl lg:text-9xl"
               style={{ transform: `translateY(${scrollY * -0.05}px)` }}
             >
               Vacation
-              <span className="mt-2 block font-display text-5xl italic text-[#7fb069] sm:text-6xl md:text-7xl lg:text-8xl">
+              <span className="mt-2 block font-display text-4xl italic text-[#7fb069] sm:text-6xl md:text-7xl lg:text-8xl">
                 Bible School
               </span>
             </h1>
