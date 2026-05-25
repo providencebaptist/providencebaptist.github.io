@@ -7,7 +7,7 @@ import forest from "@/assets/vbs-forest.jpg";
 import campfire from "@/assets/vbs-campfire.jpg";
 import tentNight from "@/assets/vbs-tent-night.jpg";
 import bibleLantern from "@/assets/vbs-bible-lantern.jpg";
-import { Compass, Flame, Tent, Binoculars, Calendar, Clock, MapPin, TreePine, Mountain } from "lucide-react";
+import { Compass, Flame, Tent, Binoculars, Calendar, Clock, MapPin, TreePine, Mountain, Plus, X } from "lucide-react";
 
 const useScrollY = () => {
   const [y, setY] = useState(0);
@@ -46,10 +46,16 @@ const formSchema = z.object({
   parentName: z.string().trim().min(1, "Name is required").max(100),
   email: z.string().trim().email("Valid email required").max(255),
   phone: z.string().trim().min(7, "Phone required").max(20),
-  childName: z.string().trim().min(1, "Child name required").max(100),
-  childAge: z.string().trim().min(1, "Age required").max(3),
+});
+
+const childSchema = z.object({
+  name: z.string().trim().min(1, "Name required").max(100),
+  age: z.string().trim().min(1, "Age required").max(3),
   notes: z.string().trim().max(500).optional(),
 });
+
+type Child = { name: string; age: string; notes: string };
+const emptyChild = (): Child => ({ name: "", age: "", notes: "" });
 
 const Adventure = ({
   Icon,
@@ -82,24 +88,62 @@ const Adventure = ({
 const VacationBibleSchool = () => {
   const scrollY = useScrollY();
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [children, setChildren] = useState<Child[]>([emptyChild()]);
   const [formState, handleFormspreeSubmit] = useForm("xgoqnvaz");
+
+  const updateChild = (i: number, key: keyof Child, value: string) => {
+    setChildren((prev) => prev.map((c, idx) => (idx === i ? { ...c, [key]: value } : c)));
+  };
+  const addChild = () => setChildren((prev) => [...prev, emptyChild()]);
+  const removeChild = (i: number) =>
+    setChildren((prev) => (prev.length === 1 ? prev : prev.filter((_, idx) => idx !== i)));
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     const fd = new FormData(form);
     const data = Object.fromEntries(fd) as Record<string, string>;
-    const result = formSchema.safeParse(data);
-    if (!result.success) {
-      const errs: Record<string, string> = {};
-      result.error.issues.forEach((i) => {
+    const parentResult = formSchema.safeParse(data);
+    const errs: Record<string, string> = {};
+    if (!parentResult.success) {
+      parentResult.error.issues.forEach((i) => {
         errs[i.path[0] as string] = i.message;
       });
+    }
+    children.forEach((c, idx) => {
+      const r = childSchema.safeParse(c);
+      if (!r.success) {
+        r.error.issues.forEach((iss) => {
+          errs[`child-${idx}-${iss.path[0]}`] = iss.message;
+        });
+      }
+    });
+    if (Object.keys(errs).length > 0) {
       setErrors(errs);
       return;
     }
     setErrors({});
-    handleFormspreeSubmit(form);
+
+    // Pack all children into a single "children" field for Formspree
+    const childrenSummary = children
+      .map(
+        (c, i) =>
+          `Child ${i + 1}: ${c.name} (Age ${c.age})${c.notes ? ` — Notes: ${c.notes}` : ""}`,
+      )
+      .join("\n");
+    fd.set("children", childrenSummary);
+    fd.set("childrenJson", JSON.stringify(children));
+    fd.set("childCount", String(children.length));
+    handleFormspreeSubmit(fd);
+  };
+
+  // unused legacy block to keep TS happy if hot reload caches anything
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _legacy = () => {
+    if (false) {
+      const errs: Record<string, string> = {};
+      setErrors(errs);
+    }
   };
 
   return (
