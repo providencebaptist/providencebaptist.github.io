@@ -243,7 +243,7 @@ const VacationBibleSchool = () => {
         </section>
 
         {/* ========== CAMPFIRE: Details ========== */}
-        <section className="relative flex min-h-[100vh] items-center justify-center overflow-hidden bg-[#0d1a14]">
+        <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#0d1a14] py-28 sm:py-32 md:py-40">
           <div
             className="absolute inset-0 z-0"
             style={{
@@ -256,19 +256,19 @@ const VacationBibleSchool = () => {
           <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-48 bg-gradient-to-b from-[#0d1a14] to-transparent" />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-48 bg-gradient-to-t from-[#0d1a14] to-transparent" />
           <div className="absolute inset-0 z-0 bg-[#0d1a14]/60" />
-          <div className="relative z-20 mx-6 max-w-2xl rounded-3xl border-2 border-[#d4a24a]/60 bg-[#f5e9c9] p-10 shadow-2xl shadow-black/60 md:p-14">
+          <div className="relative z-20 mx-4 max-w-2xl rounded-3xl border-2 border-[#d4a24a]/60 bg-[#f5e9c9] p-6 shadow-2xl shadow-black/60 sm:mx-6 sm:p-10 md:p-14">
             <div className="mb-6 flex justify-center">
               <div className="h-1 w-16 bg-[#1b2a1f]" />
             </div>
-            <div className="space-y-8 text-center text-[#1b2a1f]">
+            <div className="space-y-6 text-center text-[#1b2a1f] sm:space-y-8">
               <div>
                 <div className="mb-3 flex items-center justify-center gap-3 text-[#1b3a52]">
                   <Calendar className="h-7 w-7" />
                 </div>
-                <p className="font-display text-5xl font-black uppercase tracking-tight md:text-6xl">
+                <p className="font-display text-4xl font-black uppercase tracking-tight sm:text-5xl md:text-6xl">
                   July 20–24
                 </p>
-                <p className="mt-3 font-display text-3xl italic text-[#c8651f] md:text-4xl">
+                <p className="mt-3 font-display text-2xl italic text-[#c8651f] sm:text-3xl md:text-4xl">
                   ≈ 6PM – 8PM ≈
                 </p>
               </div>
@@ -277,7 +277,7 @@ const VacationBibleSchool = () => {
                 <div className="mb-3 flex items-center justify-center gap-3 text-[#1b3a52]">
                   <MapPin className="h-7 w-7" />
                 </div>
-                <p className="font-display text-2xl font-black uppercase md:text-3xl">
+                <p className="font-display text-xl font-black uppercase sm:text-2xl md:text-3xl">
                   Providence Baptist Church
                 </p>
                 <p className="mt-3 text-sm font-semibold uppercase tracking-wider text-[#1b2a1f]/80 md:text-base">
