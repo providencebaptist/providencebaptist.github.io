@@ -20,6 +20,7 @@ interface EventData {
   description: string;
   time?: string;
   location?: string;
+  link?: string;
 }
 
 type FilterType = "all" | "sunday" | "wednesday" | "sunday-school" | "bible-study" | "choir" | "outreach" | "special";
@@ -445,8 +446,24 @@ export function EventsCalendar({ events, activeFilter, searchQuery = "" }: Event
                         </Link>
                       )}
                     </div>
-                    <h4 className="font-display font-semibold text-foreground">{event.name}</h4>
+                    <h4 className="font-display font-semibold text-foreground">
+                      {event.link ? (
+                        <Link to={event.link} className="hover:text-primary transition-colors underline-offset-4 hover:underline">
+                          {event.name}
+                        </Link>
+                      ) : (
+                        event.name
+                      )}
+                    </h4>
                     <p className="text-sm text-muted-foreground mt-1">{event.description}</p>
+                    {event.link && (
+                      <Link
+                        to={event.link}
+                        className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline mt-2"
+                      >
+                        View event details →
+                      </Link>
+                    )}
                     {event.location && (
                       <div className="flex items-center gap-1.5 text-xs text-muted-foreground mt-2">
                         <MapPin className="w-3 h-3" />
