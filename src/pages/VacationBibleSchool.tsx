@@ -157,13 +157,6 @@ const VacationBibleSchool = () => {
             }}
           />
           <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#1a2e3d]/30 via-[#0d1a14]/10 to-[#0d1a14]" />
-          {/* Foreground pines */}
-          <div
-            className="pointer-events-none absolute -bottom-20 left-0 right-0 -z-0 h-72 bg-[url('/placeholder.svg')] bg-bottom bg-repeat-x"
-            style={{
-              transform: `translate3d(0, ${scrollY * -0.15}px, 0)`,
-            }}
-          />
           <div className="relative z-20 px-6 text-center">
             <p
               className="mb-6 inline-block rounded-full bg-[#1b2a1f]/80 px-6 py-2 font-display text-xs font-bold uppercase tracking-[0.3em] text-[#d4a24a] ring-1 ring-[#d4a24a]/50 backdrop-blur"
@@ -199,7 +192,7 @@ const VacationBibleSchool = () => {
 
           {/* Scroll cue */}
           <div className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2 animate-bounce">
-            <div className="flex flex-col items-center gap-2 rounded-full bg-[#0d1a14]/80 px-4 py-3 ring-1 ring-[#d4a24a]/40 backdrop-blur-sm">
+            <div className="flex flex-col items-center gap-2">
               <span className="font-display text-[10px] font-bold uppercase tracking-[0.3em] text-[#d4a24a]">Scroll</span>
               <div className="h-8 w-px bg-gradient-to-b from-[#d4a24a] to-transparent" />
             </div>
