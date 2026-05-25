@@ -110,7 +110,7 @@ const VacationBibleSchool = () => {
         {/* ========== HERO: VBS Sign ========== */}
         <section className="relative flex min-h-[100vh] items-center justify-center overflow-hidden">
           <div
-            className="absolute inset-0 -z-10 scale-110"
+            className="absolute inset-0 z-0 scale-110"
             style={{
               backgroundImage: `url(${mountains})`,
               backgroundSize: "cover",
@@ -118,7 +118,7 @@ const VacationBibleSchool = () => {
               transform: `translate3d(0, ${scrollY * 0.4}px, 0) scale(1.15)`,
             }}
           />
-          <div className="absolute inset-0 -z-10 bg-gradient-to-b from-[#1a2e3d]/30 via-[#0d1a14]/10 to-[#0d1a14]" />
+          <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#1a2e3d]/30 via-[#0d1a14]/10 to-[#0d1a14]" />
           {/* Foreground pines */}
           <div
             className="pointer-events-none absolute -bottom-20 left-0 right-0 -z-0 h-72 bg-[url('/placeholder.svg')] bg-bottom bg-repeat-x"
@@ -126,7 +126,7 @@ const VacationBibleSchool = () => {
               transform: `translate3d(0, ${scrollY * -0.15}px, 0)`,
             }}
           />
-          <div className="relative z-10 px-6 text-center">
+          <div className="relative z-20 px-6 text-center">
             <p
               className="mb-6 inline-block rounded-full bg-[#1b2a1f]/80 px-6 py-2 font-display text-xs font-bold uppercase tracking-[0.3em] text-[#d4a24a] ring-1 ring-[#d4a24a]/50 backdrop-blur"
               style={{ transform: `translateY(${scrollY * -0.1}px)` }}
@@ -171,7 +171,7 @@ const VacationBibleSchool = () => {
         {/* ========== FOREST: Theme ========== */}
         <section className="relative flex min-h-[90vh] items-center overflow-hidden">
           <div
-            className="absolute inset-0 -z-10"
+            className="absolute inset-0 z-0"
             style={{
               backgroundImage: `url(${forest})`,
               backgroundSize: "cover",
@@ -179,7 +179,7 @@ const VacationBibleSchool = () => {
               transform: `translate3d(0, ${(scrollY - 600) * 0.3}px, 0)`,
             }}
           />
-          <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#0d1a14] via-[#0d1a14]/70 to-transparent" />
+          <div className="absolute inset-0 z-0 bg-gradient-to-r from-[#0d1a14] via-[#0d1a14]/70 to-transparent" />
           <div className="container mx-auto grid grid-cols-1 gap-12 px-6 py-24 lg:grid-cols-2 lg:items-center">
             <div>
               <div className="mb-4 flex items-center gap-3 text-[#7fb069]">
@@ -210,7 +210,7 @@ const VacationBibleSchool = () => {
         {/* ========== CAMPFIRE: Details ========== */}
         <section className="relative flex min-h-[100vh] items-center justify-center overflow-hidden">
           <div
-            className="absolute inset-0 -z-10"
+            className="absolute inset-0 z-0"
             style={{
               backgroundImage: `url(${campfire})`,
               backgroundSize: "cover",
@@ -218,8 +218,8 @@ const VacationBibleSchool = () => {
               transform: `translate3d(0, ${(scrollY - 1400) * 0.25}px, 0) scale(1.1)`,
             }}
           />
-          <div className="absolute inset-0 -z-10 bg-[#0d1a14]/60" />
-          <div className="relative z-10 mx-6 max-w-2xl rounded-3xl border-2 border-[#d4a24a]/60 bg-[#f5e9c9] p-10 shadow-2xl shadow-black/60 md:p-14">
+          <div className="absolute inset-0 z-0 bg-[#0d1a14]/60" />
+          <div className="relative z-20 mx-6 max-w-2xl rounded-3xl border-2 border-[#d4a24a]/60 bg-[#f5e9c9] p-10 shadow-2xl shadow-black/60 md:p-14">
             <div className="mb-6 flex justify-center">
               <div className="h-1 w-16 bg-[#1b2a1f]" />
             </div>
@@ -256,7 +256,7 @@ const VacationBibleSchool = () => {
         {/* ========== STARRY NIGHT: Invitation ========== */}
         <section className="relative flex min-h-[90vh] items-center overflow-hidden">
           <div
-            className="absolute inset-0 -z-10"
+            className="absolute inset-0 z-0"
             style={{
               backgroundImage: `url(${tentNight})`,
               backgroundSize: "cover",
@@ -264,7 +264,7 @@ const VacationBibleSchool = () => {
               transform: `translate3d(0, ${(scrollY - 2200) * 0.3}px, 0)`,
             }}
           />
-          <div className="absolute inset-0 -z-10 bg-gradient-to-b from-[#0d1a14]/60 via-transparent to-[#0d1a14]" />
+          <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#0d1a14]/60 via-transparent to-[#0d1a14]" />
           <div className="container mx-auto px-6 py-24 text-center">
             <Mountain className="mx-auto mb-6 h-10 w-10 text-[#d4a24a]" />
             <h2 className="mx-auto max-w-3xl font-display text-5xl font-black uppercase leading-[0.95] text-[#f5e9c9] md:text-7xl">
@@ -284,7 +284,7 @@ const VacationBibleSchool = () => {
           className="relative flex min-h-screen items-center overflow-hidden py-24"
         >
           <div
-            className="absolute inset-0 -z-10"
+            className="absolute inset-0 z-0"
             style={{
               backgroundImage: `url(${bibleLantern})`,
               backgroundSize: "cover",
@@ -292,7 +292,7 @@ const VacationBibleSchool = () => {
               transform: `translate3d(0, ${(scrollY - 3000) * 0.2}px, 0)`,
             }}
           />
-          <div className="absolute inset-0 -z-10 bg-[#0d1a14]/85" />
+          <div className="absolute inset-0 z-0 bg-[#0d1a14]/85" />
           <div className="container mx-auto px-6">
             <div className="mx-auto max-w-2xl">
               <div className="mb-8 text-center">
