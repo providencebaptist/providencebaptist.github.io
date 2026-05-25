@@ -291,7 +291,7 @@ const VacationBibleSchool = () => {
         </section>
 
         {/* ========== STARRY NIGHT: Invitation ========== */}
-        <section className="relative flex min-h-[90vh] items-center overflow-hidden bg-[#0d1a14]">
+        <section className="relative flex min-h-screen items-center overflow-hidden bg-[#0d1a14]">
           <div
             className="absolute inset-0 z-0"
             style={{
@@ -303,14 +303,14 @@ const VacationBibleSchool = () => {
           />
           <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-48 bg-gradient-to-b from-[#0d1a14] to-transparent" />
           <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#0d1a14]/60 via-[#0d1a14]/30 to-[#0d1a14]" />
-          <div className="container relative z-20 mx-auto px-6 py-24 text-center">
-            <div className="mx-auto max-w-3xl rounded-3xl bg-[#0d1a14]/70 p-10 backdrop-blur-sm ring-1 ring-[#d4a24a]/20 md:p-14">
+          <div className="container relative z-20 mx-auto px-6 py-28 text-center sm:py-32 md:py-40">
+            <div className="mx-auto max-w-3xl rounded-3xl bg-[#0d1a14]/70 p-6 backdrop-blur-sm ring-1 ring-[#d4a24a]/20 sm:p-10 md:p-14">
               <Mountain className="mx-auto mb-6 h-10 w-10 text-[#d4a24a]" />
-              <h2 className="font-display text-5xl font-black uppercase leading-[0.95] text-[#f5e9c9] md:text-7xl">
+              <h2 className="font-display text-4xl font-black uppercase leading-[0.95] text-[#f5e9c9] sm:text-5xl md:text-7xl">
                 Let's grow in faith
                 <span className="mt-2 block italic text-[#7fb069]">together</span>
               </h2>
-              <p className="mx-auto mt-8 max-w-xl text-lg text-[#f5e9c9]/95">
+              <p className="mx-auto mt-8 max-w-xl text-base text-[#f5e9c9]/95 sm:text-lg">
                 Beneath wide-open skies and a million stars, hearts learn to listen.
                 Bring your kids, bring your friends, bring your wonder.
               </p>
