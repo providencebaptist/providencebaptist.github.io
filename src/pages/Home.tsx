@@ -24,6 +24,7 @@ import heroMothersDay from "@/assets/hero-mothers-day.jpg";
 import heroEaster from "@/assets/hero-easter.jpg";
 import heroChristmasCandlelight from "@/assets/hero-christmas-candlelight.jpg";
 import heroAnniversary from "@/assets/hero-anniversary.jpg";
+import heroTeenCamp from "@/assets/hero-teen-camp.jpg";
 import vbsForest from "@/assets/vbs-forest.jpg";
 import { useChurchData, type EventData } from "@/hooks/useChurchData";
 
@@ -164,6 +165,24 @@ const getSpecialHeroConfig = (event: EventData): SpecialHeroConfig => {
       subtitleClass: "text-amber-50/95 drop-shadow",
       eyebrowClass:
         "bg-black/60 backdrop-blur-sm text-amber-200 border border-amber-200/40",
+    };
+  }
+
+  if (name.includes("teen") && name.includes("camp")) {
+    return {
+      image: heroTeenCamp,
+      alt: "Teens playing paintball in the woods at church camp",
+      title: "Teen Church Camp",
+      subtitle:
+        "An unforgettable week of adventure, friendship, and faith — paintball in the pines, late-night worship, and lifelong memories.",
+      eyebrow: (e) => `${formatDate(e.date)}${e.time ? ` • ${e.time}` : ""} • Southland Camp, LA`,
+      ctaLabel: "See Camp Details",
+      ctaHref: "/events",
+      overlay: "bg-gradient-to-b from-black/50 via-black/30 to-black/80",
+      titleClass: "text-[#f5e9c9] drop-shadow-lg",
+      subtitleClass: "text-[#f5e9c9]/95 drop-shadow",
+      eyebrowClass:
+        "bg-[#0d1a14]/70 backdrop-blur-sm text-[#7fd06e] border border-[#7fd06e]/40",
     };
   }
 
