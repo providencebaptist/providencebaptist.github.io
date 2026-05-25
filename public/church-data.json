@@ -356,6 +356,7 @@
         { "name": "Kid's Choir Practice", "date": "July 26, 2026", "time": "10:00 AM", "description": "Keep those summer voices strong! Kids, choir practice is where friendships and faith grow together." },
         { "name": "Kid's Sunday School", "date": "July 26, 2026", "time": "11:00 AM", "description": "Summer learning is the best learning! Kids, come discover more about God's incredible love for you." },
         { "name": "Sunday Morning Worship", "date": "July 26, 2026", "time": "11:00 AM", "description": "End July in worship! Come thank God for summer blessings and prepare for the month ahead." },
+        { "name": "11 Year Anniversary Celebration", "date": "July 26, 2026", "time": "11:00 AM", "description": "Celebrate 11 years of God's faithfulness to Providence Baptist Church! Join us for a special anniversary worship service with heartfelt singing, powerful preaching, testimonies of God's goodness, and a fellowship meal to follow. Bring your family and invite a friend as we thank the Lord for another year of grace." },
         { "name": "Sunday Evening Service", "date": "July 26, 2026", "time": "5:30 PM", "description": "July's last Sunday evening is special! Join us for worship that will prepare your heart for August." },
         { "name": "Adult Church Choir Practice", "date": "July 26, 2026", "time": "7:00 PM", "description": "End the month singing! Our choir family invites you to practice and fellowship tonight." },
         { "name": "Ladies Bible Study", "date": "July 29, 2026", "time": "10:00 AM", "description": "Ladies, as summer winds down, let God's Word wind you up! Come find energy and encouragement here." },
@@ -617,6 +618,10 @@
         {
           "year": 2025,
           "event": "Celebrated 10 year anniversary"
+        },
+        {
+          "year": 2026,
+          "event": "Celebrated 11 year anniversary"
         }
       ]
     },

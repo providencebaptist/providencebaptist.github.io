@@ -52,7 +52,7 @@ const getEventCategories = (eventName: string): FilterType[] => {
   const categories: FilterType[] = [];
 
   // Special holiday events (also tagged as sunday)
-  if (name.includes("easter") || name.includes("mother's day") || name.includes("father's day") || name.includes("christmas candlelight")) {
+  if (name.includes("easter") || name.includes("mother's day") || name.includes("father's day") || name.includes("christmas candlelight") || name.includes("anniversary")) {
     categories.push("special", "sunday");
   }
 
