@@ -149,6 +149,24 @@ const getSpecialHeroConfig = (event: EventData): SpecialHeroConfig => {
     };
   }
 
+  if (name.includes("anniversary")) {
+    return {
+      image: heroAnniversary,
+      alt: "Country church at golden hour decorated for an anniversary celebration",
+      title: "11 Years of God's Faithfulness",
+      subtitle:
+        "Celebrate eleven years of grace, growth, and gospel ministry with our church family — worship, testimonies, and a fellowship meal to follow.",
+      eyebrow: (e) => `${formatDate(e.date)}${e.time ? ` • ${e.time}` : ""}`,
+      ctaLabel: "See Service Details",
+      ctaHref: "/events",
+      overlay: "bg-gradient-to-b from-black/40 via-black/25 to-black/70",
+      titleClass: "text-amber-50 drop-shadow-lg",
+      subtitleClass: "text-amber-50/95 drop-shadow",
+      eyebrowClass:
+        "bg-black/60 backdrop-blur-sm text-amber-200 border border-amber-200/40",
+    };
+  }
+
   // Default: any other special event still gets a slide using the community image.
   return {
     image: heroImage,
