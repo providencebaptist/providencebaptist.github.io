@@ -1,11 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Providence Baptist Church logo">
-  <defs>
-    <linearGradient id="pbca-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#2ecc71" />
-      <stop offset="100%" stop-color="#7c3aed" />
-    </linearGradient>
-  </defs>
-  <rect width="64" height="64" rx="14" fill="url(#pbca-gradient)" />
-  <rect x="29" y="15" width="6" height="34" rx="3" fill="#f7f7f7" />
-  <rect x="17" y="29" width="30" height="6" rx="3" fill="#f7f7f7" />
-</svg>
+<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><linearGradient id="a" x1="0%" x2="100%" y1="0%" y2="100%"><stop offset="0" stop-color="#2ecc71"/><stop offset="1" stop-color="#7c3aed"/></linearGradient><rect fill="url(#a)" height="64" rx="14" width="64"/><g fill="#f7f7f7"><rect height="34" rx="3" width="6" x="29" y="15"/><rect height="6" rx="3" width="30" x="17" y="29"/></g></svg>
