@@ -43,7 +43,7 @@ const getEventCategories = (eventName: string): EventCategory[] => {
   const categories: EventCategory[] = [];
 
   // Special holiday events (can also be sunday)
-  if (name.includes("easter") || name.includes("mother's day") || name.includes("father's day") || name.includes("christmas candlelight")) {
+  if (name.includes("easter") || name.includes("mother's day") || name.includes("father's day") || name.includes("christmas candlelight") || name.includes("anniversary")) {
     categories.push("special");
   }
 
