@@ -113,7 +113,7 @@ const About = () => {
                   </div>
                   <h3 className="text-xl font-bold mb-3 text-foreground">Glorify God</h3>
                   <p className="text-muted-foreground">
-                    In all we do—from worship to service—we seek to bring honor and glory to our Creator.
+                    In all we do, from worship to service, we seek to bring honor and glory to our Creator.
                   </p>
                 </CardContent>
               </Card>

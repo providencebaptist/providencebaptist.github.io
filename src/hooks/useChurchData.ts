@@ -150,7 +150,7 @@ export function useChurchData() {
           setNextSpecialEvent(nextSpecial);
         }
 
-        // Build the full list of upcoming special events (deduped by name —
+        // Build the full list of upcoming special events (deduped by name , 
         // multi-night events like VBS collapse to the first remaining night).
         const allSpecials = upcomingEvents.filter((e) =>
           getEventCategories(e.name).includes("special")

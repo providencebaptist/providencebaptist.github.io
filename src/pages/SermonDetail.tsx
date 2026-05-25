@@ -432,7 +432,7 @@ const SermonDetail = () => {
   const shareImage = sermon.thumbnailUrl || "https://pbcatx.org/placeholder.svg";
   const shareDescription =
     sermon.description?.trim() ||
-    `${sermon.title} — preached by ${sermon.speaker} on ${new Date(
+    `${sermon.title}, preached by ${sermon.speaker} on ${new Date(
       sermon.date
     ).toLocaleDateString("en-US", {
       year: "numeric",
@@ -440,7 +440,7 @@ const SermonDetail = () => {
       day: "numeric",
     })}${sermon.scripture ? ` from ${sermon.scripture}` : ""}. Listen or watch at Providence Baptist Church, Georgetown, TX.`;
 
-  // JSON-LD structured data — use a graph so each sermon page has rich,
+  // JSON-LD structured data, use a graph so each sermon page has rich,
   // page-specific schema (Article + VideoObject/AudioObject when available).
   const graph: object[] = [
     {

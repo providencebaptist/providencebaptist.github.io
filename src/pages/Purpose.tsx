@@ -178,7 +178,7 @@ const Purpose = () => {
                 <h2 className="text-4xl font-bold text-foreground">Our Vision</h2>
               </div>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                We aim to make a lasting impact at every level—from individual lives to the world stage
+                We aim to make a lasting impact at every level, from individual lives to the world stage
               </p>
             </div>
 
@@ -262,7 +262,7 @@ const Purpose = () => {
               </h3>
               <p className="text-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto">
                 We believe God has great plans for Providence Baptist Church. We invite you to be part 
-                of this vision—to see lives changed, families strengthened, and the Gospel spread to 
+                of this vision, to see lives changed, families strengthened, and the Gospel spread to 
                 the ends of the earth. Together, we can make an eternal impact.
               </p>
             </CardContent>
