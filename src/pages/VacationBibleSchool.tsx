@@ -81,12 +81,13 @@ const Adventure = ({
 
 const VacationBibleSchool = () => {
   const scrollY = useScrollY();
-  const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [formState, handleFormspreeSubmit] = useForm("xgoqnvaz");
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const fd = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const fd = new FormData(form);
     const data = Object.fromEntries(fd) as Record<string, string>;
     const result = formSchema.safeParse(data);
     if (!result.success) {
@@ -98,7 +99,7 @@ const VacationBibleSchool = () => {
       return;
     }
     setErrors({});
-    setSubmitted(true);
+    handleFormspreeSubmit(form);
   };
 
   return (
