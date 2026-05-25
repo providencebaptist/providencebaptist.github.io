@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, FormEvent } from "react";
+import { useForm, ValidationError } from "@formspree/react";
 import { z } from "zod";
 import SEO from "@/components/SEO";
 import mountains from "@/assets/vbs-mountains.jpg";
