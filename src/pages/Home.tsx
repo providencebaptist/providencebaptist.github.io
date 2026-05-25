@@ -121,7 +121,7 @@ const getSpecialHeroConfig = (event: EventData): SpecialHeroConfig => {
       title: "Vacation Bible School",
       subtitle:
         "Into the Great Outdoors, a week of faith, fun & adventure for your kids.",
-      eyebrow: () => "July 20–24, 2026 • 6PM–8PM",
+      eyebrow: (e) => `${formatDate(e.date)}${e.time ? ` • ${e.time}` : ""}`,
       ctaLabel: "Register Your Camper",
       ctaHref: "/vacation-bible-school-2026",
       overlay: "bg-gradient-to-b from-[#0d1a14]/70 via-[#0d1a14]/40 to-[#0d1a14]/80",
