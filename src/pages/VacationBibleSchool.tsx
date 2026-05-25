@@ -321,7 +321,7 @@ const VacationBibleSchool = () => {
         {/* ========== REGISTER ========== */}
         <section
           id="register"
-          className="relative flex min-h-screen items-center overflow-hidden py-24"
+          className="relative flex min-h-screen items-center overflow-hidden py-28 sm:py-32 md:py-40"
         >
           <div
             className="absolute inset-0 z-0"
