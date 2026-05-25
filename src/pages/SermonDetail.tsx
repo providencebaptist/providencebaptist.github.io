@@ -427,47 +427,97 @@ const SermonDetail = () => {
     );
   }
 
-  // JSON-LD structured data for the sermon
+  // Absolute URLs for social/SEO consumers
+  const pageUrl = `https://pbcatx.org/sermons/${sermon.id}`;
+  const shareImage = sermon.thumbnailUrl || "https://pbcatx.org/placeholder.svg";
+  const shareDescription =
+    sermon.description?.trim() ||
+    `${sermon.title} — preached by ${sermon.speaker} on ${new Date(
+      sermon.date
+    ).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    })}${sermon.scripture ? ` from ${sermon.scripture}` : ""}. Listen or watch at Providence Baptist Church, Georgetown, TX.`;
+
+  // JSON-LD structured data — use a graph so each sermon page has rich,
+  // page-specific schema (Article + VideoObject/AudioObject when available).
+  const graph: object[] = [
+    {
+      "@type": "Article",
+      "@id": `${pageUrl}#article`,
+      "headline": sermon.title,
+      "description": shareDescription,
+      "image": [shareImage],
+      "datePublished": sermon.date,
+      "dateModified": sermon.date,
+      "url": pageUrl,
+      "mainEntityOfPage": { "@type": "WebPage", "@id": pageUrl },
+      "author": {
+        "@type": "Person",
+        "name": sermon.speaker,
+        "jobTitle": "Pastor",
+      },
+      "publisher": {
+        "@type": "Church",
+        "name": "Providence Baptist Church",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://pbcatx.org/church-logo-fixed-40.png",
+        },
+      },
+      "about": { "@type": "Thing", "name": sermon.category },
+      "articleSection": "Sermons",
+      "keywords": [
+        sermon.category,
+        sermon.series,
+        sermon.scripture,
+        sermon.speaker,
+        "sermon",
+        "Providence Baptist Church",
+      ]
+        .filter(Boolean)
+        .join(", "),
+      "timeRequired": sermon.duration,
+    },
+  ];
+
+  if (sermon.videoUrl) {
+    graph.push({
+      "@type": "VideoObject",
+      "@id": `${pageUrl}#video`,
+      "name": sermon.title,
+      "description": shareDescription,
+      "thumbnailUrl": [shareImage],
+      "uploadDate": sermon.date,
+      "contentUrl": sermon.videoUrl,
+      "embedUrl": pageUrl,
+    });
+  }
+
+  if (sermon.audioUrl) {
+    graph.push({
+      "@type": "AudioObject",
+      "@id": `${pageUrl}#audio`,
+      "name": sermon.title,
+      "description": shareDescription,
+      "uploadDate": sermon.date,
+      "contentUrl": sermon.audioUrl,
+    });
+  }
+
   const sermonSchema = {
     "@context": "https://schema.org",
-    "@type": "Article",
-    "@id": `https://pbcatx.org/sermons/${sermon.id}`,
-    "headline": sermon.title,
-    "description": sermon.description,
-    "datePublished": sermon.date,
-    "author": {
-      "@type": "Person",
-      "name": sermon.speaker,
-      "jobTitle": "Pastor"
-    },
-    "publisher": {
-      "@type": "Church",
-      "name": "Providence Baptist Church",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://pbcatx.org/logo.png"
-      }
-    },
-    "about": {
-      "@type": "Thing",
-      "name": sermon.category
-    },
-    "articleSection": "Sermons",
-    "wordCount": sermon.transcript?.split(' ').length || 2500,
-    "timeRequired": sermon.duration,
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": `https://pbcatx.org/sermons/${sermon.id}`
-    }
+    "@graph": graph,
   };
 
   return (
     <div className="min-h-screen bg-background">
       <SEO
         title={`${sermon.title} - Sermon`}
-        description={sermon.description}
-        image={sermon.thumbnailUrl || "https://pbcatx.org/placeholder.svg"}
-        url={`https://pbcatx.org/sermons/${sermon.id}`}
+        description={shareDescription}
+        image={shareImage}
+        url={pageUrl}
         type="article"
         structuredData={sermonSchema}
       />
