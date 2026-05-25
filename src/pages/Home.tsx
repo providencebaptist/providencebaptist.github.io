@@ -23,6 +23,7 @@ import heroFathersDay from "@/assets/hero-fathers-day.jpg";
 import heroMothersDay from "@/assets/hero-mothers-day.jpg";
 import heroEaster from "@/assets/hero-easter.jpg";
 import heroChristmasCandlelight from "@/assets/hero-christmas-candlelight.jpg";
+import heroAnniversary from "@/assets/hero-anniversary.jpg";
 import vbsForest from "@/assets/vbs-forest.jpg";
 import { useChurchData, type EventData } from "@/hooks/useChurchData";
 
