@@ -7,7 +7,7 @@ import forest from "@/assets/vbs-forest.jpg";
 import campfire from "@/assets/vbs-campfire.jpg";
 import tentNight from "@/assets/vbs-tent-night.jpg";
 import bibleLantern from "@/assets/vbs-bible-lantern.jpg";
-import { Compass, Flame, Tent, Binoculars, Calendar, Clock, MapPin, TreePine, Mountain } from "lucide-react";
+import { Compass, Flame, Tent, Binoculars, Calendar, Clock, MapPin, TreePine, Mountain, Plus, X } from "lucide-react";
 
 const useScrollY = () => {
   const [y, setY] = useState(0);
@@ -46,10 +46,16 @@ const formSchema = z.object({
   parentName: z.string().trim().min(1, "Name is required").max(100),
   email: z.string().trim().email("Valid email required").max(255),
   phone: z.string().trim().min(7, "Phone required").max(20),
-  childName: z.string().trim().min(1, "Child name required").max(100),
-  childAge: z.string().trim().min(1, "Age required").max(3),
+});
+
+const childSchema = z.object({
+  name: z.string().trim().min(1, "Name required").max(100),
+  age: z.string().trim().min(1, "Age required").max(3),
   notes: z.string().trim().max(500).optional(),
 });
+
+type Child = { name: string; age: string; notes: string };
+const emptyChild = (): Child => ({ name: "", age: "", notes: "" });
 
 const Adventure = ({
   Icon,
@@ -82,25 +88,55 @@ const Adventure = ({
 const VacationBibleSchool = () => {
   const scrollY = useScrollY();
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [children, setChildren] = useState<Child[]>([emptyChild()]);
   const [formState, handleFormspreeSubmit] = useForm("xgoqnvaz");
+
+  const updateChild = (i: number, key: keyof Child, value: string) => {
+    setChildren((prev) => prev.map((c, idx) => (idx === i ? { ...c, [key]: value } : c)));
+  };
+  const addChild = () => setChildren((prev) => [...prev, emptyChild()]);
+  const removeChild = (i: number) =>
+    setChildren((prev) => (prev.length === 1 ? prev : prev.filter((_, idx) => idx !== i)));
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     const fd = new FormData(form);
     const data = Object.fromEntries(fd) as Record<string, string>;
-    const result = formSchema.safeParse(data);
-    if (!result.success) {
-      const errs: Record<string, string> = {};
-      result.error.issues.forEach((i) => {
+    const parentResult = formSchema.safeParse(data);
+    const errs: Record<string, string> = {};
+    if (!parentResult.success) {
+      parentResult.error.issues.forEach((i) => {
         errs[i.path[0] as string] = i.message;
       });
+    }
+    children.forEach((c, idx) => {
+      const r = childSchema.safeParse(c);
+      if (!r.success) {
+        r.error.issues.forEach((iss) => {
+          errs[`child-${idx}-${iss.path[0]}`] = iss.message;
+        });
+      }
+    });
+    if (Object.keys(errs).length > 0) {
       setErrors(errs);
       return;
     }
     setErrors({});
-    handleFormspreeSubmit(form);
+
+    // Pack all children into a single "children" field for Formspree
+    const childrenSummary = children
+      .map(
+        (c, i) =>
+          `Child ${i + 1}: ${c.name} (Age ${c.age})${c.notes ? ` — Notes: ${c.notes}` : ""}`,
+      )
+      .join("\n");
+    fd.set("children", childrenSummary);
+    fd.set("childrenJson", JSON.stringify(children));
+    fd.set("childCount", String(children.length));
+    handleFormspreeSubmit(fd);
   };
+
 
   return (
     <>
@@ -110,7 +146,7 @@ const VacationBibleSchool = () => {
       />
       <div className="relative w-full overflow-hidden bg-[#0d1a14] text-[#f5e9c9]">
         {/* ========== HERO: VBS Sign ========== */}
-        <section className="relative flex min-h-[100vh] items-center justify-center overflow-hidden">
+        <section className="relative flex min-h-[100vh] items-center justify-center overflow-hidden bg-[#0d1a14]">
           <div
             className="absolute inset-0 z-0 scale-110"
             style={{
@@ -171,7 +207,7 @@ const VacationBibleSchool = () => {
         </section>
 
         {/* ========== FOREST: Theme ========== */}
-        <section className="relative flex min-h-[90vh] items-center overflow-hidden">
+        <section className="relative flex min-h-[90vh] items-center overflow-hidden bg-[#0d1a14]">
           <div
             className="absolute inset-0 z-0"
             style={{
@@ -181,6 +217,10 @@ const VacationBibleSchool = () => {
               transform: `translate3d(0, ${(scrollY - 600) * 0.3}px, 0)`,
             }}
           />
+          {/* Top fade — kills the bright sunset band where this section meets the hero */}
+          <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-64 bg-gradient-to-b from-[#0d1a14] via-[#0d1a14]/80 to-transparent" />
+          {/* Bottom fade — smooths transition into the next dark section */}
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-48 bg-gradient-to-t from-[#0d1a14] to-transparent" />
           <div className="absolute inset-0 z-0 bg-gradient-to-r from-[#0d1a14]/95 via-[#0d1a14]/75 to-[#0d1a14]/50" />
           <div className="container relative z-20 mx-auto grid grid-cols-1 gap-12 px-6 py-24 lg:grid-cols-2 lg:items-center">
             <div className="rounded-3xl bg-[#0d1a14]/70 p-8 backdrop-blur-sm ring-1 ring-[#d4a24a]/20 md:p-10">
@@ -210,7 +250,7 @@ const VacationBibleSchool = () => {
         </section>
 
         {/* ========== CAMPFIRE: Details ========== */}
-        <section className="relative flex min-h-[100vh] items-center justify-center overflow-hidden">
+        <section className="relative flex min-h-[100vh] items-center justify-center overflow-hidden bg-[#0d1a14]">
           <div
             className="absolute inset-0 z-0"
             style={{
@@ -220,6 +260,8 @@ const VacationBibleSchool = () => {
               transform: `translate3d(0, ${(scrollY - 1400) * 0.25}px, 0) scale(1.1)`,
             }}
           />
+          <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-48 bg-gradient-to-b from-[#0d1a14] to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-48 bg-gradient-to-t from-[#0d1a14] to-transparent" />
           <div className="absolute inset-0 z-0 bg-[#0d1a14]/60" />
           <div className="relative z-20 mx-6 max-w-2xl rounded-3xl border-2 border-[#d4a24a]/60 bg-[#f5e9c9] p-10 shadow-2xl shadow-black/60 md:p-14">
             <div className="mb-6 flex justify-center">
@@ -256,7 +298,7 @@ const VacationBibleSchool = () => {
         </section>
 
         {/* ========== STARRY NIGHT: Invitation ========== */}
-        <section className="relative flex min-h-[90vh] items-center overflow-hidden">
+        <section className="relative flex min-h-[90vh] items-center overflow-hidden bg-[#0d1a14]">
           <div
             className="absolute inset-0 z-0"
             style={{
@@ -266,7 +308,8 @@ const VacationBibleSchool = () => {
               transform: `translate3d(0, ${(scrollY - 2200) * 0.3}px, 0)`,
             }}
           />
-          <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#0d1a14]/80 via-[#0d1a14]/40 to-[#0d1a14]" />
+          <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-48 bg-gradient-to-b from-[#0d1a14] to-transparent" />
+          <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#0d1a14]/60 via-[#0d1a14]/30 to-[#0d1a14]" />
           <div className="container relative z-20 mx-auto px-6 py-24 text-center">
             <div className="mx-auto max-w-3xl rounded-3xl bg-[#0d1a14]/70 p-10 backdrop-blur-sm ring-1 ring-[#d4a24a]/20 md:p-14">
               <Mountain className="mx-auto mb-6 h-10 w-10 text-[#d4a24a]" />
@@ -335,20 +378,78 @@ const VacationBibleSchool = () => {
                     />
                     <Field name="email" label="Email" type="email" error={errors.email} />
                     <Field name="phone" label="Phone" type="tel" error={errors.phone} />
-                    <Field name="childAge" label="Child's Age" type="number" error={errors.childAge} />
                   </div>
-                  <Field name="childName" label="Child's Name" error={errors.childName} />
-                  <div>
-                    <label className="mb-2 block font-display text-xs font-bold uppercase tracking-[0.2em] text-[#d4a24a]">
-                      Notes / Allergies (optional)
-                    </label>
-                    <textarea
-                      name="notes"
-                      rows={4}
-                      maxLength={500}
-                      className="w-full rounded-xl border border-[#d4a24a]/30 bg-[#0d1a14]/60 px-4 py-3 text-[#f5e9c9] placeholder:text-[#f5e9c9]/40 focus:border-[#d4a24a] focus:outline-none focus:ring-2 focus:ring-[#d4a24a]/50"
-                    />
+
+                  <div className="space-y-4 pt-2">
+                    <div className="flex items-center justify-between">
+                      <h3 className="font-display text-sm font-bold uppercase tracking-[0.2em] text-[#7fb069]">
+                        Children Attending
+                      </h3>
+                      <span className="text-xs text-[#f5e9c9]/60">
+                        {children.length} {children.length === 1 ? "child" : "children"}
+                      </span>
+                    </div>
+
+                    {children.map((child, idx) => (
+                      <div
+                        key={idx}
+                        className="relative rounded-2xl border border-[#d4a24a]/30 bg-[#0d1a14]/60 p-5 backdrop-blur-sm"
+                      >
+                        <div className="mb-3 flex items-center justify-between">
+                          <span className="font-display text-xs font-bold uppercase tracking-[0.2em] text-[#d4a24a]">
+                            Child {idx + 1}
+                          </span>
+                          {children.length > 1 && (
+                            <button
+                              type="button"
+                              onClick={() => removeChild(idx)}
+                              aria-label={`Remove child ${idx + 1}`}
+                              className="flex h-7 w-7 items-center justify-center rounded-full bg-[#1b2a1f] text-[#f5e9c9]/70 transition-colors hover:bg-[#e8773a] hover:text-white"
+                            >
+                              <X className="h-4 w-4" />
+                            </button>
+                          )}
+                        </div>
+                        <div className="grid grid-cols-1 gap-4 md:grid-cols-[1fr_120px]">
+                          <ChildField
+                            label="Name"
+                            value={child.name}
+                            onChange={(v) => updateChild(idx, "name", v)}
+                            error={errors[`child-${idx}-name`]}
+                          />
+                          <ChildField
+                            label="Age"
+                            type="number"
+                            value={child.age}
+                            onChange={(v) => updateChild(idx, "age", v)}
+                            error={errors[`child-${idx}-age`]}
+                          />
+                        </div>
+                        <div className="mt-4">
+                          <label className="mb-2 block font-display text-xs font-bold uppercase tracking-[0.2em] text-[#d4a24a]">
+                            Notes / Allergies (optional)
+                          </label>
+                          <textarea
+                            rows={2}
+                            maxLength={500}
+                            value={child.notes}
+                            onChange={(e) => updateChild(idx, "notes", e.target.value)}
+                            className="w-full rounded-xl border border-[#d4a24a]/30 bg-[#0d1a14]/70 px-4 py-2.5 text-[#f5e9c9] placeholder:text-[#f5e9c9]/40 focus:border-[#d4a24a] focus:outline-none focus:ring-2 focus:ring-[#d4a24a]/50"
+                          />
+                        </div>
+                      </div>
+                    ))}
+
+                    <button
+                      type="button"
+                      onClick={addChild}
+                      className="inline-flex w-full items-center justify-center gap-2 rounded-xl border-2 border-dashed border-[#7fb069]/50 bg-transparent px-4 py-3 font-display text-sm font-bold uppercase tracking-wider text-[#7fb069] transition-all hover:border-[#7fb069] hover:bg-[#7fb069]/10"
+                    >
+                      <Plus className="h-4 w-4" />
+                      Add Another Child
+                    </button>
                   </div>
+
                   <button
                     type="submit"
                     disabled={formState.submitting}
@@ -387,6 +488,34 @@ const Field = ({
       type={type}
       maxLength={255}
       className="w-full rounded-xl border border-[#d4a24a]/30 bg-[#0d1a14]/60 px-4 py-3 text-[#f5e9c9] placeholder:text-[#f5e9c9]/40 focus:border-[#d4a24a] focus:outline-none focus:ring-2 focus:ring-[#d4a24a]/50"
+    />
+    {error && <p className="mt-1 text-xs text-[#e8773a]">{error}</p>}
+  </div>
+);
+
+const ChildField = ({
+  label,
+  value,
+  onChange,
+  type = "text",
+  error,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  type?: string;
+  error?: string;
+}) => (
+  <div>
+    <label className="mb-2 block font-display text-xs font-bold uppercase tracking-[0.2em] text-[#d4a24a]">
+      {label}
+    </label>
+    <input
+      type={type}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      maxLength={100}
+      className="w-full rounded-xl border border-[#d4a24a]/30 bg-[#0d1a14]/70 px-4 py-2.5 text-[#f5e9c9] placeholder:text-[#f5e9c9]/40 focus:border-[#d4a24a] focus:outline-none focus:ring-2 focus:ring-[#d4a24a]/50"
     />
     {error && <p className="mt-1 text-xs text-[#e8773a]">{error}</p>}
   </div>
