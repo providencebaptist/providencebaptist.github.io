@@ -137,14 +137,6 @@ const VacationBibleSchool = () => {
     handleFormspreeSubmit(fd);
   };
 
-  // unused legacy block to keep TS happy if hot reload caches anything
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const _legacy = () => {
-    if (false) {
-      const errs: Record<string, string> = {};
-      setErrors(errs);
-    }
-  };
 
   return (
     <>
