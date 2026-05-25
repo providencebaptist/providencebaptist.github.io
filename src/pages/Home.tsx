@@ -20,13 +20,155 @@ import galleryFellowship from "@/assets/gallery-fellowship.jpg";
 import galleryOutreach from "@/assets/gallery-outreach.jpg";
 import galleryBiblestudy from "@/assets/gallery-biblestudy.jpg";
 import heroFathersDay from "@/assets/hero-fathers-day.jpg";
+import heroMothersDay from "@/assets/hero-mothers-day.jpg";
+import heroEaster from "@/assets/hero-easter.jpg";
+import heroChristmasCandlelight from "@/assets/hero-christmas-candlelight.jpg";
 import vbsForest from "@/assets/vbs-forest.jpg";
-import { useChurchData } from "@/hooks/useChurchData";
+import { useChurchData, type EventData } from "@/hooks/useChurchData";
+
+// Map a special event name → themed hero artwork + CTA configuration.
+// Falls back to a tasteful default for any unmapped special event so every
+// special on the calendar always has a matching carousel slide.
+type SpecialHeroConfig = {
+  image: string;
+  alt: string;
+  eyebrow?: (e: EventData) => string;
+  title: string;
+  subtitle: string;
+  ctaLabel: string;
+  ctaHref: string;
+  overlay: string;
+  titleClass: string;
+  subtitleClass: string;
+  eyebrowClass: string;
+  ctaClass?: string;
+};
+
+const formatDate = (date: string) => {
+  const d = new Date(date);
+  return d.toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+};
+
+const getSpecialHeroConfig = (event: EventData): SpecialHeroConfig => {
+  const name = event.name.toLowerCase();
+
+  if (name.includes("easter")) {
+    return {
+      image: heroEaster,
+      alt: "Empty tomb at sunrise with Easter lilies and a distant cross",
+      title: "He Is Risen!",
+      subtitle:
+        "Celebrate the resurrection of our Lord with inspiring music, powerful preaching, and the joy of the empty tomb.",
+      eyebrow: (e) => `${formatDate(e.date)}${e.time ? ` • ${e.time}` : ""}`,
+      ctaLabel: "See Service Details",
+      ctaHref: "/events",
+      overlay: "bg-gradient-to-b from-black/40 via-black/30 to-black/70",
+      titleClass: "text-white drop-shadow-lg",
+      subtitleClass: "text-white/95 drop-shadow",
+      eyebrowClass:
+        "bg-black/60 backdrop-blur-sm text-white border border-white/20",
+    };
+  }
+
+  if (name.includes("mother")) {
+    return {
+      image: heroMothersDay,
+      alt: "Mother and child walking through a field of soft flowers at sunset",
+      title: "Celebrating Mothers",
+      subtitle:
+        "Join us as we honor the godly women who shape our families and our faith.",
+      eyebrow: (e) => `${formatDate(e.date)}${e.time ? ` • ${e.time}` : ""}`,
+      ctaLabel: "See Service Details",
+      ctaHref: "/events",
+      overlay: "bg-gradient-to-b from-black/30 via-black/20 to-black/60",
+      titleClass: "text-white drop-shadow-lg",
+      subtitleClass: "text-white/95 drop-shadow",
+      eyebrowClass:
+        "bg-black/60 backdrop-blur-sm text-white border border-white/20",
+    };
+  }
+
+  if (name.includes("father")) {
+    return {
+      image: heroFathersDay,
+      alt: "Father walking with his children at sunset by a country church",
+      title: "Celebrating Fathers",
+      subtitle:
+        "Join us as we honor the dads, granddads, and father figures who lead with faith.",
+      eyebrow: (e) => `${formatDate(e.date)}${e.time ? ` • ${e.time}` : ""}`,
+      ctaLabel: "See Service Details",
+      ctaHref: "/events",
+      overlay: "bg-gradient-to-r from-black/70 via-black/40 to-black/70",
+      titleClass: "text-white drop-shadow-lg",
+      subtitleClass: "text-white/95 drop-shadow",
+      eyebrowClass:
+        "bg-black/60 backdrop-blur-sm text-white border border-white/20",
+    };
+  }
+
+  if (name.includes("vacation bible") || name.includes("vbs")) {
+    return {
+      image: vbsForest,
+      alt: "Forest and mountains — Vacation Bible School 2026 Into the Great Outdoors",
+      title: "Vacation Bible School",
+      subtitle:
+        "Into the Great Outdoors — a week of faith, fun & adventure for your kids.",
+      eyebrow: () => "July 20–24, 2026 • 6PM–8PM",
+      ctaLabel: "Register Your Camper",
+      ctaHref: "/vacation-bible-school-2026",
+      overlay: "bg-gradient-to-b from-[#0d1a14]/70 via-[#0d1a14]/40 to-[#0d1a14]/80",
+      titleClass: "text-[#f5e9c9] drop-shadow-lg",
+      subtitleClass: "text-[#f5e9c9]/95 drop-shadow",
+      eyebrowClass:
+        "bg-[#0d1a14]/70 backdrop-blur-sm text-[#d4a24a] border border-[#d4a24a]/40",
+      ctaClass: "bg-[#d4a24a] text-[#1b2a1f] hover:bg-[#e8b85a]",
+    };
+  }
+
+  if (name.includes("christmas") || name.includes("candlelight")) {
+    return {
+      image: heroChristmasCandlelight,
+      alt: "Christmas candlelight service in a glowing sanctuary",
+      title: "Christmas Candlelight",
+      subtitle:
+        "An evening of carols, candlelight, and Scripture as we celebrate the birth of our Savior.",
+      eyebrow: (e) => `${formatDate(e.date)}${e.time ? ` • ${e.time}` : ""}`,
+      ctaLabel: "See Service Details",
+      ctaHref: "/events",
+      overlay: "bg-gradient-to-b from-black/50 via-black/30 to-black/70",
+      titleClass: "text-amber-50 drop-shadow-lg",
+      subtitleClass: "text-amber-50/95 drop-shadow",
+      eyebrowClass:
+        "bg-black/60 backdrop-blur-sm text-amber-200 border border-amber-200/30",
+    };
+  }
+
+  // Default: any other special event still gets a slide using the community image.
+  return {
+    image: heroImage,
+    alt: event.name,
+    title: event.name,
+    subtitle: event.description,
+    eyebrow: (e) => `${formatDate(e.date)}${e.time ? ` • ${e.time}` : ""}`,
+    ctaLabel: "View All Events",
+    ctaHref: "/events",
+    overlay: "bg-gradient-to-r from-primary/90 to-primary/60",
+    titleClass: "text-primary-foreground drop-shadow-lg",
+    subtitleClass: "text-primary-foreground/95 drop-shadow",
+    eyebrowClass:
+      "bg-black/50 backdrop-blur-sm text-white border border-white/20",
+  };
+};
 
 const Home = () => {
-  const { nextEvent, nextSpecialEvent } = useChurchData();
+  const { nextEvent, nextSpecialEvent, specialEvents } = useChurchData();
   const heroAutoplay = useRef(
-    Autoplay({ delay: 6000, stopOnInteraction: false, stopOnMouseEnter: true })
+    Autoplay({ delay: 10000, stopOnInteraction: false, stopOnMouseEnter: true })
   );
   return (
     <div className="min-h-screen">
@@ -76,71 +218,55 @@ const Home = () => {
               </div>
             </CarouselItem>
 
-            {/* Slide 2: Father's Day */}
-            <CarouselItem>
-              <div className="relative h-[500px] sm:h-[600px] md:h-[700px] flex items-center justify-center overflow-hidden">
-                <div className="absolute inset-0 z-0">
-                  <img
-                    src={heroFathersDay}
-                    alt="Father walking with his children at sunset by a country church"
-                    className="w-full h-full object-cover object-center"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/70" />
-                </div>
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8 z-10 text-center">
-                  <p className="inline-block bg-black/60 backdrop-blur-sm rounded-full px-4 py-1.5 text-sm sm:text-base uppercase tracking-[0.25em] text-white mb-4 sm:mb-5 font-bold drop-shadow-lg">
-                    Sunday, June 21, 2026
-                  </p>
-                  <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 drop-shadow-lg">
-                    Celebrating Fathers
-                  </h1>
-                  <p className="text-lg sm:text-xl md:text-2xl text-white/95 mb-6 sm:mb-8 max-w-3xl mx-auto px-4 drop-shadow">
-                    Join us this Father's Day as we honor the dads, granddads,
-                    and father figures who lead with faith.
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
-                    <Button asChild variant="secondary" size="lg" className="min-h-[44px]">
-                      <Link to="/events">See Service Details</Link>
-                    </Button>
+            {/* Dynamic special-event slides — auto-hide once an event has passed (handled in useChurchData) */}
+            {specialEvents.map((event) => {
+              const cfg = getSpecialHeroConfig(event);
+              return (
+                <CarouselItem key={`${event.name}-${event.date}`}>
+                  <div className="relative h-[500px] sm:h-[600px] md:h-[700px] flex items-center justify-center overflow-hidden">
+                    <div className="absolute inset-0 z-0">
+                      <img
+                        src={cfg.image}
+                        alt={cfg.alt}
+                        className="w-full h-full object-cover object-center"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                      <div className={`absolute inset-0 ${cfg.overlay}`} />
+                    </div>
+                    <div className="container mx-auto px-4 sm:px-6 lg:px-8 z-10 text-center">
+                      {cfg.eyebrow && (
+                        <p
+                          className={`inline-block rounded-full px-4 py-1.5 text-xs sm:text-sm uppercase tracking-[0.25em] mb-4 sm:mb-5 font-bold ${cfg.eyebrowClass}`}
+                        >
+                          {cfg.eyebrow(event)}
+                        </p>
+                      )}
+                      <h2
+                        className={`text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 ${cfg.titleClass}`}
+                      >
+                        {cfg.title}
+                      </h2>
+                      <p
+                        className={`text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 max-w-3xl mx-auto px-4 ${cfg.subtitleClass}`}
+                      >
+                        {cfg.subtitle}
+                      </p>
+                      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
+                        <Button
+                          asChild
+                          size="lg"
+                          className={`min-h-[44px] ${cfg.ctaClass ?? ""}`}
+                          variant={cfg.ctaClass ? "default" : "secondary"}
+                        >
+                          <Link to={cfg.ctaHref}>{cfg.ctaLabel}</Link>
+                        </Button>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </CarouselItem>
-
-            {/* Slide 3: VBS 2026 */}
-            <CarouselItem>
-              <div className="relative h-[500px] sm:h-[600px] md:h-[700px] flex items-center justify-center overflow-hidden">
-                <div className="absolute inset-0 z-0">
-                  <img
-                    src={vbsForest}
-                    alt="Forest and mountains — Vacation Bible School 2026 Into the Great Outdoors"
-                    className="w-full h-full object-cover object-center"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-b from-[#0d1a14]/70 via-[#0d1a14]/40 to-[#0d1a14]/80" />
-                </div>
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8 z-10 text-center">
-                  <p className="text-xs sm:text-sm uppercase tracking-[0.3em] text-[#d4a24a] mb-3 sm:mb-4 font-semibold">
-                    July 20–24, 2026 • 6PM–8PM
-                  </p>
-                  <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-[#f5e9c9] mb-4 sm:mb-6 drop-shadow-lg">
-                    Vacation Bible School
-                  </h1>
-                  <p className="text-lg sm:text-xl md:text-2xl text-[#f5e9c9]/95 mb-6 sm:mb-8 max-w-3xl mx-auto px-4 drop-shadow">
-                    Into the Great Outdoors — a week of faith, fun & adventure
-                    for your kids.
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
-                    <Button asChild size="lg" className="bg-[#d4a24a] text-[#1b2a1f] hover:bg-[#e8b85a] min-h-[44px]">
-                      <Link to="/vacation-bible-school-2026">Register Your Camper</Link>
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </CarouselItem>
+                </CarouselItem>
+              );
+            })}
           </CarouselContent>
           <CarouselPrevious className="hidden md:flex left-4 z-20 bg-white/20 border-white/40 text-white hover:bg-white/40" />
           <CarouselNext className="hidden md:flex right-4 z-20 bg-white/20 border-white/40 text-white hover:bg-white/40" />
