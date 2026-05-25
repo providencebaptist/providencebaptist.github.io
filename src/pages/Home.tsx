@@ -90,7 +90,7 @@ const Home = () => {
                   <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/70" />
                 </div>
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8 z-10 text-center">
-                  <p className="text-xs sm:text-sm uppercase tracking-[0.3em] text-accent mb-3 sm:mb-4 font-semibold">
+                  <p className="inline-block bg-black/60 backdrop-blur-sm rounded-full px-4 py-1.5 text-sm sm:text-base uppercase tracking-[0.25em] text-white mb-4 sm:mb-5 font-bold drop-shadow-lg">
                     Sunday, June 21, 2026
                   </p>
                   <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 drop-shadow-lg">
