@@ -486,4 +486,32 @@ const Field = ({
   </div>
 );
 
+const ChildField = ({
+  label,
+  value,
+  onChange,
+  type = "text",
+  error,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  type?: string;
+  error?: string;
+}) => (
+  <div>
+    <label className="mb-2 block font-display text-xs font-bold uppercase tracking-[0.2em] text-[#d4a24a]">
+      {label}
+    </label>
+    <input
+      type={type}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      maxLength={100}
+      className="w-full rounded-xl border border-[#d4a24a]/30 bg-[#0d1a14]/70 px-4 py-2.5 text-[#f5e9c9] placeholder:text-[#f5e9c9]/40 focus:border-[#d4a24a] focus:outline-none focus:ring-2 focus:ring-[#d4a24a]/50"
+    />
+    {error && <p className="mt-1 text-xs text-[#e8773a]">{error}</p>}
+  </div>
+);
+
 export default VacationBibleSchool;
