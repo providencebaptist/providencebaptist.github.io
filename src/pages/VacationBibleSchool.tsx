@@ -181,9 +181,9 @@ const VacationBibleSchool = () => {
               transform: `translate3d(0, ${(scrollY - 600) * 0.3}px, 0)`,
             }}
           />
-          <div className="absolute inset-0 z-0 bg-gradient-to-r from-[#0d1a14] via-[#0d1a14]/70 to-transparent" />
-          <div className="container mx-auto grid grid-cols-1 gap-12 px-6 py-24 lg:grid-cols-2 lg:items-center">
-            <div>
+          <div className="absolute inset-0 z-0 bg-gradient-to-r from-[#0d1a14]/95 via-[#0d1a14]/75 to-[#0d1a14]/50" />
+          <div className="container relative z-20 mx-auto grid grid-cols-1 gap-12 px-6 py-24 lg:grid-cols-2 lg:items-center">
+            <div className="rounded-3xl bg-[#0d1a14]/70 p-8 backdrop-blur-sm ring-1 ring-[#d4a24a]/20 md:p-10">
               <div className="mb-4 flex items-center gap-3 text-[#7fb069]">
                 <TreePine className="h-6 w-6" />
                 <span className="font-display text-sm font-bold uppercase tracking-[0.3em]">
@@ -194,7 +194,7 @@ const VacationBibleSchool = () => {
                 Into the
                 <span className="block italic text-[#d4a24a]">Great Outdoors</span>
               </h2>
-              <p className="mt-6 max-w-lg text-lg leading-relaxed text-[#f5e9c9]/80">
+              <p className="mt-6 max-w-lg text-lg leading-relaxed text-[#f5e9c9]/95">
                 Pack your gear and your faith — we're heading into the wild for an
                 unforgettable week of Bible stories, campfire games, mountain-sized
                 wonder, and friendships that last long after the embers fade.
@@ -266,17 +266,19 @@ const VacationBibleSchool = () => {
               transform: `translate3d(0, ${(scrollY - 2200) * 0.3}px, 0)`,
             }}
           />
-          <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#0d1a14]/60 via-transparent to-[#0d1a14]" />
-          <div className="container mx-auto px-6 py-24 text-center">
-            <Mountain className="mx-auto mb-6 h-10 w-10 text-[#d4a24a]" />
-            <h2 className="mx-auto max-w-3xl font-display text-5xl font-black uppercase leading-[0.95] text-[#f5e9c9] md:text-7xl">
-              Let's grow in faith
-              <span className="mt-2 block italic text-[#7fb069]">together</span>
-            </h2>
-            <p className="mx-auto mt-8 max-w-xl text-lg text-[#f5e9c9]/80">
-              Beneath wide-open skies and a million stars, hearts learn to listen.
-              Bring your kids, bring your friends, bring your wonder.
-            </p>
+          <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#0d1a14]/80 via-[#0d1a14]/40 to-[#0d1a14]" />
+          <div className="container relative z-20 mx-auto px-6 py-24 text-center">
+            <div className="mx-auto max-w-3xl rounded-3xl bg-[#0d1a14]/70 p-10 backdrop-blur-sm ring-1 ring-[#d4a24a]/20 md:p-14">
+              <Mountain className="mx-auto mb-6 h-10 w-10 text-[#d4a24a]" />
+              <h2 className="font-display text-5xl font-black uppercase leading-[0.95] text-[#f5e9c9] md:text-7xl">
+                Let's grow in faith
+                <span className="mt-2 block italic text-[#7fb069]">together</span>
+              </h2>
+              <p className="mx-auto mt-8 max-w-xl text-lg text-[#f5e9c9]/95">
+                Beneath wide-open skies and a million stars, hearts learn to listen.
+                Bring your kids, bring your friends, bring your wonder.
+              </p>
+            </div>
           </div>
         </section>
 
