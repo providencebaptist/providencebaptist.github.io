@@ -77,6 +77,7 @@ export function useChurchData() {
   const [nextEvent, setNextEvent] = useState<EventData | null>(null);
   const [nextSpecialEvent, setNextSpecialEvent] = useState<EventData | null>(null);
   const [events, setEvents] = useState<EventData[]>([]);
+  const [specialEvents, setSpecialEvents] = useState<EventData[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -149,6 +150,20 @@ export function useChurchData() {
           setNextSpecialEvent(nextSpecial);
         }
 
+        // Build the full list of upcoming special events (deduped by name —
+        // multi-night events like VBS collapse to the first remaining night).
+        const allSpecials = upcomingEvents.filter((e) =>
+          getEventCategories(e.name).includes("special")
+        );
+        const seenNames = new Set<string>();
+        const dedupedSpecials: EventData[] = [];
+        for (const ev of allSpecials) {
+          if (seenNames.has(ev.name)) continue;
+          seenNames.add(ev.name);
+          dedupedSpecials.push(ev);
+        }
+        setSpecialEvents(dedupedSpecials);
+
         // Get business meeting specifically (for backward compatibility)
         const event = upcomingEvents.find(
           (e) => e.name === "Church Business Meeting"
@@ -176,5 +191,5 @@ export function useChurchData() {
       .catch(() => setLoading(false));
   }, []);
 
-  return { businessMeeting, nextEvent, nextSpecialEvent, events, loading };
+  return { businessMeeting, nextEvent, nextSpecialEvent, specialEvents, events, loading };
 }
