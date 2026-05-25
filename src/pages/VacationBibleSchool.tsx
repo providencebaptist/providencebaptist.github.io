@@ -162,10 +162,10 @@ const VacationBibleSchool = () => {
           </div>
 
           {/* Scroll cue */}
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-[#d4a24a]/70">
-            <div className="flex flex-col items-center gap-2">
-              <span className="text-[10px] uppercase tracking-[0.3em]">Scroll</span>
-              <div className="h-10 w-px bg-gradient-to-b from-[#d4a24a] to-transparent" />
+          <div className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2 animate-bounce">
+            <div className="flex flex-col items-center gap-2 rounded-full bg-[#0d1a14]/80 px-4 py-3 ring-1 ring-[#d4a24a]/40 backdrop-blur-sm">
+              <span className="font-display text-[10px] font-bold uppercase tracking-[0.3em] text-[#d4a24a]">Scroll</span>
+              <div className="h-8 w-px bg-gradient-to-b from-[#d4a24a] to-transparent" />
             </div>
           </div>
         </section>
