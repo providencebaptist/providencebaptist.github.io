@@ -207,7 +207,7 @@ const VacationBibleSchool = () => {
         </section>
 
         {/* ========== FOREST: Theme ========== */}
-        <section className="relative flex min-h-[90vh] items-center overflow-hidden">
+        <section className="relative flex min-h-[90vh] items-center overflow-hidden bg-[#0d1a14]">
           <div
             className="absolute inset-0 z-0"
             style={{
@@ -217,6 +217,10 @@ const VacationBibleSchool = () => {
               transform: `translate3d(0, ${(scrollY - 600) * 0.3}px, 0)`,
             }}
           />
+          {/* Top fade — kills the bright sunset band where this section meets the hero */}
+          <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-64 bg-gradient-to-b from-[#0d1a14] via-[#0d1a14]/80 to-transparent" />
+          {/* Bottom fade — smooths transition into the next dark section */}
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-48 bg-gradient-to-t from-[#0d1a14] to-transparent" />
           <div className="absolute inset-0 z-0 bg-gradient-to-r from-[#0d1a14]/95 via-[#0d1a14]/75 to-[#0d1a14]/50" />
           <div className="container relative z-20 mx-auto grid grid-cols-1 gap-12 px-6 py-24 lg:grid-cols-2 lg:items-center">
             <div className="rounded-3xl bg-[#0d1a14]/70 p-8 backdrop-blur-sm ring-1 ring-[#d4a24a]/20 md:p-10">
