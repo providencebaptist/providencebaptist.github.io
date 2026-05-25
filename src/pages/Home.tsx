@@ -168,6 +168,24 @@ const getSpecialHeroConfig = (event: EventData): SpecialHeroConfig => {
     };
   }
 
+  if (name.includes("teen") && name.includes("camp")) {
+    return {
+      image: heroTeenCamp,
+      alt: "Teens playing paintball in the woods at church camp",
+      title: "Teen Church Camp",
+      subtitle:
+        "An unforgettable week of adventure, friendship, and faith — paintball in the pines, late-night worship, and lifelong memories.",
+      eyebrow: (e) => `${formatDate(e.date)}${e.time ? ` • ${e.time}` : ""} • Southland Camp, LA`,
+      ctaLabel: "See Camp Details",
+      ctaHref: "/events",
+      overlay: "bg-gradient-to-b from-black/50 via-black/30 to-black/80",
+      titleClass: "text-[#f5e9c9] drop-shadow-lg",
+      subtitleClass: "text-[#f5e9c9]/95 drop-shadow",
+      eyebrowClass:
+        "bg-[#0d1a14]/70 backdrop-blur-sm text-[#7fd06e] border border-[#7fd06e]/40",
+    };
+  }
+
   // Default: any other special event still gets a slide using the community image.
   return {
     image: heroImage,
