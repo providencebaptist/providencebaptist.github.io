@@ -146,7 +146,7 @@ const VacationBibleSchool = () => {
       />
       <div className="relative w-full overflow-hidden bg-[#0d1a14] text-[#f5e9c9]">
         {/* ========== HERO: VBS Sign ========== */}
-        <section className="relative flex min-h-[100vh] items-center justify-center overflow-hidden bg-[#0d1a14]">
+        <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#0d1a14] py-20 sm:py-24 md:py-32">
           <div
             className="absolute inset-0 z-0 scale-110"
             style={{
@@ -165,11 +165,11 @@ const VacationBibleSchool = () => {
               July 20–24, 2026
             </p>
             <h1
-              className="font-display text-6xl font-black uppercase leading-[0.9] tracking-tight text-[#f5e9c9] drop-shadow-[0_6px_30px_rgba(0,0,0,0.7)] sm:text-7xl md:text-8xl lg:text-9xl"
+              className="font-display text-5xl font-black uppercase leading-[0.9] tracking-tight text-[#f5e9c9] drop-shadow-[0_6px_30px_rgba(0,0,0,0.7)] sm:text-7xl md:text-8xl lg:text-9xl"
               style={{ transform: `translateY(${scrollY * -0.05}px)` }}
             >
               Vacation
-              <span className="mt-2 block font-display text-5xl italic text-[#7fb069] sm:text-6xl md:text-7xl lg:text-8xl">
+              <span className="mt-2 block font-display text-4xl italic text-[#7fb069] sm:text-6xl md:text-7xl lg:text-8xl">
                 Bible School
               </span>
             </h1>
@@ -200,7 +200,7 @@ const VacationBibleSchool = () => {
         </section>
 
         {/* ========== FOREST: Theme ========== */}
-        <section className="relative flex min-h-[90vh] items-center overflow-hidden bg-[#0d1a14]">
+        <section className="relative flex min-h-screen items-center overflow-hidden bg-[#0d1a14]">
           <div
             className="absolute inset-0 z-0"
             style={{
@@ -215,19 +215,19 @@ const VacationBibleSchool = () => {
           {/* Bottom fade — smooths transition into the next dark section */}
           <div className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-48 bg-gradient-to-t from-[#0d1a14] to-transparent" />
           <div className="absolute inset-0 z-0 bg-gradient-to-r from-[#0d1a14]/95 via-[#0d1a14]/75 to-[#0d1a14]/50" />
-          <div className="container relative z-20 mx-auto grid grid-cols-1 gap-12 px-6 py-24 lg:grid-cols-2 lg:items-center">
-            <div className="rounded-3xl bg-[#0d1a14]/70 p-8 backdrop-blur-sm ring-1 ring-[#d4a24a]/20 md:p-10">
+          <div className="container relative z-20 mx-auto grid grid-cols-1 gap-10 px-6 py-28 sm:gap-12 sm:py-32 md:py-40 lg:grid-cols-2 lg:items-center lg:gap-16">
+            <div className="rounded-3xl bg-[#0d1a14]/70 p-6 backdrop-blur-sm ring-1 ring-[#d4a24a]/20 sm:p-8 md:p-10">
               <div className="mb-4 flex items-center gap-3 text-[#7fb069]">
                 <TreePine className="h-6 w-6" />
                 <span className="font-display text-sm font-bold uppercase tracking-[0.3em]">
                   The Theme
                 </span>
               </div>
-              <h2 className="font-display text-5xl font-black uppercase leading-[0.95] text-[#f5e9c9] md:text-6xl">
+              <h2 className="font-display text-4xl font-black uppercase leading-[0.95] text-[#f5e9c9] sm:text-5xl md:text-6xl">
                 Into the
                 <span className="block italic text-[#d4a24a]">Great Outdoors</span>
               </h2>
-              <p className="mt-6 max-w-lg text-lg leading-relaxed text-[#f5e9c9]/95">
+              <p className="mt-6 max-w-lg text-base leading-relaxed text-[#f5e9c9]/95 sm:text-lg">
                 Pack your gear and your faith — we're heading into the wild for an
                 unforgettable week of Bible stories, campfire games, mountain-sized
                 wonder, and friendships that last long after the embers fade.
@@ -243,7 +243,7 @@ const VacationBibleSchool = () => {
         </section>
 
         {/* ========== CAMPFIRE: Details ========== */}
-        <section className="relative flex min-h-[100vh] items-center justify-center overflow-hidden bg-[#0d1a14]">
+        <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#0d1a14] py-28 sm:py-32 md:py-40">
           <div
             className="absolute inset-0 z-0"
             style={{
@@ -256,19 +256,19 @@ const VacationBibleSchool = () => {
           <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-48 bg-gradient-to-b from-[#0d1a14] to-transparent" />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-48 bg-gradient-to-t from-[#0d1a14] to-transparent" />
           <div className="absolute inset-0 z-0 bg-[#0d1a14]/60" />
-          <div className="relative z-20 mx-6 max-w-2xl rounded-3xl border-2 border-[#d4a24a]/60 bg-[#f5e9c9] p-10 shadow-2xl shadow-black/60 md:p-14">
+          <div className="relative z-20 mx-4 max-w-2xl rounded-3xl border-2 border-[#d4a24a]/60 bg-[#f5e9c9] p-6 shadow-2xl shadow-black/60 sm:mx-6 sm:p-10 md:p-14">
             <div className="mb-6 flex justify-center">
               <div className="h-1 w-16 bg-[#1b2a1f]" />
             </div>
-            <div className="space-y-8 text-center text-[#1b2a1f]">
+            <div className="space-y-6 text-center text-[#1b2a1f] sm:space-y-8">
               <div>
                 <div className="mb-3 flex items-center justify-center gap-3 text-[#1b3a52]">
                   <Calendar className="h-7 w-7" />
                 </div>
-                <p className="font-display text-5xl font-black uppercase tracking-tight md:text-6xl">
+                <p className="font-display text-4xl font-black uppercase tracking-tight sm:text-5xl md:text-6xl">
                   July 20–24
                 </p>
-                <p className="mt-3 font-display text-3xl italic text-[#c8651f] md:text-4xl">
+                <p className="mt-3 font-display text-2xl italic text-[#c8651f] sm:text-3xl md:text-4xl">
                   ≈ 6PM – 8PM ≈
                 </p>
               </div>
@@ -277,7 +277,7 @@ const VacationBibleSchool = () => {
                 <div className="mb-3 flex items-center justify-center gap-3 text-[#1b3a52]">
                   <MapPin className="h-7 w-7" />
                 </div>
-                <p className="font-display text-2xl font-black uppercase md:text-3xl">
+                <p className="font-display text-xl font-black uppercase sm:text-2xl md:text-3xl">
                   Providence Baptist Church
                 </p>
                 <p className="mt-3 text-sm font-semibold uppercase tracking-wider text-[#1b2a1f]/80 md:text-base">
@@ -291,7 +291,7 @@ const VacationBibleSchool = () => {
         </section>
 
         {/* ========== STARRY NIGHT: Invitation ========== */}
-        <section className="relative flex min-h-[90vh] items-center overflow-hidden bg-[#0d1a14]">
+        <section className="relative flex min-h-screen items-center overflow-hidden bg-[#0d1a14]">
           <div
             className="absolute inset-0 z-0"
             style={{
@@ -303,14 +303,14 @@ const VacationBibleSchool = () => {
           />
           <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-48 bg-gradient-to-b from-[#0d1a14] to-transparent" />
           <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#0d1a14]/60 via-[#0d1a14]/30 to-[#0d1a14]" />
-          <div className="container relative z-20 mx-auto px-6 py-24 text-center">
-            <div className="mx-auto max-w-3xl rounded-3xl bg-[#0d1a14]/70 p-10 backdrop-blur-sm ring-1 ring-[#d4a24a]/20 md:p-14">
+          <div className="container relative z-20 mx-auto px-6 py-28 text-center sm:py-32 md:py-40">
+            <div className="mx-auto max-w-3xl rounded-3xl bg-[#0d1a14]/70 p-6 backdrop-blur-sm ring-1 ring-[#d4a24a]/20 sm:p-10 md:p-14">
               <Mountain className="mx-auto mb-6 h-10 w-10 text-[#d4a24a]" />
-              <h2 className="font-display text-5xl font-black uppercase leading-[0.95] text-[#f5e9c9] md:text-7xl">
+              <h2 className="font-display text-4xl font-black uppercase leading-[0.95] text-[#f5e9c9] sm:text-5xl md:text-7xl">
                 Let's grow in faith
                 <span className="mt-2 block italic text-[#7fb069]">together</span>
               </h2>
-              <p className="mx-auto mt-8 max-w-xl text-lg text-[#f5e9c9]/95">
+              <p className="mx-auto mt-8 max-w-xl text-base text-[#f5e9c9]/95 sm:text-lg">
                 Beneath wide-open skies and a million stars, hearts learn to listen.
                 Bring your kids, bring your friends, bring your wonder.
               </p>
@@ -321,7 +321,7 @@ const VacationBibleSchool = () => {
         {/* ========== REGISTER ========== */}
         <section
           id="register"
-          className="relative flex min-h-screen items-center overflow-hidden py-24"
+          className="relative flex min-h-screen items-center overflow-hidden py-28 sm:py-32 md:py-40"
         >
           <div
             className="absolute inset-0 z-0"
