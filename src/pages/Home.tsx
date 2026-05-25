@@ -176,7 +176,7 @@ const getSpecialHeroConfig = (event: EventData): SpecialHeroConfig => {
       title: "Teen Church Camp",
       subtitle:
         "An unforgettable week of adventure, friendship, and faith, paintball in the pines, late-night worship, and lifelong memories.",
-      eyebrow: (e) => `${formatDate(e.date)}${e.time ? ` • ${e.time}` : ""} • Southland Camp, LA`,
+      eyebrow: (e) => `${formatDate(e.date)}${e.time ? ` • ${e.time}` : ""}`,
       ctaLabel: "See Camp Details",
       ctaHref: "/events",
       overlay: "bg-gradient-to-b from-black/50 via-black/30 to-black/80",
