@@ -275,8 +275,16 @@ const Home = () => {
               </div>
             </CarouselItem>
 
-            {/* Dynamic special-event slides, auto-hide once an event has passed (handled in useChurchData) */}
-            {specialEvents.map((event) => {
+            {/* Dynamic special-event slides, auto-hide once an event has passed (handled in useChurchData),
+                and time-boxed to only show events within the next two months. */}
+            {specialEvents
+              .filter((event) => {
+                const eventDate = new Date(event.date);
+                const twoMonthsOut = new Date();
+                twoMonthsOut.setMonth(twoMonthsOut.getMonth() + 2);
+                return eventDate <= twoMonthsOut;
+              })
+              .map((event) => {
               const cfg = getSpecialHeroConfig(event);
               return (
                 <CarouselItem key={`${event.name}-${event.date}`}>
