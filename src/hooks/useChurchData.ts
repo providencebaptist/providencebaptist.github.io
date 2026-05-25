@@ -6,6 +6,7 @@ interface UpcomingEvent {
   description: string;
   time?: string;
   location?: string;
+  link?: string;
 }
 
 interface ChurchData {
@@ -31,6 +32,7 @@ export interface EventData {
   description: string;
   time?: string;
   location?: string;
+  link?: string;
 }
 
 // Helper to categorize events (returns array for multi-tagging)
@@ -105,6 +107,7 @@ export function useChurchData() {
             description: e.description,
             time: e.time,
             location: e.location,
+            link: e.link,
           }))
           .filter((e) => {
             const eventDate = new Date(e.date);
