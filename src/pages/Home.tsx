@@ -166,25 +166,6 @@ const Home = () => {
                 </Link>
               </CarouselItem>
 
-              <CarouselItem className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3 hidden">
-                <Card className="overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
-                  <CardContent className="p-0">
-                    <img
-                      src={galleryWorship}
-                      alt="Pastor preaching from the pulpit"
-                      className="w-full h-64 md:h-80 object-cover"
-                      loading="lazy"
-                      decoding="async"
-                      fetchPriority="low"
-                    />
-                    <div className="p-4 bg-card">
-                      <h3 className="text-lg font-semibold text-foreground">Biblical Preaching</h3>
-                      <p className="text-sm text-muted-foreground">Verse by verse teaching</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </CarouselItem>
-
               
               <CarouselItem className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
                 <Card className="overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
