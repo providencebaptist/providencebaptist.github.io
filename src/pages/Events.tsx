@@ -55,6 +55,10 @@ const getEventCategories = (eventName: string): FilterType[] => {
   if (name.includes("easter") || name.includes("mother's day") || name.includes("father's day") || name.includes("christmas candlelight")) {
     categories.push("special", "sunday");
   }
+
+  if (name.includes("vacation bible school") || name.includes("vbs")) {
+    categories.push("special");
+  }
   
   if (name.includes("sunday morning") || name.includes("sunday am") || name.includes("sunday evening") || name.includes("sunday pm")) {
     categories.push("sunday");
@@ -436,7 +440,13 @@ const Events = () => {
                                       )}
                                     </div>
                                     <CardTitle className="font-display text-lg md:text-xl text-foreground">
-                                      {event.name}
+                                      {event.link ? (
+                                        <Link to={event.link} className="hover:text-primary transition-colors underline-offset-4 hover:underline">
+                                          {event.name}
+                                        </Link>
+                                      ) : (
+                                        event.name
+                                      )}
                                     </CardTitle>
                                   </div>
                                 </CardHeader>
@@ -451,6 +461,18 @@ const Events = () => {
                                   )}
                                   
                                   <div className="pt-2 flex flex-wrap gap-2">
+                                    {event.link && (
+                                      <Button
+                                        asChild
+                                        variant="default"
+                                        size="sm"
+                                        className="h-8 text-xs"
+                                      >
+                                        <Link to={event.link}>
+                                          View Details
+                                        </Link>
+                                      </Button>
+                                    )}
                                     <Button
                                       asChild
                                       variant="ghost"
