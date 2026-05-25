@@ -200,7 +200,7 @@ const VacationBibleSchool = () => {
         </section>
 
         {/* ========== FOREST: Theme ========== */}
-        <section className="relative flex min-h-[90vh] items-center overflow-hidden bg-[#0d1a14]">
+        <section className="relative flex min-h-screen items-center overflow-hidden bg-[#0d1a14]">
           <div
             className="absolute inset-0 z-0"
             style={{
@@ -215,19 +215,19 @@ const VacationBibleSchool = () => {
           {/* Bottom fade — smooths transition into the next dark section */}
           <div className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-48 bg-gradient-to-t from-[#0d1a14] to-transparent" />
           <div className="absolute inset-0 z-0 bg-gradient-to-r from-[#0d1a14]/95 via-[#0d1a14]/75 to-[#0d1a14]/50" />
-          <div className="container relative z-20 mx-auto grid grid-cols-1 gap-12 px-6 py-24 lg:grid-cols-2 lg:items-center">
-            <div className="rounded-3xl bg-[#0d1a14]/70 p-8 backdrop-blur-sm ring-1 ring-[#d4a24a]/20 md:p-10">
+          <div className="container relative z-20 mx-auto grid grid-cols-1 gap-10 px-6 py-28 sm:gap-12 sm:py-32 md:py-40 lg:grid-cols-2 lg:items-center lg:gap-16">
+            <div className="rounded-3xl bg-[#0d1a14]/70 p-6 backdrop-blur-sm ring-1 ring-[#d4a24a]/20 sm:p-8 md:p-10">
               <div className="mb-4 flex items-center gap-3 text-[#7fb069]">
                 <TreePine className="h-6 w-6" />
                 <span className="font-display text-sm font-bold uppercase tracking-[0.3em]">
                   The Theme
                 </span>
               </div>
-              <h2 className="font-display text-5xl font-black uppercase leading-[0.95] text-[#f5e9c9] md:text-6xl">
+              <h2 className="font-display text-4xl font-black uppercase leading-[0.95] text-[#f5e9c9] sm:text-5xl md:text-6xl">
                 Into the
                 <span className="block italic text-[#d4a24a]">Great Outdoors</span>
               </h2>
-              <p className="mt-6 max-w-lg text-lg leading-relaxed text-[#f5e9c9]/95">
+              <p className="mt-6 max-w-lg text-base leading-relaxed text-[#f5e9c9]/95 sm:text-lg">
                 Pack your gear and your faith — we're heading into the wild for an
                 unforgettable week of Bible stories, campfire games, mountain-sized
                 wonder, and friendships that last long after the embers fade.
