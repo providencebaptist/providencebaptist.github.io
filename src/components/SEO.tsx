@@ -15,7 +15,7 @@ interface SEOProps {
 const SEO = ({
   title = "Providence Baptist Church | Georgetown, TX",
   description = "Providence Baptist Church is a caring church family in Georgetown, TX. Join us for worship services, Bible study, and fellowship. Celebrating 10 years of God's faithfulness.",
-  image = "https://pbcatx.org/placeholder.svg",
+  image = "https://pbcatx.org/og-image.jpg",
   url = "https://pbcatx.org",
   type = "website",
   structuredData
