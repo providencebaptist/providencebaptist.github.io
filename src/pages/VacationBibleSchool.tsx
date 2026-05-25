@@ -143,6 +143,7 @@ const VacationBibleSchool = () => {
       <SEO
         title="Vacation Bible School 2026 | Providence Baptist Church"
         description="Join us July 20-24, 2026 for a week of faith, fun & adventure at VBS! 6PM-8PM at Providence Baptist Church, Georgetown TX."
+        url="https://pbcatx.org/vacation-bible-school-2026"
       />
       <div className="relative w-full overflow-hidden bg-[#0d1a14] text-[#f5e9c9]">
         {/* ========== HERO: VBS Sign ========== */}
