@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, FormEvent } from "react";
+import { useForm, ValidationError } from "@formspree/react";
 import { z } from "zod";
 import SEO from "@/components/SEO";
 import mountains from "@/assets/vbs-mountains.jpg";
@@ -80,12 +81,13 @@ const Adventure = ({
 
 const VacationBibleSchool = () => {
   const scrollY = useScrollY();
-  const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [formState, handleFormspreeSubmit] = useForm("xgoqnvaz");
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const fd = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const fd = new FormData(form);
     const data = Object.fromEntries(fd) as Record<string, string>;
     const result = formSchema.safeParse(data);
     if (!result.success) {
@@ -97,7 +99,7 @@ const VacationBibleSchool = () => {
       return;
     }
     setErrors({});
-    setSubmitted(true);
+    handleFormspreeSubmit(form);
   };
 
   return (
@@ -160,10 +162,10 @@ const VacationBibleSchool = () => {
           </div>
 
           {/* Scroll cue */}
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-[#d4a24a]/70">
-            <div className="flex flex-col items-center gap-2">
-              <span className="text-[10px] uppercase tracking-[0.3em]">Scroll</span>
-              <div className="h-10 w-px bg-gradient-to-b from-[#d4a24a] to-transparent" />
+          <div className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2 animate-bounce">
+            <div className="flex flex-col items-center gap-2 rounded-full bg-[#0d1a14]/80 px-4 py-3 ring-1 ring-[#d4a24a]/40 backdrop-blur-sm">
+              <span className="font-display text-[10px] font-bold uppercase tracking-[0.3em] text-[#d4a24a]">Scroll</span>
+              <div className="h-8 w-px bg-gradient-to-b from-[#d4a24a] to-transparent" />
             </div>
           </div>
         </section>
@@ -179,9 +181,9 @@ const VacationBibleSchool = () => {
               transform: `translate3d(0, ${(scrollY - 600) * 0.3}px, 0)`,
             }}
           />
-          <div className="absolute inset-0 z-0 bg-gradient-to-r from-[#0d1a14] via-[#0d1a14]/70 to-transparent" />
-          <div className="container mx-auto grid grid-cols-1 gap-12 px-6 py-24 lg:grid-cols-2 lg:items-center">
-            <div>
+          <div className="absolute inset-0 z-0 bg-gradient-to-r from-[#0d1a14]/95 via-[#0d1a14]/75 to-[#0d1a14]/50" />
+          <div className="container relative z-20 mx-auto grid grid-cols-1 gap-12 px-6 py-24 lg:grid-cols-2 lg:items-center">
+            <div className="rounded-3xl bg-[#0d1a14]/70 p-8 backdrop-blur-sm ring-1 ring-[#d4a24a]/20 md:p-10">
               <div className="mb-4 flex items-center gap-3 text-[#7fb069]">
                 <TreePine className="h-6 w-6" />
                 <span className="font-display text-sm font-bold uppercase tracking-[0.3em]">
@@ -192,7 +194,7 @@ const VacationBibleSchool = () => {
                 Into the
                 <span className="block italic text-[#d4a24a]">Great Outdoors</span>
               </h2>
-              <p className="mt-6 max-w-lg text-lg leading-relaxed text-[#f5e9c9]/80">
+              <p className="mt-6 max-w-lg text-lg leading-relaxed text-[#f5e9c9]/95">
                 Pack your gear and your faith — we're heading into the wild for an
                 unforgettable week of Bible stories, campfire games, mountain-sized
                 wonder, and friendships that last long after the embers fade.
@@ -264,17 +266,19 @@ const VacationBibleSchool = () => {
               transform: `translate3d(0, ${(scrollY - 2200) * 0.3}px, 0)`,
             }}
           />
-          <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#0d1a14]/60 via-transparent to-[#0d1a14]" />
-          <div className="container mx-auto px-6 py-24 text-center">
-            <Mountain className="mx-auto mb-6 h-10 w-10 text-[#d4a24a]" />
-            <h2 className="mx-auto max-w-3xl font-display text-5xl font-black uppercase leading-[0.95] text-[#f5e9c9] md:text-7xl">
-              Let's grow in faith
-              <span className="mt-2 block italic text-[#7fb069]">together</span>
-            </h2>
-            <p className="mx-auto mt-8 max-w-xl text-lg text-[#f5e9c9]/80">
-              Beneath wide-open skies and a million stars, hearts learn to listen.
-              Bring your kids, bring your friends, bring your wonder.
-            </p>
+          <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#0d1a14]/80 via-[#0d1a14]/40 to-[#0d1a14]" />
+          <div className="container relative z-20 mx-auto px-6 py-24 text-center">
+            <div className="mx-auto max-w-3xl rounded-3xl bg-[#0d1a14]/70 p-10 backdrop-blur-sm ring-1 ring-[#d4a24a]/20 md:p-14">
+              <Mountain className="mx-auto mb-6 h-10 w-10 text-[#d4a24a]" />
+              <h2 className="font-display text-5xl font-black uppercase leading-[0.95] text-[#f5e9c9] md:text-7xl">
+                Let's grow in faith
+                <span className="mt-2 block italic text-[#7fb069]">together</span>
+              </h2>
+              <p className="mx-auto mt-8 max-w-xl text-lg text-[#f5e9c9]/95">
+                Beneath wide-open skies and a million stars, hearts learn to listen.
+                Bring your kids, bring your friends, bring your wonder.
+              </p>
+            </div>
           </div>
         </section>
 
@@ -292,22 +296,22 @@ const VacationBibleSchool = () => {
               transform: `translate3d(0, ${(scrollY - 3000) * 0.2}px, 0)`,
             }}
           />
-          <div className="absolute inset-0 z-0 bg-[#0d1a14]/85" />
-          <div className="container mx-auto px-6">
+          <div className="absolute inset-0 z-0 bg-[#0d1a14]/90" />
+          <div className="container relative z-20 mx-auto px-6">
             <div className="mx-auto max-w-2xl">
-              <div className="mb-8 text-center">
+              <div className="mb-8 rounded-3xl bg-[#0d1a14]/70 px-6 py-6 text-center backdrop-blur-sm ring-1 ring-[#d4a24a]/20">
                 <p className="mb-3 font-display text-xs font-bold uppercase tracking-[0.3em] text-[#d4a24a]">
                   Sign Up Below
                 </p>
                 <h2 className="font-display text-4xl font-black uppercase text-[#f5e9c9] md:text-5xl">
                   Reserve Your Spot
                 </h2>
-                <p className="mt-3 text-[#f5e9c9]/70">
+                <p className="mt-3 text-[#f5e9c9]/90">
                   Fill out the form and we'll be in touch with everything you need.
                 </p>
               </div>
 
-              {submitted ? (
+              {formState.succeeded ? (
                 <div className="rounded-3xl border-2 border-[#7fb069]/60 bg-[#1b2a1f]/90 p-10 text-center backdrop-blur">
                   <Flame className="mx-auto mb-4 h-10 w-10 text-[#d4a24a]" />
                   <h3 className="font-display text-3xl font-black uppercase text-[#f5e9c9]">
@@ -347,10 +351,12 @@ const VacationBibleSchool = () => {
                   </div>
                   <button
                     type="submit"
-                    className="w-full rounded-full bg-[#d4a24a] py-4 font-display text-base font-bold uppercase tracking-wider text-[#1b2a1f] shadow-xl shadow-[#d4a24a]/20 transition-all hover:scale-[1.02] hover:bg-[#e8b85a]"
+                    disabled={formState.submitting}
+                    className="w-full rounded-full bg-[#d4a24a] py-4 font-display text-base font-bold uppercase tracking-wider text-[#1b2a1f] shadow-xl shadow-[#d4a24a]/20 transition-all hover:scale-[1.02] hover:bg-[#e8b85a] disabled:opacity-60"
                   >
-                    Sign Me Up
+                    {formState.submitting ? "Sending..." : "Sign Me Up"}
                   </button>
+                  <ValidationError errors={formState.errors} className="text-center text-sm text-[#e8773a]" />
                 </form>
               )}
             </div>
