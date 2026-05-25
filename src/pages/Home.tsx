@@ -17,6 +17,7 @@ import galleryChildren from "@/assets/gallery-children.jpg";
 import galleryFellowship from "@/assets/gallery-fellowship.jpg";
 import galleryOutreach from "@/assets/gallery-outreach.jpg";
 import galleryBiblestudy from "@/assets/gallery-biblestudy.jpg";
+import vbsFlyer from "@/assets/vbs-flyer.jpeg";
 import { useChurchData } from "@/hooks/useChurchData";
 
 const Home = () => {
@@ -103,6 +104,69 @@ const Home = () => {
           >
             <CarouselContent className="-ml-2 md:-ml-4">
               <CarouselItem className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
+                <Link to="/vacation-bible-school-2026" aria-label="Vacation Bible School 2026">
+                  <Card className="overflow-hidden shadow-lg hover:shadow-2xl transition-shadow cursor-pointer group">
+                    <CardContent className="p-0">
+                      <img
+                        src={vbsFlyer}
+                        alt="Vacation Bible School 2026 — July 20–24, 6PM–8PM at Providence Baptist Church"
+                        className="w-full h-64 md:h-80 object-cover transition-transform group-hover:scale-105"
+                        loading="lazy"
+                        decoding="async"
+                        fetchPriority="low"
+                      />
+                      <div className="p-4 bg-card">
+                        <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">Vacation Bible School 2026</h3>
+                        <p className="text-sm text-muted-foreground">July 20–24 • Register your camper →</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </CarouselItem>
+
+              <CarouselItem className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
+                <Link to="/sermons" aria-label="Browse sermons">
+                  <Card className="overflow-hidden shadow-lg hover:shadow-2xl transition-shadow cursor-pointer group">
+                    <CardContent className="p-0">
+                      <img
+                        src={galleryWorship}
+                        alt="Pastor preaching from the pulpit"
+                        className="w-full h-64 md:h-80 object-cover transition-transform group-hover:scale-105"
+                        loading="lazy"
+                        decoding="async"
+                        fetchPriority="low"
+                      />
+                      <div className="p-4 bg-card">
+                        <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">Biblical Preaching</h3>
+                        <p className="text-sm text-muted-foreground">Verse by verse teaching</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </CarouselItem>
+
+              <CarouselItem className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
+                <Link to="/events" aria-label="See upcoming fellowship events">
+                  <Card className="overflow-hidden shadow-lg hover:shadow-2xl transition-shadow cursor-pointer group">
+                    <CardContent className="p-0">
+                      <img
+                        src={galleryFellowship}
+                        alt="Fellowship meal with families sharing together"
+                        className="w-full h-64 md:h-80 object-cover transition-transform group-hover:scale-105"
+                        loading="lazy"
+                        decoding="async"
+                        fetchPriority="low"
+                      />
+                      <div className="p-4 bg-card">
+                        <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">Fellowship Meals</h3>
+                        <p className="text-sm text-muted-foreground">Building relationships</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </CarouselItem>
+
+              <CarouselItem className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3 hidden">
                 <Card className="overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
                   <CardContent className="p-0">
                     <img
