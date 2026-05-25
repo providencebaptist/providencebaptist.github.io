@@ -184,44 +184,7 @@ const Home = () => {
                   </CardContent>
                 </Card>
               </CarouselItem>
-              
-              <CarouselItem className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
-                <Card className="overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
-                  <CardContent className="p-0">
-                    <img
-                      src={galleryChildren}
-                      alt="Children's ministry with kids learning and playing"
-                      className="w-full h-64 md:h-80 object-cover"
-                      loading="lazy"
-                      decoding="async"
-                      fetchPriority="low"
-                    />
-                    <div className="p-4 bg-card">
-                      <h3 className="text-lg font-semibold text-foreground">Children's Ministry</h3>
-                      <p className="text-sm text-muted-foreground">Nurturing young hearts</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </CarouselItem>
-              
-              <CarouselItem className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
-                <Card className="overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
-                  <CardContent className="p-0">
-                    <img
-                      src={galleryFellowship}
-                      alt="Fellowship meal with families sharing together"
-                      className="w-full h-64 md:h-80 object-cover"
-                      loading="lazy"
-                      decoding="async"
-                      fetchPriority="low"
-                    />
-                    <div className="p-4 bg-card">
-                      <h3 className="text-lg font-semibold text-foreground">Fellowship Meals</h3>
-                      <p className="text-sm text-muted-foreground">Building relationships</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </CarouselItem>
+
               
               <CarouselItem className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
                 <Card className="overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
