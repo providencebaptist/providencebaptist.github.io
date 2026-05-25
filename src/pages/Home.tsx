@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/carousel";
 import heroImage from "@/assets/hero-community.jpg";
 import galleryWorship from "@/assets/gallery-worship.jpg";
-import galleryChildren from "@/assets/gallery-children.jpg";
 import galleryFellowship from "@/assets/gallery-fellowship.jpg";
 import galleryOutreach from "@/assets/gallery-outreach.jpg";
 import galleryBiblestudy from "@/assets/gallery-biblestudy.jpg";
