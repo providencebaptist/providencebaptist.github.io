@@ -25,6 +25,7 @@ import heroEaster from "@/assets/hero-easter.jpg";
 import heroChristmasCandlelight from "@/assets/hero-christmas-candlelight.jpg";
 import heroAnniversary from "@/assets/hero-anniversary.jpg";
 import heroTeenCamp from "@/assets/hero-teen-camp.jpg";
+import heroKidsCamp from "@/assets/hero-kids-camp.jpg";
 import vbsForest from "@/assets/vbs-forest.jpg";
 import { useChurchData, type EventData } from "@/hooks/useChurchData";
 
@@ -183,6 +184,24 @@ const getSpecialHeroConfig = (event: EventData): SpecialHeroConfig => {
       subtitleClass: "text-[#f5e9c9]/95 drop-shadow",
       eyebrowClass:
         "bg-[#0d1a14]/70 backdrop-blur-sm text-[#7fd06e] border border-[#7fd06e]/40",
+    };
+  }
+
+  if (name.includes("kid") && name.includes("camp")) {
+    return {
+      image: heroKidsCamp,
+      alt: "Children sitting together on a bench by a lake at kids church camp",
+      title: "Kids Church Camp",
+      subtitle:
+        "A joy-filled week by the lake — new friends, big adventures, and little hearts growing closer to Jesus.",
+      eyebrow: (e) => `${formatDate(e.date)}${e.time ? ` • ${e.time}` : ""}`,
+      ctaLabel: "See Camp Details",
+      ctaHref: "/events",
+      overlay: "bg-gradient-to-b from-black/40 via-black/20 to-black/70",
+      titleClass: "text-[#fdf6ec] drop-shadow-lg",
+      subtitleClass: "text-[#fdf6ec]/95 drop-shadow",
+      eyebrowClass:
+        "bg-black/55 backdrop-blur-sm text-[#ffd6a8] border border-[#ffd6a8]/40",
     };
   }
 
