@@ -146,7 +146,7 @@ const VacationBibleSchool = () => {
       />
       <div className="relative w-full overflow-hidden bg-[#0d1a14] text-[#f5e9c9]">
         {/* ========== HERO: VBS Sign ========== */}
-        <section className="relative flex min-h-[100vh] items-center justify-center overflow-hidden">
+        <section className="relative flex min-h-[100vh] items-center justify-center overflow-hidden bg-[#0d1a14]">
           <div
             className="absolute inset-0 z-0 scale-110"
             style={{
