@@ -1,3 +1,5 @@
+import { useRef } from "react";
+import Autoplay from "embla-carousel-autoplay";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Calendar, Heart, Users, MapPin, Mail, BookOpen, Clock } from "lucide-react";
@@ -13,14 +15,19 @@ import {
 } from "@/components/ui/carousel";
 import heroImage from "@/assets/hero-community.jpg";
 import galleryWorship from "@/assets/gallery-worship.jpg";
+import galleryChildren from "@/assets/gallery-children.jpg";
 import galleryFellowship from "@/assets/gallery-fellowship.jpg";
 import galleryOutreach from "@/assets/gallery-outreach.jpg";
 import galleryBiblestudy from "@/assets/gallery-biblestudy.jpg";
-import vbsFlyer from "@/assets/vbs-flyer.jpeg";
+import heroFathersDay from "@/assets/hero-fathers-day.jpg";
+import vbsForest from "@/assets/vbs-forest.jpg";
 import { useChurchData } from "@/hooks/useChurchData";
 
 const Home = () => {
   const { nextEvent, nextSpecialEvent } = useChurchData();
+  const heroAutoplay = useRef(
+    Autoplay({ delay: 6000, stopOnInteraction: false, stopOnMouseEnter: true })
+  );
   return (
     <div className="min-h-screen">
       <SEO 
@@ -28,36 +35,116 @@ const Home = () => {
         description="Providence Baptist Church is a caring church family in Georgetown, Texas. Join us for worship, Bible study, and fellowship. Sunday services at 10AM & 5:30PM. Celebrating 10 years of God's faithfulness."
         url="https://pbcatx.org"
       />
-      {/* Hero Section */}
-      <section className="relative h-[500px] sm:h-[600px] md:h-[700px] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <img 
-            src={heroImage} 
-            alt="Providence Baptist Church community" 
-            className="w-full h-full object-cover object-[center_25%]"
-            loading="eager"
-            fetchPriority="high"
-            decoding="async"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary/70" />
-        </div>
-        
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 z-10 text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-primary-foreground mb-4 sm:mb-6">
-            Welcome Home
-          </h1>
-          <p className="text-lg sm:text-xl md:text-2xl text-primary-foreground/90 mb-6 sm:mb-8 max-w-3xl mx-auto px-4">
-            A caring church family in Georgetown, Texas
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
-            <Button asChild variant="secondary" size="lg" className="min-h-[44px]">
-              <Link to="/about">Learn More About Us</Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="border-2 border-primary-foreground bg-transparent text-primary-foreground hover:bg-primary-foreground hover:text-primary min-h-[44px]">
-              <Link to="/contact">Get In Touch</Link>
-            </Button>
-          </div>
-        </div>
+      {/* Hero Carousel */}
+      <section className="relative">
+        <Carousel
+          opts={{ loop: true, align: "start" }}
+          plugins={[heroAutoplay.current]}
+          className="w-full"
+        >
+          <CarouselContent>
+            {/* Slide 1: Welcome Home */}
+            <CarouselItem>
+              <div className="relative h-[500px] sm:h-[600px] md:h-[700px] flex items-center justify-center overflow-hidden">
+                <div className="absolute inset-0 z-0">
+                  <img
+                    src={heroImage}
+                    alt="Providence Baptist Church community"
+                    className="w-full h-full object-cover object-[center_25%]"
+                    loading="eager"
+                    fetchPriority="high"
+                    decoding="async"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary/70" />
+                </div>
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8 z-10 text-center">
+                  <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-primary-foreground mb-4 sm:mb-6">
+                    Welcome Home
+                  </h1>
+                  <p className="text-lg sm:text-xl md:text-2xl text-primary-foreground/90 mb-6 sm:mb-8 max-w-3xl mx-auto px-4">
+                    A caring church family in Georgetown, Texas
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
+                    <Button asChild variant="secondary" size="lg" className="min-h-[44px]">
+                      <Link to="/about">Learn More About Us</Link>
+                    </Button>
+                    <Button asChild variant="outline" size="lg" className="border-2 border-primary-foreground bg-transparent text-primary-foreground hover:bg-primary-foreground hover:text-primary min-h-[44px]">
+                      <Link to="/contact">Get In Touch</Link>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </CarouselItem>
+
+            {/* Slide 2: Father's Day */}
+            <CarouselItem>
+              <div className="relative h-[500px] sm:h-[600px] md:h-[700px] flex items-center justify-center overflow-hidden">
+                <div className="absolute inset-0 z-0">
+                  <img
+                    src={heroFathersDay}
+                    alt="Father walking with his children at sunset by a country church"
+                    className="w-full h-full object-cover object-center"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/70" />
+                </div>
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8 z-10 text-center">
+                  <p className="text-xs sm:text-sm uppercase tracking-[0.3em] text-accent mb-3 sm:mb-4 font-semibold">
+                    Sunday, June 21, 2026
+                  </p>
+                  <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 drop-shadow-lg">
+                    Celebrating Fathers
+                  </h1>
+                  <p className="text-lg sm:text-xl md:text-2xl text-white/95 mb-6 sm:mb-8 max-w-3xl mx-auto px-4 drop-shadow">
+                    Join us this Father's Day as we honor the dads, granddads,
+                    and father figures who lead with faith.
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
+                    <Button asChild variant="secondary" size="lg" className="min-h-[44px]">
+                      <Link to="/events">See Service Details</Link>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </CarouselItem>
+
+            {/* Slide 3: VBS 2026 */}
+            <CarouselItem>
+              <div className="relative h-[500px] sm:h-[600px] md:h-[700px] flex items-center justify-center overflow-hidden">
+                <div className="absolute inset-0 z-0">
+                  <img
+                    src={vbsForest}
+                    alt="Forest and mountains — Vacation Bible School 2026 Into the Great Outdoors"
+                    className="w-full h-full object-cover object-center"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-b from-[#0d1a14]/70 via-[#0d1a14]/40 to-[#0d1a14]/80" />
+                </div>
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8 z-10 text-center">
+                  <p className="text-xs sm:text-sm uppercase tracking-[0.3em] text-[#d4a24a] mb-3 sm:mb-4 font-semibold">
+                    July 20–24, 2026 • 6PM–8PM
+                  </p>
+                  <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-[#f5e9c9] mb-4 sm:mb-6 drop-shadow-lg">
+                    Vacation Bible School
+                  </h1>
+                  <p className="text-lg sm:text-xl md:text-2xl text-[#f5e9c9]/95 mb-6 sm:mb-8 max-w-3xl mx-auto px-4 drop-shadow">
+                    Into the Great Outdoors — a week of faith, fun & adventure
+                    for your kids.
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
+                    <Button asChild size="lg" className="bg-[#d4a24a] text-[#1b2a1f] hover:bg-[#e8b85a] min-h-[44px]">
+                      <Link to="/vacation-bible-school-2026">Register Your Camper</Link>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </CarouselItem>
+          </CarouselContent>
+          <CarouselPrevious className="hidden md:flex left-4 z-20 bg-white/20 border-white/40 text-white hover:bg-white/40" />
+          <CarouselNext className="hidden md:flex right-4 z-20 bg-white/20 border-white/40 text-white hover:bg-white/40" />
+        </Carousel>
       </section>
 
 
@@ -103,69 +190,62 @@ const Home = () => {
           >
             <CarouselContent className="-ml-2 md:-ml-4">
               <CarouselItem className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
-                <Link to="/vacation-bible-school-2026" aria-label="Vacation Bible School 2026">
-                  <Card className="overflow-hidden shadow-lg hover:shadow-2xl transition-shadow cursor-pointer group">
-                    <CardContent className="p-0">
-                      <img
-                        src={vbsFlyer}
-                        alt="Vacation Bible School 2026 — July 20–24, 6PM–8PM at Providence Baptist Church"
-                        className="w-full h-64 md:h-80 object-cover transition-transform group-hover:scale-105"
-                        loading="lazy"
-                        decoding="async"
-                        fetchPriority="low"
-                      />
-                      <div className="p-4 bg-card">
-                        <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">Vacation Bible School 2026</h3>
-                        <p className="text-sm text-muted-foreground">July 20–24 • Register your camper →</p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Link>
+                <Card className="overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
+                  <CardContent className="p-0">
+                    <img
+                      src={galleryWorship}
+                      alt="Pastor preaching from the pulpit"
+                      className="w-full h-64 md:h-80 object-cover"
+                      loading="lazy"
+                      decoding="async"
+                      fetchPriority="low"
+                    />
+                    <div className="p-4 bg-card">
+                      <h3 className="text-lg font-semibold text-foreground">Biblical Preaching</h3>
+                      <p className="text-sm text-muted-foreground">Verse by verse teaching</p>
+                    </div>
+                  </CardContent>
+                </Card>
               </CarouselItem>
 
               <CarouselItem className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
-                <Link to="/sermons" aria-label="Browse sermons">
-                  <Card className="overflow-hidden shadow-lg hover:shadow-2xl transition-shadow cursor-pointer group">
-                    <CardContent className="p-0">
-                      <img
-                        src={galleryWorship}
-                        alt="Pastor preaching from the pulpit"
-                        className="w-full h-64 md:h-80 object-cover transition-transform group-hover:scale-105"
-                        loading="lazy"
-                        decoding="async"
-                        fetchPriority="low"
-                      />
-                      <div className="p-4 bg-card">
-                        <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">Biblical Preaching</h3>
-                        <p className="text-sm text-muted-foreground">Verse by verse teaching</p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Link>
+                <Card className="overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
+                  <CardContent className="p-0">
+                    <img
+                      src={galleryChildren}
+                      alt="Children's ministry with kids learning and playing"
+                      className="w-full h-64 md:h-80 object-cover"
+                      loading="lazy"
+                      decoding="async"
+                      fetchPriority="low"
+                    />
+                    <div className="p-4 bg-card">
+                      <h3 className="text-lg font-semibold text-foreground">Children's Ministry</h3>
+                      <p className="text-sm text-muted-foreground">Nurturing young hearts</p>
+                    </div>
+                  </CardContent>
+                </Card>
               </CarouselItem>
 
               <CarouselItem className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
-                <Link to="/events" aria-label="See upcoming fellowship events">
-                  <Card className="overflow-hidden shadow-lg hover:shadow-2xl transition-shadow cursor-pointer group">
-                    <CardContent className="p-0">
-                      <img
-                        src={galleryFellowship}
-                        alt="Fellowship meal with families sharing together"
-                        className="w-full h-64 md:h-80 object-cover transition-transform group-hover:scale-105"
-                        loading="lazy"
-                        decoding="async"
-                        fetchPriority="low"
-                      />
-                      <div className="p-4 bg-card">
-                        <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">Fellowship Meals</h3>
-                        <p className="text-sm text-muted-foreground">Building relationships</p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Link>
+                <Card className="overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
+                  <CardContent className="p-0">
+                    <img
+                      src={galleryFellowship}
+                      alt="Fellowship meal with families sharing together"
+                      className="w-full h-64 md:h-80 object-cover"
+                      loading="lazy"
+                      decoding="async"
+                      fetchPriority="low"
+                    />
+                    <div className="p-4 bg-card">
+                      <h3 className="text-lg font-semibold text-foreground">Fellowship Meals</h3>
+                      <p className="text-sm text-muted-foreground">Building relationships</p>
+                    </div>
+                  </CardContent>
+                </Card>
               </CarouselItem>
 
-              
               <CarouselItem className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
                 <Card className="overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
                   <CardContent className="p-0">
