@@ -309,7 +309,7 @@ const VacationBibleSchool = () => {
                 </p>
               </div>
 
-              {submitted ? (
+              {formState.succeeded ? (
                 <div className="rounded-3xl border-2 border-[#7fb069]/60 bg-[#1b2a1f]/90 p-10 text-center backdrop-blur">
                   <Flame className="mx-auto mb-4 h-10 w-10 text-[#d4a24a]" />
                   <h3 className="font-display text-3xl font-black uppercase text-[#f5e9c9]">
@@ -349,10 +349,12 @@ const VacationBibleSchool = () => {
                   </div>
                   <button
                     type="submit"
-                    className="w-full rounded-full bg-[#d4a24a] py-4 font-display text-base font-bold uppercase tracking-wider text-[#1b2a1f] shadow-xl shadow-[#d4a24a]/20 transition-all hover:scale-[1.02] hover:bg-[#e8b85a]"
+                    disabled={formState.submitting}
+                    className="w-full rounded-full bg-[#d4a24a] py-4 font-display text-base font-bold uppercase tracking-wider text-[#1b2a1f] shadow-xl shadow-[#d4a24a]/20 transition-all hover:scale-[1.02] hover:bg-[#e8b85a] disabled:opacity-60"
                   >
-                    Sign Me Up
+                    {formState.submitting ? "Sending..." : "Sign Me Up"}
                   </button>
+                  <ValidationError errors={formState.errors} className="text-center text-sm text-[#e8773a]" />
                 </form>
               )}
             </div>
