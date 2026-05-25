@@ -16,7 +16,7 @@ const Eternity = () => {
       number: 2,
       title: "As a sinner, you owe the penalty of sin",
       verses: ["Romans 6:23a", "Revelation 20:14"],
-      description: "The wages of sin is death—a 'second death' in the lake of fire."
+      description: "The wages of sin is death, a 'second death' in the lake of fire."
     },
     {
       number: 3,

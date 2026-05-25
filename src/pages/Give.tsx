@@ -90,7 +90,7 @@ const Give = () => {
                     <div>
                       <p className="font-semibold text-foreground">In-Person</p>
                       <p className="text-muted-foreground">
-                        Give during any of our services—offering boxes are available
+                        Give during any of our services, offering boxes are available
                       </p>
                     </div>
                   </div>

@@ -117,10 +117,10 @@ const getSpecialHeroConfig = (event: EventData): SpecialHeroConfig => {
   if (name.includes("vacation bible") || name.includes("vbs")) {
     return {
       image: vbsForest,
-      alt: "Forest and mountains — Vacation Bible School 2026 Into the Great Outdoors",
+      alt: "Forest and mountains, Vacation Bible School 2026 Into the Great Outdoors",
       title: "Vacation Bible School",
       subtitle:
-        "Into the Great Outdoors — a week of faith, fun & adventure for your kids.",
+        "Into the Great Outdoors, a week of faith, fun & adventure for your kids.",
       eyebrow: () => "July 20–24, 2026 • 6PM–8PM",
       ctaLabel: "Register Your Camper",
       ctaHref: "/vacation-bible-school-2026",
@@ -157,7 +157,7 @@ const getSpecialHeroConfig = (event: EventData): SpecialHeroConfig => {
       alt: "Country church at golden hour decorated for an anniversary celebration",
       title: "11 Years of God's Faithfulness",
       subtitle:
-        "Celebrate eleven years of grace, growth, and gospel ministry with our church family — worship, testimonies, and a fellowship meal to follow.",
+        "Celebrate eleven years of grace, growth, and gospel ministry with our church family, worship, testimonies, and a fellowship meal to follow.",
       eyebrow: (e) => `${formatDate(e.date)}${e.time ? ` • ${e.time}` : ""}`,
       ctaLabel: "See Service Details",
       ctaHref: "/events",
@@ -175,8 +175,8 @@ const getSpecialHeroConfig = (event: EventData): SpecialHeroConfig => {
       alt: "Teens playing paintball in the woods at church camp",
       title: "Teen Church Camp",
       subtitle:
-        "An unforgettable week of adventure, friendship, and faith — paintball in the pines, late-night worship, and lifelong memories.",
-      eyebrow: (e) => `${formatDate(e.date)}${e.time ? ` • ${e.time}` : ""} • Southland Camp, LA`,
+        "An unforgettable week of adventure, friendship, and faith, paintball in the pines, late-night worship, and lifelong memories.",
+      eyebrow: (e) => `${formatDate(e.date)}${e.time ? ` • ${e.time}` : ""}`,
       ctaLabel: "See Camp Details",
       ctaHref: "/events",
       overlay: "bg-gradient-to-b from-black/50 via-black/30 to-black/80",
@@ -193,7 +193,7 @@ const getSpecialHeroConfig = (event: EventData): SpecialHeroConfig => {
       alt: "Children sitting together on a bench by a lake at kids church camp",
       title: "Kids Church Camp",
       subtitle:
-        "A joy-filled week by the lake — new friends, big adventures, and little hearts growing closer to Jesus.",
+        "A joy-filled week by the lake, new friends, big adventures, and little hearts growing closer to Jesus.",
       eyebrow: (e) => `${formatDate(e.date)}${e.time ? ` • ${e.time}` : ""}`,
       ctaLabel: "See Camp Details",
       ctaHref: "/events",
@@ -275,7 +275,7 @@ const Home = () => {
               </div>
             </CarouselItem>
 
-            {/* Dynamic special-event slides — auto-hide once an event has passed (handled in useChurchData) */}
+            {/* Dynamic special-event slides, auto-hide once an event has passed (handled in useChurchData) */}
             {specialEvents.map((event) => {
               const cfg = getSpecialHeroConfig(event);
               return (

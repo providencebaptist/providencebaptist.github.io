@@ -128,7 +128,7 @@ const VacationBibleSchool = () => {
     const childrenSummary = children
       .map(
         (c, i) =>
-          `Child ${i + 1}: ${c.name} (Age ${c.age})${c.notes ? ` — Notes: ${c.notes}` : ""}`,
+          `Child ${i + 1}: ${c.name} (Age ${c.age})${c.notes ? `, Notes: ${c.notes}` : ""}`,
       )
       .join("\n");
     fd.set("children", childrenSummary);
@@ -210,9 +210,9 @@ const VacationBibleSchool = () => {
               transform: `translate3d(0, ${(scrollY - 600) * 0.3}px, 0)`,
             }}
           />
-          {/* Top fade — kills the bright sunset band where this section meets the hero */}
+          {/* Top fade, kills the bright sunset band where this section meets the hero */}
           <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-64 bg-gradient-to-b from-[#0d1a14] via-[#0d1a14]/80 to-transparent" />
-          {/* Bottom fade — smooths transition into the next dark section */}
+          {/* Bottom fade, smooths transition into the next dark section */}
           <div className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-48 bg-gradient-to-t from-[#0d1a14] to-transparent" />
           <div className="absolute inset-0 z-0 bg-gradient-to-r from-[#0d1a14]/95 via-[#0d1a14]/75 to-[#0d1a14]/50" />
           <div className="container relative z-20 mx-auto grid grid-cols-1 gap-10 px-6 py-28 sm:gap-12 sm:py-32 md:py-40 lg:grid-cols-2 lg:items-center lg:gap-16">
@@ -228,7 +228,7 @@ const VacationBibleSchool = () => {
                 <span className="block italic text-[#d4a24a]">Great Outdoors</span>
               </h2>
               <p className="mt-6 max-w-lg text-base leading-relaxed text-[#f5e9c9]/95 sm:text-lg">
-                Pack your gear and your faith — we're heading into the wild for an
+                Pack your gear and your faith, we're heading into the wild for an
                 unforgettable week of Bible stories, campfire games, mountain-sized
                 wonder, and friendships that last long after the embers fade.
               </p>
