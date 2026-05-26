@@ -342,7 +342,7 @@ const VacationBibleSchool = () => {
           <div
             className="absolute inset-0 z-0"
             style={{
-              backgroundImage: `url(${bibleLantern})`,
+              backgroundImage: `url(${tentNight})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               transform: `translate3d(0, ${(scrollY - 3000) * 0.2}px, 0)`,
