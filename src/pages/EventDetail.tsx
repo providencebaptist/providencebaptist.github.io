@@ -45,7 +45,11 @@ const isLivestreamed = (eventName: string): boolean => {
     name.includes("sunday morning worship") ||
     name.includes("easter sunday") ||
     name.includes("sunday evening service") ||
-    name.includes("prayer & bible study")
+    name.includes("prayer & bible study") ||
+    name.includes("father's day") ||
+    name.includes("fathers day") ||
+    name.includes("mother's day") ||
+    name.includes("mothers day")
   );
 };
 
