@@ -6,6 +6,7 @@ import { Calendar, Heart, Users, MapPin, Mail, BookOpen, Clock } from "lucide-re
 import { Link } from "react-router-dom";
 import ServiceTimes from "@/components/ServiceTimes";
 import SEO from "@/components/SEO";
+import { eventDetailPath } from "@/lib/eventSlug";
 import {
   Carousel,
   CarouselContent,
@@ -291,7 +292,7 @@ const Home = () => {
                           className={`min-h-[44px] ${cfg.ctaClass ?? ""}`}
                           variant={cfg.ctaClass ? "default" : "secondary"}
                         >
-                          <Link to={cfg.ctaHref}>{cfg.ctaLabel}</Link>
+                          <Link to={cfg.ctaHref === "/events" ? eventDetailPath(event.name) : cfg.ctaHref}>{cfg.ctaLabel}</Link>
                         </Button>
                       </div>
                     </div>
