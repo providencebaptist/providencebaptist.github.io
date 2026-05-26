@@ -125,6 +125,28 @@ const describeCadence = (occurrences: Occurrence[]): string | null => {
   return "annually";
 };
 
+const getAudienceAnswer = (groupName: string): string => {
+  const name = groupName.toLowerCase();
+  if (name.includes("men's prayer breakfast") || name.includes("mens prayer breakfast")) {
+    return (
+      `${groupName} is for men and teen boys only — a dedicated time for the men of the church and community to gather for prayer, food, and fellowship. ` +
+      "For everyone's peace of mind, on-premise security is on site throughout the event."
+    );
+  }
+  if (
+    name.includes("ladies bible study") ||
+    name.includes("ladies' bible study") ||
+    name.includes("women's bible study") ||
+    name.includes("womens bible study")
+  ) {
+    return (
+      `${groupName} is for ladies and teen girls only — a safe, encouraging space for the women of the church and community to study Scripture together. ` +
+      "For everyone's peace of mind, on-premise security is on site throughout the study."
+    );
+  }
+  return "Everyone is welcome at Providence Baptist Church. There is no cost to attend, no dress code, and no membership required. Guests, families, and first-time visitors are warmly invited.";
+};
+
 const buildEventFAQs = (
   groupName: string,
   occurrences: Occurrence[],
@@ -182,8 +204,7 @@ const buildEventFAQs = (
 
   items.push({
     question: `Who can attend ${groupName}?`,
-    answer:
-      "Everyone is welcome at Providence Baptist Church. There is no cost to attend, no dress code, and no membership required. Guests, families, and first-time visitors are warmly invited.",
+    answer: getAudienceAnswer(groupName),
   });
 
   items.push({
