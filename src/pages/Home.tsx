@@ -58,6 +58,20 @@ const formatDate = (date: string) => {
   });
 };
 
+// Format a Monday→Saturday camp week range from the Monday start date.
+const formatCampWeek = (date: string) => {
+  const start = new Date(date);
+  const end = new Date(start);
+  end.setDate(end.getDate() + 5);
+  const sameMonth = start.getMonth() === end.getMonth();
+  const monthStart = start.toLocaleDateString("en-US", { month: "long" });
+  const monthEnd = end.toLocaleDateString("en-US", { month: "long" });
+  const year = end.getFullYear();
+  return sameMonth
+    ? `${monthStart} ${start.getDate()}–${end.getDate()}, ${year}`
+    : `${monthStart} ${start.getDate()} – ${monthEnd} ${end.getDate()}, ${year}`;
+};
+
 const getSpecialHeroConfig = (event: EventData): SpecialHeroConfig => {
   const name = event.name.toLowerCase();
 
@@ -177,7 +191,7 @@ const getSpecialHeroConfig = (event: EventData): SpecialHeroConfig => {
       title: "Teen Church Camp",
       subtitle:
         "An unforgettable week of adventure, friendship, and faith, paintball in the pines, late-night worship, and lifelong memories.",
-      eyebrow: (e) => `${formatDate(e.date)}${e.time ? ` • ${e.time}` : ""}`,
+      eyebrow: (e) => `Monday–Saturday • ${formatCampWeek(e.date)}`,
       ctaLabel: "See Camp Details",
       ctaHref: "/events",
       overlay: "bg-gradient-to-b from-black/50 via-black/30 to-black/80",
@@ -195,7 +209,7 @@ const getSpecialHeroConfig = (event: EventData): SpecialHeroConfig => {
       title: "Kids Church Camp",
       subtitle:
         "A joy-filled week by the lake, new friends, big adventures, and little hearts growing closer to Jesus.",
-      eyebrow: (e) => `${formatDate(e.date)}${e.time ? ` • ${e.time}` : ""}`,
+      eyebrow: (e) => `Monday–Saturday • ${formatCampWeek(e.date)}`,
       ctaLabel: "See Camp Details",
       ctaHref: "/events",
       overlay: "bg-gradient-to-b from-black/40 via-black/20 to-black/70",
