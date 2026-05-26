@@ -310,7 +310,7 @@ const VacationBibleSchool = () => {
           <div
             className="absolute inset-0 z-0"
             style={{
-              backgroundImage: `url(${tentNight})`,
+              backgroundImage: `url(${bibleLantern})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               transform: `translate3d(0, ${(scrollY - 2200) * 0.3}px, 0)`,
@@ -342,7 +342,7 @@ const VacationBibleSchool = () => {
           <div
             className="absolute inset-0 z-0"
             style={{
-              backgroundImage: `url(${bibleLantern})`,
+              backgroundImage: `url(${tentNight})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               transform: `translate3d(0, ${(scrollY - 3000) * 0.2}px, 0)`,
@@ -501,9 +501,9 @@ const VbsFaqSection = ({ scrollY }: { scrollY: number }) => {
       <div
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: `url(${mountains})`,
+          backgroundImage: `url(${tentNight})`,
           backgroundSize: "cover",
-          backgroundPosition: "center bottom",
+          backgroundPosition: "center",
           transform: `translate3d(0, ${(scrollY - 3800) * 0.25}px, 0) scale(1.1)`,
         }}
       />
