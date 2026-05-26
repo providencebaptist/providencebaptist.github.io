@@ -13,6 +13,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
+import { eventDetailPath } from "@/lib/eventSlug";
 
 interface EventData {
   name: string;
@@ -447,23 +448,20 @@ export function EventsCalendar({ events, activeFilter, searchQuery = "" }: Event
                       )}
                     </div>
                     <h4 className="font-display font-semibold text-foreground">
-                      {event.link ? (
-                        <Link to={event.link} className="hover:text-primary transition-colors underline-offset-4 hover:underline">
-                          {event.name}
-                        </Link>
-                      ) : (
-                        event.name
-                      )}
+                      <Link
+                        to={event.link || eventDetailPath(event.name)}
+                        className="hover:text-primary transition-colors underline-offset-4 hover:underline"
+                      >
+                        {event.name}
+                      </Link>
                     </h4>
                     <p className="text-sm text-muted-foreground mt-1">{event.description}</p>
-                    {event.link && (
-                      <Link
-                        to={event.link}
-                        className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline mt-2"
-                      >
-                        View event details →
-                      </Link>
-                    )}
+                    <Link
+                      to={event.link || eventDetailPath(event.name)}
+                      className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline mt-2"
+                    >
+                      View event details →
+                    </Link>
                     {event.location && (
                       <div className="flex items-center gap-1.5 text-xs text-muted-foreground mt-2">
                         <MapPin className="w-3 h-3" />

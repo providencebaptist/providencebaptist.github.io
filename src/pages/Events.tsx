@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import SEO from "@/components/SEO";
 import { EventsCalendar } from "@/components/EventsCalendar";
+import { eventDetailPath } from "@/lib/eventSlug";
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 
 const EVENTS_PER_PAGE = 12;
@@ -441,13 +442,12 @@ const Events = () => {
                                       )}
                                     </div>
                                     <CardTitle className="font-display text-lg md:text-xl text-foreground">
-                                      {event.link ? (
-                                        <Link to={event.link} className="hover:text-primary transition-colors underline-offset-4 hover:underline">
-                                          {event.name}
-                                        </Link>
-                                      ) : (
-                                        event.name
-                                      )}
+                                      <Link
+                                        to={event.link || eventDetailPath(event.name)}
+                                        className="hover:text-primary transition-colors underline-offset-4 hover:underline"
+                                      >
+                                        {event.name}
+                                      </Link>
                                     </CardTitle>
                                   </div>
                                 </CardHeader>
@@ -462,18 +462,16 @@ const Events = () => {
                                   )}
                                   
                                   <div className="pt-2 flex flex-wrap gap-2">
-                                    {event.link && (
-                                      <Button
-                                        asChild
-                                        variant="default"
-                                        size="sm"
-                                        className="h-8 text-xs"
-                                      >
-                                        <Link to={event.link}>
-                                          View Details
-                                        </Link>
-                                      </Button>
-                                    )}
+                                    <Button
+                                      asChild
+                                      variant="default"
+                                      size="sm"
+                                      className="h-8 text-xs"
+                                    >
+                                      <Link to={event.link || eventDetailPath(event.name)}>
+                                        View Details
+                                      </Link>
+                                    </Button>
                                     <Button
                                       asChild
                                       variant="ghost"
