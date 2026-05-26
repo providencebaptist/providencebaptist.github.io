@@ -242,39 +242,6 @@ const Home = () => {
           className="w-full"
         >
           <CarouselContent>
-            {/* Slide 1: Welcome Home */}
-            <CarouselItem>
-              <div className="relative h-[500px] sm:h-[600px] md:h-[700px] flex items-center justify-center overflow-hidden">
-                <div className="absolute inset-0 z-0">
-                  <img
-                    src={heroImage}
-                    alt="Providence Baptist Church community"
-                    className="w-full h-full object-cover object-[center_25%]"
-                    loading="eager"
-                    fetchPriority="high"
-                    decoding="async"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary/70" />
-                </div>
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8 z-10 text-center">
-                  <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-primary-foreground mb-4 sm:mb-6">
-                    Welcome Home
-                  </h1>
-                  <p className="text-lg sm:text-xl md:text-2xl text-primary-foreground/90 mb-6 sm:mb-8 max-w-3xl mx-auto px-4">
-                    A caring church family in Georgetown, Texas
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
-                    <Button asChild variant="secondary" size="lg" className="min-h-[44px]">
-                      <Link to="/about">Learn More About Us</Link>
-                    </Button>
-                    <Button asChild variant="outline" size="lg" className="border-2 border-primary-foreground bg-transparent text-primary-foreground hover:bg-primary-foreground hover:text-primary min-h-[44px]">
-                      <Link to="/contact">Get In Touch</Link>
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </CarouselItem>
-
             {/* Dynamic special-event slides, auto-hide once an event has passed (handled in useChurchData),
                 and time-boxed to only show events within the next two months. */}
             {specialEvents
@@ -332,6 +299,39 @@ const Home = () => {
                 </CarouselItem>
               );
             })}
+
+            {/* Welcome Home slide (shown last) */}
+            <CarouselItem>
+              <div className="relative h-[500px] sm:h-[600px] md:h-[700px] flex items-center justify-center overflow-hidden">
+                <div className="absolute inset-0 z-0">
+                  <img
+                    src={heroImage}
+                    alt="Providence Baptist Church community"
+                    className="w-full h-full object-cover object-[center_25%]"
+                    loading="eager"
+                    fetchPriority="high"
+                    decoding="async"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary/70" />
+                </div>
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8 z-10 text-center">
+                  <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-primary-foreground mb-4 sm:mb-6">
+                    Welcome Home
+                  </h1>
+                  <p className="text-lg sm:text-xl md:text-2xl text-primary-foreground/90 mb-6 sm:mb-8 max-w-3xl mx-auto px-4">
+                    A caring church family in Georgetown, Texas
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
+                    <Button asChild variant="secondary" size="lg" className="min-h-[44px]">
+                      <Link to="/about">Learn More About Us</Link>
+                    </Button>
+                    <Button asChild variant="outline" size="lg" className="border-2 border-primary-foreground bg-transparent text-primary-foreground hover:bg-primary-foreground hover:text-primary min-h-[44px]">
+                      <Link to="/contact">Get In Touch</Link>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </CarouselItem>
           </CarouselContent>
           <CarouselPrevious className="hidden md:flex left-4 z-20 bg-white/20 border-white/40 text-white hover:bg-white/40" />
           <CarouselNext className="hidden md:flex right-4 z-20 bg-white/20 border-white/40 text-white hover:bg-white/40" />
