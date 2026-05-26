@@ -159,8 +159,8 @@ const VacationBibleSchool = () => {
             }}
           />
           <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#1a2e3d]/30 via-[#0d1a14]/10 to-[#0d1a14]" />
-          {/* Long bottom fade so the hero dissolves into the next section instead of cutting */}
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[55vh] bg-gradient-to-b from-transparent via-[#0d1a14]/85 to-[#0d1a14]" />
+          {/* Soft bottom fade so the hero dissolves into the next section instead of cutting */}
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[35vh] bg-gradient-to-b from-transparent to-[#0d1a14]" />
           <div className="relative z-20 px-6 text-center">
             <p
               className="mb-6 inline-block rounded-full bg-[#1b2a1f]/80 px-6 py-2 font-display text-xs font-bold uppercase tracking-[0.3em] text-[#d4a24a] ring-1 ring-[#d4a24a]/50 backdrop-blur"
@@ -214,11 +214,11 @@ const VacationBibleSchool = () => {
               transform: `translate3d(0, ${(scrollY - 600) * 0.3}px, 0)`,
             }}
           />
-          {/* Long top fade — overlaps the hero's bottom fade so the seam disappears */}
-          <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-[55vh] bg-gradient-to-b from-[#0d1a14] via-[#0d1a14]/85 to-transparent" />
-          {/* Long bottom fade into the next dark section */}
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[55vh] bg-gradient-to-t from-[#0d1a14] via-[#0d1a14]/85 to-transparent" />
-          <div className="absolute inset-0 z-0 bg-gradient-to-r from-[#0d1a14]/95 via-[#0d1a14]/75 to-[#0d1a14]/50" />
+          {/* Smooth top/bottom fades that reveal the image quickly through the middle */}
+          <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-[35vh] bg-gradient-to-b from-[#0d1a14] to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[35vh] bg-gradient-to-t from-[#0d1a14] to-transparent" />
+          {/* Light side vignette for text legibility — image still reads clearly */}
+          <div className="absolute inset-0 z-0 bg-gradient-to-r from-[#0d1a14]/75 via-[#0d1a14]/25 to-transparent" />
           <div className="container relative z-20 mx-auto grid grid-cols-1 gap-10 px-6 py-28 sm:gap-12 sm:py-32 md:py-40 lg:grid-cols-2 lg:items-center lg:gap-16">
             <div className="rounded-3xl bg-[#0d1a14]/70 p-6 backdrop-blur-sm ring-1 ring-[#d4a24a]/20 sm:p-8 md:p-10">
               <div className="mb-4 flex items-center gap-3 text-[#7fb069]">
@@ -257,9 +257,9 @@ const VacationBibleSchool = () => {
               transform: `translate3d(0, ${(scrollY - 1400) * 0.25}px, 0) scale(1.1)`,
             }}
           />
-          <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-[55vh] bg-gradient-to-b from-[#0d1a14] via-[#0d1a14]/85 to-transparent" />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[55vh] bg-gradient-to-t from-[#0d1a14] via-[#0d1a14]/85 to-transparent" />
-          <div className="absolute inset-0 z-0 bg-[#0d1a14]/60" />
+          <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-[35vh] bg-gradient-to-b from-[#0d1a14] to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[35vh] bg-gradient-to-t from-[#0d1a14] to-transparent" />
+          <div className="absolute inset-0 z-0 bg-[#0d1a14]/25" />
           <div className="relative z-20 mx-4 max-w-2xl rounded-3xl border-2 border-[#d4a24a]/60 bg-[#f5e9c9] p-6 shadow-2xl shadow-black/60 sm:mx-6 sm:p-10 md:p-14">
             <div className="mb-6 flex justify-center">
               <div className="h-1 w-16 bg-[#1b2a1f]" />
@@ -305,9 +305,9 @@ const VacationBibleSchool = () => {
               transform: `translate3d(0, ${(scrollY - 2200) * 0.3}px, 0)`,
             }}
           />
-          <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-[55vh] bg-gradient-to-b from-[#0d1a14] via-[#0d1a14]/85 to-transparent" />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[55vh] bg-gradient-to-t from-[#0d1a14] via-[#0d1a14]/85 to-transparent" />
-          <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#0d1a14]/55 via-[#0d1a14]/25 to-[#0d1a14]/55" />
+          <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-[35vh] bg-gradient-to-b from-[#0d1a14] to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[35vh] bg-gradient-to-t from-[#0d1a14] to-transparent" />
+          <div className="absolute inset-0 z-0 bg-[#0d1a14]/20" />
           <div className="container relative z-20 mx-auto px-6 py-28 text-center sm:py-32 md:py-40">
             <div className="mx-auto max-w-3xl rounded-3xl bg-[#0d1a14]/70 p-6 backdrop-blur-sm ring-1 ring-[#d4a24a]/20 sm:p-10 md:p-14">
               <Mountain className="mx-auto mb-6 h-10 w-10 text-[#d4a24a]" />
@@ -337,8 +337,9 @@ const VacationBibleSchool = () => {
               transform: `translate3d(0, ${(scrollY - 3000) * 0.2}px, 0)`,
             }}
           />
-          <div className="absolute inset-0 z-0 bg-[#0d1a14]/90" />
-          <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-[55vh] bg-gradient-to-b from-[#0d1a14] via-[#0d1a14]/90 to-transparent" />
+          <div className="absolute inset-0 z-0 bg-[#0d1a14]/55" />
+          <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-[35vh] bg-gradient-to-b from-[#0d1a14] to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[35vh] bg-gradient-to-t from-[#0d1a14] to-transparent" />
           <div className="container relative z-20 mx-auto px-6">
             <div className="mx-auto max-w-2xl">
               <div className="mb-8 rounded-3xl bg-[#0d1a14]/70 px-6 py-6 text-center backdrop-blur-sm ring-1 ring-[#d4a24a]/20">
