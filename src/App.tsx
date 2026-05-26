@@ -3,13 +3,14 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { lazy, Suspense } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import * as HelmetAsync from "react-helmet-async";
 import BreadcrumbSchema from "./components/BreadcrumbSchema";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 import PageTransition from "./components/PageTransition";
+import SiteFAQ from "./components/SiteFAQ";
 const Home = lazy(() => import("./pages/Home"));
 const History = lazy(() => import("./pages/History"));
 const Livestream = lazy(() => import("./pages/Livestream"));
@@ -30,6 +31,14 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const { HelmetProvider } = (HelmetAsync as any).default || HelmetAsync;
 const queryClient = new QueryClient();
+
+// Event detail pages render their own event-specific FAQ, so skip the
+// site-wide default FAQ there to avoid duplicate FAQPage schema.
+const GlobalFAQ = () => {
+  const { pathname } = useLocation();
+  if (pathname.startsWith("/events/")) return null;
+  return <SiteFAQ />;
+};
 
 const App = () => (
   <HelmetProvider>
@@ -72,6 +81,7 @@ const App = () => (
                   </Routes>
                 </PageTransition>
               </Suspense>
+              <GlobalFAQ />
             </main>
             <Footer />
           </div>

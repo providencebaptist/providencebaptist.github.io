@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import SEO from "@/components/SEO";
 import { getEventGroupName, slugifyEvent } from "@/lib/eventSlug";
 import { getEventHeroImage } from "@/lib/eventHeroImage";
+import SiteFAQ, { DEFAULT_FAQS, type FAQItem } from "@/components/SiteFAQ";
 
 const CHURCH_ADDRESS = "505 W. University Ave, Ste. #109, Georgetown, TX 78626";
 const GOOGLE_MAPS_URL = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(CHURCH_ADDRESS)}`;
@@ -91,6 +92,48 @@ const googleCalendarUrl = (event: { name: string; date: string; description: str
   return `https://calendar.google.com/calendar/render?${params.toString()}`;
 };
 
+const buildEventFAQs = (
+  groupName: string,
+  next: { date: string; time?: string; location?: string; description: string },
+  occurrenceCount: number,
+  hasLivestream: boolean,
+): FAQItem[] => {
+  const whenAnswer = `${formatDateLong(next.date)}${next.time ? ` at ${next.time}` : ""} (Central Time).${
+    occurrenceCount > 1 ? ` There are ${occurrenceCount} upcoming sessions on the calendar.` : ""
+  }`;
+
+  const where = next.location || CHURCH_ADDRESS;
+
+  return [
+    {
+      question: `When is the next ${groupName}?`,
+      answer: whenAnswer,
+    },
+    {
+      question: `Where is ${groupName} held?`,
+      answer: `${groupName} is held at ${where}. Free parking is available on-site.`,
+    },
+    {
+      question: `Who can attend ${groupName}?`,
+      answer:
+        "Everyone is welcome at Providence Baptist Church. There is no cost to attend, no dress code, and no membership required. Guests, families, and first-time visitors are warmly invited.",
+    },
+    {
+      question: hasLivestream
+        ? `Is ${groupName} livestreamed?`
+        : `Can I watch ${groupName} online?`,
+      answer: hasLivestream
+        ? `Yes. ${groupName} is broadcast live on SermonAudio and Facebook through our Livestream page.`
+        : `${groupName} is not livestreamed, but our Sunday Morning Worship, Sunday Evening Service, and Wednesday Prayer & Bible Study are all available on our Livestream page.`,
+    },
+    {
+      question: `How do I add ${groupName} to my calendar?`,
+      answer:
+        "Use the iCal download button to add it to Apple Calendar or Outlook, or click Add to Calendar to add it directly to Google Calendar.",
+    },
+  ];
+};
+
 const EventDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const { events, loading } = useChurchData();
@@ -136,6 +179,13 @@ const EventDetail = () => {
   const hasLivestream = isLivestreamed(next.name);
   const isMultiPart = occurrences.some((o) => o.name !== groupName);
   const heroImage = getEventHeroImage(groupName);
+  const eventFAQs = buildEventFAQs(groupName, next, occurrences.length, hasLivestream);
+  // Merge a few site-wide essentials (times, beliefs, contact) so this page
+  // still surfaces the broader GEO answers without duplicating the full set.
+  const generalFAQs = DEFAULT_FAQS.filter((f) =>
+    /service times|what does providence|how can i contact/i.test(f.question),
+  );
+  const faqItems: FAQItem[] = [...eventFAQs, ...generalFAQs];
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -344,6 +394,10 @@ const EventDetail = () => {
           )}
         </div>
       </section>
+      <SiteFAQ
+        items={faqItems}
+        title={`${groupName} – Frequently Asked Questions`}
+      />
     </>
   );
 };
