@@ -1,13 +1,24 @@
 import { useEffect, useRef, useState, FormEvent } from "react";
 import { useForm, ValidationError } from "@formspree/react";
 import { z } from "zod";
+import * as HelmetAsync from "react-helmet-async";
 import SEO from "@/components/SEO";
 import mountains from "@/assets/vbs-mountains.jpg";
 import forest from "@/assets/vbs-forest.jpg";
 import campfire from "@/assets/vbs-campfire.jpg";
 import tentNight from "@/assets/vbs-tent-night.jpg";
 import bibleLantern from "@/assets/vbs-bible-lantern.jpg";
-import { Compass, Flame, Tent, Binoculars, Calendar, Clock, MapPin, TreePine, Mountain, Plus, X } from "lucide-react";
+import { Compass, Flame, Tent, Binoculars, Calendar, Clock, MapPin, TreePine, Mountain, Plus, X, HelpCircle } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { getFaqsForPath } from "@/lib/pageFaqs";
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const { Helmet } = (HelmetAsync as any).default || HelmetAsync;
 
 const useScrollY = () => {
   const [y, setY] = useState(0);
