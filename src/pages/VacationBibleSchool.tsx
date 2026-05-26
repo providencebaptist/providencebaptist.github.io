@@ -1,13 +1,24 @@
 import { useEffect, useRef, useState, FormEvent } from "react";
 import { useForm, ValidationError } from "@formspree/react";
 import { z } from "zod";
+import * as HelmetAsync from "react-helmet-async";
 import SEO from "@/components/SEO";
 import mountains from "@/assets/vbs-mountains.jpg";
 import forest from "@/assets/vbs-forest.jpg";
 import campfire from "@/assets/vbs-campfire.jpg";
 import tentNight from "@/assets/vbs-tent-night.jpg";
 import bibleLantern from "@/assets/vbs-bible-lantern.jpg";
-import { Compass, Flame, Tent, Binoculars, Calendar, Clock, MapPin, TreePine, Mountain, Plus, X } from "lucide-react";
+import { Compass, Flame, Tent, Binoculars, Calendar, Clock, MapPin, TreePine, Mountain, Plus, X, HelpCircle } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { getFaqsForPath } from "@/lib/pageFaqs";
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const { Helmet } = (HelmetAsync as any).default || HelmetAsync;
 
 const useScrollY = () => {
   const [y, setY] = useState(0);
@@ -463,8 +474,81 @@ const VacationBibleSchool = () => {
             </div>
           </div>
         </section>
+
+        {/* ========== FAQ: Parallax finale ========== */}
+        <VbsFaqSection scrollY={scrollY} />
       </div>
     </>
+  );
+};
+
+const VbsFaqSection = ({ scrollY }: { scrollY: number }) => {
+  const faqs = getFaqsForPath("/vacation-bible-school-2026") ?? [];
+  if (faqs.length === 0) return null;
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((it) => ({
+      "@type": "Question",
+      name: it.question,
+      acceptedAnswer: { "@type": "Answer", text: it.answer },
+    })),
+  };
+
+  return (
+    <section className="relative flex min-h-screen items-center overflow-hidden bg-[#0d1a14] py-28 sm:py-32 md:py-40">
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `url(${mountains})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center bottom",
+          transform: `translate3d(0, ${(scrollY - 3800) * 0.25}px, 0) scale(1.1)`,
+        }}
+      />
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-[35vh] bg-gradient-to-b from-[#0d1a14] to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[40vh] bg-gradient-to-t from-[#0d1a14] to-transparent" />
+      <div className="absolute inset-0 z-0 bg-[#0d1a14]/55" />
+      <div className="container relative z-20 mx-auto px-6">
+        <div className="mx-auto max-w-3xl">
+          <div className="mb-8 rounded-3xl bg-[#0d1a14]/70 px-6 py-6 text-center backdrop-blur-sm ring-1 ring-[#d4a24a]/20">
+            <div className="mb-3 flex items-center justify-center gap-3 text-[#7fb069]">
+              <HelpCircle className="h-6 w-6" />
+              <span className="font-display text-xs font-bold uppercase tracking-[0.3em] text-[#d4a24a]">
+                Trail Questions
+              </span>
+            </div>
+            <h2 className="font-display text-4xl font-black uppercase text-[#f5e9c9] md:text-5xl">
+              Frequently Asked
+              <span className="block italic text-[#7fb069]">Questions</span>
+            </h2>
+          </div>
+
+          <div className="rounded-3xl border border-[#d4a24a]/40 bg-[#1b2a1f]/85 p-6 backdrop-blur md:p-10">
+            <Accordion type="single" collapsible className="w-full">
+              {faqs.map((it, i) => (
+                <AccordionItem
+                  key={`${i}-${it.question}`}
+                  value={`vbs-faq-${i}`}
+                  className="border-b border-[#d4a24a]/20 last:border-b-0"
+                >
+                  <AccordionTrigger className="text-left font-display text-base font-bold uppercase tracking-wide text-[#f5e9c9] hover:text-[#d4a24a] hover:no-underline">
+                    {it.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-[#f5e9c9]/85 leading-relaxed">
+                    {it.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </div>
+      </div>
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(schema)}</script>
+      </Helmet>
+    </section>
   );
 };
 
