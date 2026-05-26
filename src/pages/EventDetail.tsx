@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import SEO from "@/components/SEO";
 import { getEventGroupName, slugifyEvent } from "@/lib/eventSlug";
+import { getEventHeroImage } from "@/lib/eventHeroImage";
 
 const CHURCH_ADDRESS = "505 W. University Ave, Ste. #109, Georgetown, TX 78626";
 const GOOGLE_MAPS_URL = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(CHURCH_ADDRESS)}`;
@@ -134,6 +135,7 @@ const EventDetail = () => {
   const remaining = occurrences.slice(1);
   const hasLivestream = isLivestreamed(next.name);
   const isMultiPart = occurrences.some((o) => o.name !== groupName);
+  const heroImage = getEventHeroImage(groupName);
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -173,21 +175,45 @@ const EventDetail = () => {
       />
 
       {/* Hero */}
-      <section className="bg-gradient-to-r from-accent to-secondary text-accent-foreground py-12 sm:py-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-center gap-3 sm:gap-4 mb-3 sm:mb-4">
-            <Calendar className="h-10 w-10 sm:h-12 sm:w-12" />
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center">
-              {groupName}
-            </h1>
+      {heroImage ? (
+        <section className="relative overflow-hidden">
+          <img
+            src={heroImage.image}
+            alt={heroImage.alt}
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div className={`absolute inset-0 ${heroImage.overlay ?? "bg-gradient-to-b from-black/50 via-black/30 to-black/70"}`} />
+          <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 md:py-32">
+            <div className="flex items-center justify-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+              <Calendar className="h-10 w-10 sm:h-12 sm:w-12 text-white drop-shadow-lg" />
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center text-white drop-shadow-lg">
+                {groupName}
+              </h1>
+            </div>
+            <p className="text-lg sm:text-xl text-center max-w-3xl mx-auto px-4 text-white/95 drop-shadow">
+              {occurrences.length > 1
+                ? `${occurrences.length} upcoming ${isMultiPart ? "sessions" : "occurrences"}`
+                : "Upcoming event"}
+            </p>
           </div>
-          <p className="text-lg sm:text-xl text-center max-w-3xl mx-auto px-4">
-            {occurrences.length > 1
-              ? `${occurrences.length} upcoming ${isMultiPart ? "sessions" : "occurrences"}`
-              : "Upcoming event"}
-          </p>
-        </div>
-      </section>
+        </section>
+      ) : (
+        <section className="bg-gradient-to-r from-accent to-secondary text-accent-foreground py-12 sm:py-16">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+              <Calendar className="h-10 w-10 sm:h-12 sm:w-12" />
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center">
+                {groupName}
+              </h1>
+            </div>
+            <p className="text-lg sm:text-xl text-center max-w-3xl mx-auto px-4">
+              {occurrences.length > 1
+                ? `${occurrences.length} upcoming ${isMultiPart ? "sessions" : "occurrences"}`
+                : "Upcoming event"}
+            </p>
+          </div>
+        </section>
+      )}
 
       <section className="py-12 md:py-16 bg-background">
         <div className="container mx-auto px-4 max-w-4xl">
