@@ -11,12 +11,11 @@ import vbsForest from "@/assets/vbs-forest.jpg";
 import heroMensPrayerBreakfast from "@/assets/hero-mens-prayer-breakfast.jpg";
 import heroGarageSale from "@/assets/hero-garage-sale.jpg";
 import heroYouthConference from "@/assets/hero-youth-conference.jpg";
+import heroFellowshipTable from "@/assets/hero-fellowship-table.jpg";
+import heroOutreachStillLife from "@/assets/hero-outreach-stilllife.jpg";
+import heroWorshipStillLife from "@/assets/hero-worship-stilllife.jpg";
+import heroChildrenStillLife from "@/assets/hero-children-stilllife.jpg";
 import galleryBibleStudy from "@/assets/gallery-biblestudy.jpg";
-import galleryWorship from "@/assets/gallery-worship.jpg";
-import galleryFellowship from "@/assets/gallery-fellowship.jpg";
-import galleryOutreach from "@/assets/gallery-outreach.jpg";
-import galleryChildren from "@/assets/gallery-children.jpg";
-import heroCommunity from "@/assets/hero-community.jpg";
 
 export interface EventHeroImage {
   image: string;
@@ -107,22 +106,22 @@ export function getEventHeroImage(eventName: string): EventHeroImage | null {
   }
   if (name.includes("fellowship")) {
     return {
-      image: galleryFellowship,
-      alt: "Church family enjoying a meal together at a fellowship dinner",
+      image: heroFellowshipTable,
+      alt: "Long wooden table set for a fellowship dinner with candles, bread, and wildflowers",
       overlay: "bg-gradient-to-b from-black/40 via-black/25 to-black/65",
     };
   }
   if (name.includes("outreach") || name.includes("door knocking") || name.includes("tract")) {
     return {
-      image: galleryOutreach,
-      alt: "Church members going door-to-door for community outreach",
+      image: heroOutreachStillLife,
+      alt: "Pocket New Testament, gospel tracts, a map, and a coffee tumbler arranged for outreach",
       overlay: "bg-gradient-to-b from-black/40 via-black/25 to-black/65",
     };
   }
   if (name.includes("kid's sunday school") || name.includes("kids sunday school") || name.includes("kid's choir") || name.includes("kids choir")) {
     return {
-      image: galleryChildren,
-      alt: "Children learning and singing together at church",
+      image: heroChildrenStillLife,
+      alt: "Open illustrated children's Bible storybook with crayons and a wooden Noah's ark toy",
       overlay: "bg-gradient-to-b from-black/35 via-black/20 to-black/60",
     };
   }
@@ -143,23 +142,23 @@ export function getEventHeroImage(eventName: string): EventHeroImage | null {
     name.includes("church choir")
   ) {
     return {
-      image: galleryWorship,
-      alt: "Congregation worshiping together at Providence Baptist Church",
+      image: heroWorshipStillLife,
+      alt: "Sunlit wooden pew with a leather hymnal and an open Bible",
       overlay: "bg-gradient-to-b from-black/45 via-black/25 to-black/70",
     };
   }
   if (name.includes("business meeting")) {
     return {
-      image: heroCommunity,
-      alt: "Members of Providence Baptist Church gathered together",
+      image: galleryBibleStudy,
+      alt: "Open Bible and study notes on a wooden table",
       overlay: "bg-gradient-to-b from-black/55 via-black/35 to-black/75",
     };
   }
 
-  // Generic default — every event page gets a header image.
+  // Generic symbolic default — every event page gets a header image.
   return {
-    image: heroCommunity,
-    alt: "Providence Baptist Church community",
+    image: galleryBibleStudy,
+    alt: "Open Bible on a wooden table",
     overlay: "bg-gradient-to-b from-black/50 via-black/30 to-black/70",
   };
 }
