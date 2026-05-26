@@ -501,9 +501,9 @@ const VbsFaqSection = ({ scrollY }: { scrollY: number }) => {
       <div
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: `url(${mountains})`,
+          backgroundImage: `url(${tentNight})`,
           backgroundSize: "cover",
-          backgroundPosition: "center bottom",
+          backgroundPosition: "center",
           transform: `translate3d(0, ${(scrollY - 3800) * 0.25}px, 0) scale(1.1)`,
         }}
       />
