@@ -2,9 +2,10 @@ import type { FAQItem } from "@/components/SiteFAQ";
 
 const home: FAQItem[] = [
   {
-    question: "What should I expect on my first visit to Providence Baptist Church?",
+    question:
+      "What should I expect on my first visit to Providence Baptist Church?",
     answer:
-      "A warm welcome, congregational singing from the hymnal, prayer, and verse-by-verse preaching from the King James Bible. Come as you are — there is no dress code and no membership required to attend. Plan to arrive about 10 minutes early so you have time to find a seat.",
+      "A warm welcome, congregational singing from the hymnal, prayer, and verse-by-verse preaching from the King James Bible. Come as you are - there is no dress code and no membership required to attend. Plan to arrive about 10 minutes early so you have time to find a seat.",
   },
   {
     question: "When does Providence Baptist Church meet each week?",
@@ -24,7 +25,7 @@ const home: FAQItem[] = [
   {
     question: "Do you have anything for kids and teens?",
     answer:
-      "Yes — Kid's Sunday School during the morning service, Teen Sunday School at 10:00 AM, Kid's Choir, Vacation Bible School each summer, and separate Kids and Teen Camps. Families are warmly invited.",
+      "Yes - Kid's Sunday School during the morning service, Teen Sunday School at 10:00 AM, Kid's Choir, Vacation Bible School each summer, and separate Kids and Teen Camps. Families are warmly invited.",
   },
 ];
 
@@ -32,7 +33,7 @@ const about: FAQItem[] = [
   {
     question: "What kind of church is Providence Baptist Church?",
     answer:
-      "We are an Independent Baptist Church — autonomous, congregational, and not affiliated with a denominational hierarchy. We preach exclusively from the King James Bible.",
+      "We are an Independent Baptist Church - autonomous, congregational, and not affiliated with a denominational hierarchy. We preach exclusively from the King James Bible.",
   },
   {
     question: "When was Providence Baptist Church founded?",
@@ -42,7 +43,7 @@ const about: FAQItem[] = [
   {
     question: "Who attends Providence Baptist Church?",
     answer:
-      "A multi-generational church family from Georgetown and the surrounding Williamson County — singles, young families, empty nesters, and retirees. Visitors and seekers are always welcome.",
+      "A multi-generational church family from Georgetown and the surrounding Williamson County - singles, young families, empty nesters, and retirees. Visitors and seekers are always welcome.",
   },
   {
     question: "How do I become a member?",
@@ -124,7 +125,7 @@ const purpose: FAQItem[] = [
   {
     question: "What is the mission of Providence Baptist Church?",
     answer:
-      "Our three-fold purpose is to Glorify God, Lift up Christ, and Walk in the Spirit — through souls being saved, lives changed, families strengthened, and the faithful teaching of God's Word.",
+      "Our three-fold purpose is to Glorify God, Lift up Christ, and Walk in the Spirit - through souls being saved, lives changed, families strengthened, and the faithful teaching of God's Word.",
   },
   {
     question: "What does 'Glorify God' mean for your church?",
@@ -139,7 +140,7 @@ const purpose: FAQItem[] = [
   {
     question: "What does 'Walk in the Spirit' look like in practice?",
     answer:
-      "Daily dependence on the Holy Spirit — through prayer, Scripture, obedience, and Christlike love — for the church family and for each believer at home and at work.",
+      "Daily dependence on the Holy Spirit - through prayer, Scripture, obedience, and Christlike love - for the church family and for each believer at home and at work.",
   },
 ];
 
@@ -147,7 +148,7 @@ const sermons: FAQItem[] = [
   {
     question: "What style of preaching does Providence Baptist Church use?",
     answer:
-      "Expository, verse-by-verse preaching from the King James Bible — explaining what the text says, what it means, and how it applies today.",
+      "Expository, verse-by-verse preaching from the King James Bible - explaining what the text says, what it means, and how it applies today.",
   },
   {
     question: "Are sermon audio and video available online?",
@@ -168,7 +169,8 @@ const sermons: FAQItem[] = [
 
 const events: FAQItem[] = [
   {
-    question: "Do I need to register or RSVP for events at Providence Baptist Church?",
+    question:
+      "Do I need to register or RSVP for events at Providence Baptist Church?",
     answer:
       "No. All regular services and most special events are open to the public with no registration required. For camps and VBS, registration details are listed on the event page.",
   },
@@ -226,7 +228,7 @@ const eternity: FAQItem[] = [
   {
     question: "If I'm a good person, isn't that enough?",
     answer:
-      "No. The Bible says all have sinned and fall short of God's glory (Romans 3:23). Heaven is not a reward for good behavior — it is a gift received by faith in what Jesus Christ has already done.",
+      "No. The Bible says all have sinned and fall short of God's glory (Romans 3:23). Heaven is not a reward for good behavior - it is a gift received by faith in what Jesus Christ has already done.",
   },
   {
     question: "Do I have to be baptized to be saved?",
@@ -241,7 +243,7 @@ const eternity: FAQItem[] = [
   {
     question: "I prayed to receive Christ. Now what?",
     answer:
-      "Tell someone, read the Bible (start in the Gospel of John), pray daily, and find a Bible-believing church to grow in. We would love to hear from you — email Pastor@pbcatx.org.",
+      "Tell someone, read the Bible (start in the Gospel of John), pray daily, and find a Bible-believing church to grow in. We would love to hear from you - email Pastor@pbcatx.org.",
   },
 ];
 
@@ -269,7 +271,7 @@ const give: FAQItem[] = [
   {
     question: "What does my giving support?",
     answer:
-      "Local ministry expenses, support for missionaries, outreach in Georgetown, and ministries for children, teens, and families — all governed by the church to be faithful stewards of every gift.",
+      "Local ministry expenses, support for missionaries, outreach in Georgetown, and ministries for children, teens, and families - all governed by the church to be faithful stewards of every gift.",
   },
 ];
 
@@ -300,12 +302,12 @@ const vbs: FAQItem[] = [
   {
     question: "When is Vacation Bible School 2026?",
     answer:
-      "VBS 2026 — Into the Great Outdoors — runs the week of July 20–24, 2026 from 6:00 PM to 8:00 PM each night at Providence Baptist Church.",
+      "VBS 2026 - Into the Great Outdoors - runs the week of July 20–24, 2026 from 6:00 PM to 8:00 PM each night at Providence Baptist Church.",
   },
   {
     question: "What ages is VBS for?",
     answer:
-      "VBS is designed for children from preschool through 6th grade. Older teens are welcome to serve as helpers — contact Pastor Pope to volunteer.",
+      "VBS is designed for children from preschool through 6th grade. Older teens are welcome to serve as helpers - contact Pastor Pope to volunteer.",
   },
   {
     question: "Is Vacation Bible School free?",
@@ -320,7 +322,7 @@ const vbs: FAQItem[] = [
   {
     question: "What will my child learn at VBS this year?",
     answer:
-      "Each night blends Bible stories, music, games, crafts, and an outdoor adventure theme — all pointing children to Jesus Christ as Savior and Lord.",
+      "Each night blends Bible stories, music, games, crafts, and an outdoor adventure theme - all pointing children to Jesus Christ as Savior and Lord.",
   },
 ];
 

@@ -8,7 +8,20 @@ import forest from "@/assets/vbs-forest.jpg";
 import campfire from "@/assets/vbs-campfire.jpg";
 import tentNight from "@/assets/vbs-tent-night.jpg";
 import bibleLantern from "@/assets/vbs-bible-lantern.jpg";
-import { Compass, Flame, Tent, Binoculars, Calendar, Clock, MapPin, TreePine, Mountain, Plus, X, HelpCircle } from "lucide-react";
+import {
+  Compass,
+  Flame,
+  Tent,
+  Binoculars,
+  Calendar,
+  Clock,
+  MapPin,
+  TreePine,
+  Mountain,
+  Plus,
+  X,
+  HelpCircle,
+} from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -103,11 +116,15 @@ const VacationBibleSchool = () => {
   const [formState, handleFormspreeSubmit] = useForm("xgoqnvaz");
 
   const updateChild = (i: number, key: keyof Child, value: string) => {
-    setChildren((prev) => prev.map((c, idx) => (idx === i ? { ...c, [key]: value } : c)));
+    setChildren((prev) =>
+      prev.map((c, idx) => (idx === i ? { ...c, [key]: value } : c)),
+    );
   };
   const addChild = () => setChildren((prev) => [...prev, emptyChild()]);
   const removeChild = (i: number) =>
-    setChildren((prev) => (prev.length === 1 ? prev : prev.filter((_, idx) => idx !== i)));
+    setChildren((prev) =>
+      prev.length === 1 ? prev : prev.filter((_, idx) => idx !== i),
+    );
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -147,7 +164,6 @@ const VacationBibleSchool = () => {
     fd.set("childCount", String(children.length));
     handleFormspreeSubmit(fd);
   };
-
 
   return (
     <>
@@ -208,7 +224,9 @@ const VacationBibleSchool = () => {
           {/* Scroll cue */}
           <div className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2 animate-bounce">
             <div className="flex flex-col items-center gap-2">
-              <span className="font-display text-[10px] font-bold uppercase tracking-[0.3em] text-[#d4a24a]">Scroll</span>
+              <span className="font-display text-[10px] font-bold uppercase tracking-[0.3em] text-[#d4a24a]">
+                Scroll
+              </span>
               <div className="h-8 w-px bg-gradient-to-b from-[#d4a24a] to-transparent" />
             </div>
           </div>
@@ -228,7 +246,7 @@ const VacationBibleSchool = () => {
           {/* Smooth top/bottom fades that reveal the image quickly through the middle */}
           <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-[35vh] bg-gradient-to-b from-[#0d1a14] to-transparent" />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[35vh] bg-gradient-to-t from-[#0d1a14] to-transparent" />
-          {/* Light side vignette for text legibility — image still reads clearly */}
+          {/* Light side vignette for text legibility - image still reads clearly */}
           <div className="absolute inset-0 z-0 bg-gradient-to-r from-[#0d1a14]/75 via-[#0d1a14]/25 to-transparent" />
           <div className="container relative z-20 mx-auto grid grid-cols-1 gap-10 px-6 py-28 sm:gap-12 sm:py-32 md:py-40 lg:grid-cols-2 lg:items-center lg:gap-16">
             <div className="rounded-3xl bg-[#0d1a14]/70 p-6 backdrop-blur-sm ring-1 ring-[#d4a24a]/20 sm:p-8 md:p-10">
@@ -240,12 +258,15 @@ const VacationBibleSchool = () => {
               </div>
               <h2 className="font-display text-4xl font-black uppercase leading-[0.95] text-[#f5e9c9] sm:text-5xl md:text-6xl">
                 Into the
-                <span className="block italic text-[#d4a24a]">Great Outdoors</span>
+                <span className="block italic text-[#d4a24a]">
+                  Great Outdoors
+                </span>
               </h2>
               <p className="mt-6 max-w-lg text-base leading-relaxed text-[#f5e9c9]/95 sm:text-lg">
-                Pack your gear and your faith, we're heading into the wild for an
-                unforgettable week of Bible stories, campfire games, mountain-sized
-                wonder, and friendships that last long after the embers fade.
+                Pack your gear and your faith, we're heading into the wild for
+                an unforgettable week of Bible stories, campfire games,
+                mountain-sized wonder, and friendships that last long after the
+                embers fade.
               </p>
             </div>
             <div className="space-y-4">
@@ -324,11 +345,13 @@ const VacationBibleSchool = () => {
               <Mountain className="mx-auto mb-6 h-10 w-10 text-[#d4a24a]" />
               <h2 className="font-display text-4xl font-black uppercase leading-[0.95] text-[#f5e9c9] sm:text-5xl md:text-7xl">
                 Let's grow in faith
-                <span className="mt-2 block italic text-[#7fb069]">together</span>
+                <span className="mt-2 block italic text-[#7fb069]">
+                  together
+                </span>
               </h2>
               <p className="mx-auto mt-8 max-w-xl text-base text-[#f5e9c9]/95 sm:text-lg">
-                Beneath wide-open skies and a million stars, hearts learn to listen.
-                Bring your kids, bring your friends, bring your wonder.
+                Beneath wide-open skies and a million stars, hearts learn to
+                listen. Bring your kids, bring your friends, bring your wonder.
               </p>
             </div>
           </div>
@@ -361,7 +384,8 @@ const VacationBibleSchool = () => {
                   Reserve Your Spot
                 </h2>
                 <p className="mt-3 text-[#f5e9c9]/90">
-                  Fill out the form and we'll be in touch with everything you need.
+                  Fill out the form and we'll be in touch with everything you
+                  need.
                 </p>
               </div>
 
@@ -387,8 +411,18 @@ const VacationBibleSchool = () => {
                       label="Parent / Guardian Name"
                       error={errors.parentName}
                     />
-                    <Field name="email" label="Email" type="email" error={errors.email} />
-                    <Field name="phone" label="Phone" type="tel" error={errors.phone} />
+                    <Field
+                      name="email"
+                      label="Email"
+                      type="email"
+                      error={errors.email}
+                    />
+                    <Field
+                      name="phone"
+                      label="Phone"
+                      type="tel"
+                      error={errors.phone}
+                    />
                   </div>
 
                   <div className="space-y-4 pt-2">
@@ -397,7 +431,8 @@ const VacationBibleSchool = () => {
                         Children Attending
                       </h3>
                       <span className="text-xs text-[#f5e9c9]/60">
-                        {children.length} {children.length === 1 ? "child" : "children"}
+                        {children.length}{" "}
+                        {children.length === 1 ? "child" : "children"}
                       </span>
                     </div>
 
@@ -444,7 +479,9 @@ const VacationBibleSchool = () => {
                             rows={2}
                             maxLength={500}
                             value={child.notes}
-                            onChange={(e) => updateChild(idx, "notes", e.target.value)}
+                            onChange={(e) =>
+                              updateChild(idx, "notes", e.target.value)
+                            }
                             className="w-full rounded-xl border border-[#d4a24a]/30 bg-[#0d1a14]/70 px-4 py-2.5 text-[#f5e9c9] placeholder:text-[#f5e9c9]/40 focus:border-[#d4a24a] focus:outline-none focus:ring-2 focus:ring-[#d4a24a]/50"
                           />
                         </div>
@@ -468,7 +505,10 @@ const VacationBibleSchool = () => {
                   >
                     {formState.submitting ? "Sending..." : "Sign Me Up"}
                   </button>
-                  <ValidationError errors={formState.errors} className="text-center text-sm text-[#e8773a]" />
+                  <ValidationError
+                    errors={formState.errors}
+                    className="text-center text-sm text-[#e8773a]"
+                  />
                 </form>
               )}
             </div>

@@ -1,6 +1,15 @@
 import { useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Calendar, Clock, MapPin, Navigation, Download, CalendarPlus, Video, ArrowLeft } from "lucide-react";
+import {
+  Calendar,
+  Clock,
+  MapPin,
+  Navigation,
+  Download,
+  CalendarPlus,
+  Video,
+  ArrowLeft,
+} from "lucide-react";
 import { useChurchData } from "@/hooks/useChurchData";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -53,11 +62,19 @@ const isLivestreamed = (eventName: string): boolean => {
   );
 };
 
-const downloadICal = (event: { name: string; date: string; description: string; time?: string; location?: string }) => {
+const downloadICal = (event: {
+  name: string;
+  date: string;
+  description: string;
+  time?: string;
+  location?: string;
+}) => {
   const start = parseEventDateTime(event.date, event.time);
   const end = new Date(start.getTime() + 60 * 60 * 1000);
-  const fmt = (d: Date) => d.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
-  const esc = (t: string) => t.replace(/[,;\\]/g, (m) => "\\" + m).replace(/\n/g, "\\n");
+  const fmt = (d: Date) =>
+    d.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
+  const esc = (t: string) =>
+    t.replace(/[,;\\]/g, (m) => "\\" + m).replace(/\n/g, "\\n");
   const ical = [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
@@ -82,10 +99,17 @@ const downloadICal = (event: { name: string; date: string; description: string; 
   URL.revokeObjectURL(url);
 };
 
-const googleCalendarUrl = (event: { name: string; date: string; description: string; time?: string; location?: string }) => {
+const googleCalendarUrl = (event: {
+  name: string;
+  date: string;
+  description: string;
+  time?: string;
+  location?: string;
+}) => {
   const start = parseEventDateTime(event.date, event.time);
   const end = new Date(start.getTime() + 60 * 60 * 1000);
-  const fmt = (d: Date) => d.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
+  const fmt = (d: Date) =>
+    d.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
   const params = new URLSearchParams({
     action: "TEMPLATE",
     text: event.name,
@@ -96,7 +120,13 @@ const googleCalendarUrl = (event: { name: string; date: string; description: str
   return `https://calendar.google.com/calendar/render?${params.toString()}`;
 };
 
-type Occurrence = { name: string; date: string; time?: string; location?: string; description: string };
+type Occurrence = {
+  name: string;
+  date: string;
+  time?: string;
+  location?: string;
+  description: string;
+};
 
 const formatDateShort = (dateStr: string) =>
   new Date(dateStr).toLocaleDateString("en-US", {
@@ -108,13 +138,19 @@ const formatDateShort = (dateStr: string) =>
 
 // Infer how often the event recurs from the gaps between scheduled
 // occurrences in the calendar data, so the FAQ stays accurate as the
-// schedule changes — no hard-coded cadence.
+// schedule changes - no hard-coded cadence.
 const describeCadence = (occurrences: Occurrence[]): string | null => {
   if (occurrences.length < 2) return null;
   const gaps: number[] = [];
   for (let i = 1; i < occurrences.length; i++) {
-    const a = parseEventDateTime(occurrences[i - 1].date, occurrences[i - 1].time).getTime();
-    const b = parseEventDateTime(occurrences[i].date, occurrences[i].time).getTime();
+    const a = parseEventDateTime(
+      occurrences[i - 1].date,
+      occurrences[i - 1].time,
+    ).getTime();
+    const b = parseEventDateTime(
+      occurrences[i].date,
+      occurrences[i].time,
+    ).getTime();
     const days = Math.round((b - a) / (1000 * 60 * 60 * 24));
     if (days > 0) gaps.push(days);
   }
@@ -131,9 +167,12 @@ const describeCadence = (occurrences: Occurrence[]): string | null => {
 
 const getAudienceAnswer = (groupName: string): string => {
   const name = groupName.toLowerCase();
-  if (name.includes("men's prayer breakfast") || name.includes("mens prayer breakfast")) {
+  if (
+    name.includes("men's prayer breakfast") ||
+    name.includes("mens prayer breakfast")
+  ) {
     return (
-      `${groupName} is for men and teen boys only — a dedicated time for the men of the church and community to gather for prayer, food, and fellowship. ` +
+      `${groupName} is for men and teen boys only - a dedicated time for the men of the church and community to gather for prayer, food, and fellowship. ` +
       "For everyone's peace of mind, on-premise security is on site throughout the event."
     );
   }
@@ -144,7 +183,7 @@ const getAudienceAnswer = (groupName: string): string => {
     name.includes("womens bible study")
   ) {
     return (
-      `${groupName} is for ladies and teen girls only — a safe, encouraging space for the women of the church and community to study Scripture together. ` +
+      `${groupName} is for ladies and teen girls only - a safe, encouraging space for the women of the church and community to study Scripture together. ` +
       "For everyone's peace of mind, on-premise security is on site throughout the study."
     );
   }
@@ -153,7 +192,11 @@ const getAudienceAnswer = (groupName: string): string => {
 
 const isChurchCamp = (groupName: string): boolean => {
   const name = groupName.toLowerCase();
-  return name.includes("teen church camp") || name.includes("kid's church camp") || name.includes("kids church camp");
+  return (
+    name.includes("teen church camp") ||
+    name.includes("kid's church camp") ||
+    name.includes("kids church camp")
+  );
 };
 
 const buildEventFAQs = (
@@ -164,7 +207,7 @@ const buildEventFAQs = (
   const next = occurrences[0];
   const items: FAQItem[] = [];
 
-  // "When is the next X?" — answered directly from the next calendar entry.
+  // "When is the next X?" - answered directly from the next calendar entry.
   items.push({
     question: `When is the next ${groupName}?`,
     answer:
@@ -172,7 +215,7 @@ const buildEventFAQs = (
       `${next.location ? ` at ${next.location}` : ""}.`,
   });
 
-  // "How often does X happen?" — inferred from the gap pattern in the calendar.
+  // "How often does X happen?" - inferred from the gap pattern in the calendar.
   const cadence = describeCadence(occurrences);
   if (cadence) {
     items.push({
@@ -185,7 +228,7 @@ const buildEventFAQs = (
     });
   }
 
-  // "What are the next few dates?" — pulled live from the calendar.
+  // "What are the next few dates?" - pulled live from the calendar.
   if (occurrences.length > 1) {
     const upcomingList = occurrences
       .slice(0, 5)
@@ -197,13 +240,13 @@ const buildEventFAQs = (
     });
   }
 
-  // Location — comes from the event row, with the church address as fallback.
+  // Location - comes from the event row, with the church address as fallback.
   items.push({
     question: `Where is ${groupName} held?`,
     answer: `${groupName} is held at ${next.location || CHURCH_ADDRESS}. Free parking is available on-site.`,
   });
 
-  // Description — verbatim from the calendar so it updates with the data.
+  // Description - verbatim from the calendar so it updates with the data.
   if (next.description) {
     items.push({
       question: `What happens at ${groupName}?`,
@@ -220,7 +263,7 @@ const buildEventFAQs = (
     items.push({
       question: `Is there a cost for ${groupName}?`,
       answer:
-        `Yes — ${groupName} has a per-student cost that covers lodging, meals, and camp activities. ` +
+        `Yes - ${groupName} has a per-student cost that covers lodging, meals, and camp activities. ` +
         "Registration for this year is currently closed. Please contact the church office for details about future camps or to be added to the interest list.",
     });
   }
@@ -251,7 +294,11 @@ const EventDetail = () => {
     if (!slug) return [];
     return events
       .filter((e) => slugifyEvent(e.name) === slug)
-      .sort((a, b) => parseEventDateTime(a.date, a.time).getTime() - parseEventDateTime(b.date, b.time).getTime());
+      .sort(
+        (a, b) =>
+          parseEventDateTime(a.date, a.time).getTime() -
+          parseEventDateTime(b.date, b.time).getTime(),
+      );
   }, [events, slug]);
 
   if (loading) {
@@ -265,11 +312,18 @@ const EventDetail = () => {
   if (occurrences.length === 0) {
     return (
       <>
-        <SEO title="Event Not Found" description="The event you are looking for could not be found." url={`https://pbcatx.org/events/${slug || ""}`} />
+        <SEO
+          title="Event Not Found"
+          description="The event you are looking for could not be found."
+          url={`https://pbcatx.org/events/${slug || ""}`}
+        />
         <div className="container mx-auto px-4 py-24 text-center">
-          <h1 className="font-display text-3xl font-bold text-foreground mb-4">Event Not Found</h1>
+          <h1 className="font-display text-3xl font-bold text-foreground mb-4">
+            Event Not Found
+          </h1>
           <p className="text-muted-foreground mb-6">
-            We couldn't find an upcoming event by that name. It may have already passed.
+            We couldn't find an upcoming event by that name. It may have already
+            passed.
           </p>
           <Button asChild>
             <Link to="/events">
@@ -288,7 +342,11 @@ const EventDetail = () => {
   const hasLivestream = isLivestreamed(next.name);
   const isMultiPart = occurrences.some((o) => o.name !== groupName);
   const heroImage = getEventHeroImage(groupName);
-  const faqItems: FAQItem[] = buildEventFAQs(groupName, occurrences, hasLivestream);
+  const faqItems: FAQItem[] = buildEventFAQs(
+    groupName,
+    occurrences,
+    hasLivestream,
+  );
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -335,7 +393,9 @@ const EventDetail = () => {
             alt={heroImage.alt}
             className="absolute inset-0 w-full h-full object-cover"
           />
-          <div className={`absolute inset-0 ${heroImage.overlay ?? "bg-gradient-to-b from-black/50 via-black/30 to-black/70"}`} />
+          <div
+            className={`absolute inset-0 ${heroImage.overlay ?? "bg-gradient-to-b from-black/50 via-black/30 to-black/70"}`}
+          />
           <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 md:py-32">
             <div className="flex items-center justify-center gap-3 sm:gap-4 mb-3 sm:mb-4">
               <Calendar className="h-10 w-10 sm:h-12 sm:w-12 text-white drop-shadow-lg" />
@@ -392,7 +452,10 @@ const EventDetail = () => {
                 )}
                 {hasLivestream && (
                   <Link to="/livestream">
-                    <Badge variant="outline" className="border-primary/30 text-primary bg-primary/5 hover:bg-primary/10 cursor-pointer">
+                    <Badge
+                      variant="outline"
+                      className="border-primary/30 text-primary bg-primary/5 hover:bg-primary/10 cursor-pointer"
+                    >
                       <Video className="w-3 h-3 mr-1" />
                       Livestream
                     </Badge>
@@ -403,11 +466,15 @@ const EventDetail = () => {
                 {formatDateLong(next.date)}
               </CardTitle>
               {next.name !== groupName && (
-                <p className="text-sm font-medium text-muted-foreground mt-1">{next.name}</p>
+                <p className="text-sm font-medium text-muted-foreground mt-1">
+                  {next.name}
+                </p>
               )}
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-foreground leading-relaxed">{next.description}</p>
+              <p className="text-foreground leading-relaxed">
+                {next.description}
+              </p>
 
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <MapPin className="w-4 h-4 flex-shrink-0" />
@@ -416,17 +483,29 @@ const EventDetail = () => {
 
               <div className="flex flex-wrap gap-2 pt-2">
                 <Button asChild variant="outline" size="sm">
-                  <a href={GOOGLE_MAPS_URL} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={GOOGLE_MAPS_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <Navigation className="w-3 h-3" />
                     Directions
                   </a>
                 </Button>
-                <Button variant="outline" size="sm" onClick={() => downloadICal(next)}>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => downloadICal(next)}
+                >
                   <Download className="w-3 h-3" />
                   iCal
                 </Button>
                 <Button asChild variant="outline" size="sm">
-                  <a href={googleCalendarUrl(next)} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={googleCalendarUrl(next)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <CalendarPlus className="w-3 h-3" />
                     Add to Calendar
                   </a>
@@ -448,23 +527,33 @@ const EventDetail = () => {
               </p>
               <div className="space-y-3">
                 {remaining.map((occ, i) => (
-                  <Card key={`${occ.date}-${i}`} className="hover:shadow-md transition-shadow">
+                  <Card
+                    key={`${occ.date}-${i}`}
+                    className="hover:shadow-md transition-shadow"
+                  >
                     <CardContent className="p-4 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
                       <div className="bg-accent/40 text-accent-foreground rounded-lg p-3 text-center min-w-[80px]">
                         <div className="text-xs uppercase font-medium">
-                          {new Date(occ.date).toLocaleDateString("en-US", { month: "short" })}
+                          {new Date(occ.date).toLocaleDateString("en-US", {
+                            month: "short",
+                          })}
                         </div>
                         <div className="font-display text-2xl font-bold">
                           {new Date(occ.date).getDate()}
                         </div>
                         <div className="text-xs">
-                          {new Date(occ.date).toLocaleDateString("en-US", { weekday: "short" })}
+                          {new Date(occ.date).toLocaleDateString("en-US", {
+                            weekday: "short",
+                          })}
                         </div>
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex flex-wrap items-center gap-2 mb-1">
                           {occ.time && (
-                            <Badge variant="outline" className="text-xs font-semibold">
+                            <Badge
+                              variant="outline"
+                              className="text-xs font-semibold"
+                            >
                               <Clock className="w-3 h-3 mr-1" />
                               {occ.time}
                             </Badge>
@@ -475,15 +564,31 @@ const EventDetail = () => {
                             </span>
                           )}
                         </div>
-                        <p className="text-sm text-foreground/90">{occ.description}</p>
+                        <p className="text-sm text-foreground/90">
+                          {occ.description}
+                        </p>
                       </div>
                       <div className="flex sm:flex-col gap-2 sm:items-end">
-                        <Button variant="ghost" size="sm" onClick={() => downloadICal(occ)} className="h-8 text-xs">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => downloadICal(occ)}
+                          className="h-8 text-xs"
+                        >
                           <Download className="w-3 h-3" />
                           iCal
                         </Button>
-                        <Button asChild variant="ghost" size="sm" className="h-8 text-xs">
-                          <a href={googleCalendarUrl(occ)} target="_blank" rel="noopener noreferrer">
+                        <Button
+                          asChild
+                          variant="ghost"
+                          size="sm"
+                          className="h-8 text-xs"
+                        >
+                          <a
+                            href={googleCalendarUrl(occ)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
                             <CalendarPlus className="w-3 h-3" />
                             Add
                           </a>
