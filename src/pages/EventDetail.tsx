@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import SEO from "@/components/SEO";
 import { getEventGroupName, slugifyEvent } from "@/lib/eventSlug";
 import { getEventHeroImage } from "@/lib/eventHeroImage";
-import SiteFAQ, { DEFAULT_FAQS, type FAQItem } from "@/components/SiteFAQ";
+import SiteFAQ, { type FAQItem } from "@/components/SiteFAQ";
 
 const CHURCH_ADDRESS = "505 W. University Ave, Ste. #109, Georgetown, TX 78626";
 const GOOGLE_MAPS_URL = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(CHURCH_ADDRESS)}`;
@@ -92,46 +92,116 @@ const googleCalendarUrl = (event: { name: string; date: string; description: str
   return `https://calendar.google.com/calendar/render?${params.toString()}`;
 };
 
+type Occurrence = { name: string; date: string; time?: string; location?: string; description: string };
+
+const formatDateShort = (dateStr: string) =>
+  new Date(dateStr).toLocaleDateString("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+
+// Infer how often the event recurs from the gaps between scheduled
+// occurrences in the calendar data, so the FAQ stays accurate as the
+// schedule changes — no hard-coded cadence.
+const describeCadence = (occurrences: Occurrence[]): string | null => {
+  if (occurrences.length < 2) return null;
+  const gaps: number[] = [];
+  for (let i = 1; i < occurrences.length; i++) {
+    const a = parseEventDateTime(occurrences[i - 1].date, occurrences[i - 1].time).getTime();
+    const b = parseEventDateTime(occurrences[i].date, occurrences[i].time).getTime();
+    const days = Math.round((b - a) / (1000 * 60 * 60 * 24));
+    if (days > 0) gaps.push(days);
+  }
+  if (!gaps.length) return null;
+  const median = [...gaps].sort((x, y) => x - y)[Math.floor(gaps.length / 2)];
+  if (median <= 2) return "multiple times each week";
+  if (median <= 8) return "weekly";
+  if (median <= 16) return "every other week";
+  if (median <= 35) return "monthly";
+  if (median <= 100) return "every couple of months";
+  if (median <= 200) return "a few times each year";
+  return "annually";
+};
+
 const buildEventFAQs = (
   groupName: string,
-  next: { date: string; time?: string; location?: string; description: string },
-  occurrenceCount: number,
+  occurrences: Occurrence[],
   hasLivestream: boolean,
 ): FAQItem[] => {
-  const whenAnswer = `${formatDateLong(next.date)}${next.time ? ` at ${next.time}` : ""} (Central Time).${
-    occurrenceCount > 1 ? ` There are ${occurrenceCount} upcoming sessions on the calendar.` : ""
-  }`;
+  const next = occurrences[0];
+  const items: FAQItem[] = [];
 
-  const where = next.location || CHURCH_ADDRESS;
+  // "When is the next X?" — answered directly from the next calendar entry.
+  items.push({
+    question: `When is the next ${groupName}?`,
+    answer:
+      `${formatDateLong(next.date)}${next.time ? ` at ${next.time}` : ""} (Central Time)` +
+      `${next.location ? ` at ${next.location}` : ""}.`,
+  });
 
-  return [
-    {
-      question: `When is the next ${groupName}?`,
-      answer: whenAnswer,
-    },
-    {
-      question: `Where is ${groupName} held?`,
-      answer: `${groupName} is held at ${where}. Free parking is available on-site.`,
-    },
-    {
-      question: `Who can attend ${groupName}?`,
-      answer:
-        "Everyone is welcome at Providence Baptist Church. There is no cost to attend, no dress code, and no membership required. Guests, families, and first-time visitors are warmly invited.",
-    },
-    {
-      question: hasLivestream
-        ? `Is ${groupName} livestreamed?`
-        : `Can I watch ${groupName} online?`,
-      answer: hasLivestream
-        ? `Yes. ${groupName} is broadcast live on SermonAudio and Facebook through our Livestream page.`
-        : `${groupName} is not livestreamed, but our Sunday Morning Worship, Sunday Evening Service, and Wednesday Prayer & Bible Study are all available on our Livestream page.`,
-    },
-    {
-      question: `How do I add ${groupName} to my calendar?`,
-      answer:
-        "Use the iCal download button to add it to Apple Calendar or Outlook, or click Add to Calendar to add it directly to Google Calendar.",
-    },
-  ];
+  // "How often does X happen?" — inferred from the gap pattern in the calendar.
+  const cadence = describeCadence(occurrences);
+  if (cadence) {
+    items.push({
+      question: `How often does ${groupName} meet?`,
+      answer: `Based on the upcoming calendar, ${groupName} meets ${cadence}. There ${
+        occurrences.length === 1 ? "is" : "are"
+      } ${occurrences.length} scheduled ${
+        occurrences.length === 1 ? "date" : "dates"
+      } currently on the schedule.`,
+    });
+  }
+
+  // "What are the next few dates?" — pulled live from the calendar.
+  if (occurrences.length > 1) {
+    const upcomingList = occurrences
+      .slice(0, 5)
+      .map((o) => `${formatDateShort(o.date)}${o.time ? ` (${o.time})` : ""}`)
+      .join("; ");
+    items.push({
+      question: `What are the upcoming ${groupName} dates?`,
+      answer: `The next ${Math.min(occurrences.length, 5)} dates on the calendar: ${upcomingList}.`,
+    });
+  }
+
+  // Location — comes from the event row, with the church address as fallback.
+  items.push({
+    question: `Where is ${groupName} held?`,
+    answer: `${groupName} is held at ${next.location || CHURCH_ADDRESS}. Free parking is available on-site.`,
+  });
+
+  // Description — verbatim from the calendar so it updates with the data.
+  if (next.description) {
+    items.push({
+      question: `What happens at ${groupName}?`,
+      answer: next.description,
+    });
+  }
+
+  items.push({
+    question: `Who can attend ${groupName}?`,
+    answer:
+      "Everyone is welcome at Providence Baptist Church. There is no cost to attend, no dress code, and no membership required. Guests, families, and first-time visitors are warmly invited.",
+  });
+
+  items.push({
+    question: hasLivestream
+      ? `Is ${groupName} livestreamed?`
+      : `Can I watch ${groupName} online?`,
+    answer: hasLivestream
+      ? `Yes. ${groupName} is broadcast live on SermonAudio and Facebook through our Livestream page.`
+      : `${groupName} is not livestreamed, but our Sunday Morning Worship, Sunday Evening Service, and Wednesday Prayer & Bible Study are all available on our Livestream page.`,
+  });
+
+  items.push({
+    question: `How do I add ${groupName} to my calendar?`,
+    answer:
+      "Use the iCal download button to add it to Apple Calendar or Outlook, or click Add to Calendar to add it directly to Google Calendar.",
+  });
+
+  return items;
 };
 
 const EventDetail = () => {
@@ -179,13 +249,7 @@ const EventDetail = () => {
   const hasLivestream = isLivestreamed(next.name);
   const isMultiPart = occurrences.some((o) => o.name !== groupName);
   const heroImage = getEventHeroImage(groupName);
-  const eventFAQs = buildEventFAQs(groupName, next, occurrences.length, hasLivestream);
-  // Merge a few site-wide essentials (times, beliefs, contact) so this page
-  // still surfaces the broader GEO answers without duplicating the full set.
-  const generalFAQs = DEFAULT_FAQS.filter((f) =>
-    /service times|what does providence|how can i contact/i.test(f.question),
-  );
-  const faqItems: FAQItem[] = [...eventFAQs, ...generalFAQs];
+  const faqItems: FAQItem[] = buildEventFAQs(groupName, occurrences, hasLivestream);
 
   const structuredData = {
     "@context": "https://schema.org",
