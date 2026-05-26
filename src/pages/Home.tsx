@@ -291,7 +291,7 @@ const Home = () => {
                           className={`min-h-[44px] ${cfg.ctaClass ?? ""}`}
                           variant={cfg.ctaClass ? "default" : "secondary"}
                         >
-                          <Link to={cfg.ctaHref}>{cfg.ctaLabel}</Link>
+                          <Link to={cfg.ctaHref === "/events" ? eventDetailPath(event.name) : cfg.ctaHref}>{cfg.ctaLabel}</Link>
                         </Button>
                       </div>
                     </div>
