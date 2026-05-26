@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import SEO from "@/components/SEO";
 import { EventsCalendar } from "@/components/EventsCalendar";
+import { eventDetailPath } from "@/lib/eventSlug";
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 
 const EVENTS_PER_PAGE = 12;
