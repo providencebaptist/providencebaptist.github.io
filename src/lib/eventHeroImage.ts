@@ -16,6 +16,7 @@ import heroOutreachStillLife from "@/assets/hero-outreach-stilllife.jpg";
 import heroWorshipStillLife from "@/assets/hero-worship-stilllife.jpg";
 import heroChildrenStillLife from "@/assets/hero-children-stilllife.jpg";
 import galleryBibleStudy from "@/assets/gallery-biblestudy.jpg";
+import heroLadiesBibleStudy from "@/assets/hero-ladies-bible-study.jpg";
 
 export interface EventHeroImage {
   image: string;
@@ -123,6 +124,18 @@ export function getEventHeroImage(eventName: string): EventHeroImage | null {
       image: heroChildrenStillLife,
       alt: "Open illustrated children's Bible storybook with crayons and a wooden Noah's ark toy",
       overlay: "bg-gradient-to-b from-black/35 via-black/20 to-black/60",
+    };
+  }
+  if (
+    name.includes("ladies bible study") ||
+    name.includes("ladies' bible study") ||
+    name.includes("women's bible study") ||
+    name.includes("womens bible study")
+  ) {
+    return {
+      image: heroLadiesBibleStudy,
+      alt: "Group of women gathered around a round wooden table with open Bibles, journals, and mugs of tea",
+      overlay: "bg-gradient-to-b from-black/40 via-black/20 to-black/65",
     };
   }
   if (
