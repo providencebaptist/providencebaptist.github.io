@@ -6,6 +6,7 @@ import { Calendar, Heart, Users, MapPin, Mail, BookOpen, Clock } from "lucide-re
 import { Link } from "react-router-dom";
 import ServiceTimes from "@/components/ServiceTimes";
 import SEO from "@/components/SEO";
+import { eventDetailPath } from "@/lib/eventSlug";
 import {
   Carousel,
   CarouselContent,
