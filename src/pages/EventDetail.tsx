@@ -147,6 +147,11 @@ const getAudienceAnswer = (groupName: string): string => {
   return "Everyone is welcome at Providence Baptist Church. There is no cost to attend, no dress code, and no membership required. Guests, families, and first-time visitors are warmly invited.";
 };
 
+const isChurchCamp = (groupName: string): boolean => {
+  const name = groupName.toLowerCase();
+  return name.includes("teen church camp") || name.includes("kid's church camp") || name.includes("kids church camp");
+};
+
 const buildEventFAQs = (
   groupName: string,
   occurrences: Occurrence[],
@@ -206,6 +211,15 @@ const buildEventFAQs = (
     question: `Who can attend ${groupName}?`,
     answer: getAudienceAnswer(groupName),
   });
+
+  if (isChurchCamp(groupName)) {
+    items.push({
+      question: `Is there a cost for ${groupName}?`,
+      answer:
+        `Yes — ${groupName} has a per-student cost that covers lodging, meals, and camp activities. ` +
+        "Registration for this year is currently closed. Please contact the church office for details about future camps or to be added to the interest list.",
+    });
+  }
 
   items.push({
     question: hasLivestream
