@@ -271,6 +271,7 @@ const Events = () => {
       <SEO
         title="Upcoming Events | Providence Baptist Church"
         description="View upcoming events at Providence Baptist Church in Georgetown, Texas. Join us for special gatherings, meetings, and fellowship opportunities."
+        url="https://pbcatx.org/events"
       />
 
       {/* Hero Section */}
