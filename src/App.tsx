@@ -11,6 +11,7 @@ import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 import PageTransition from "./components/PageTransition";
 import SiteFAQ from "./components/SiteFAQ";
+import { getFaqsForPath } from "./lib/pageFaqs";
 const Home = lazy(() => import("./pages/Home"));
 const History = lazy(() => import("./pages/History"));
 const Livestream = lazy(() => import("./pages/Livestream"));
@@ -37,7 +38,9 @@ const queryClient = new QueryClient();
 const GlobalFAQ = () => {
   const { pathname } = useLocation();
   if (pathname.startsWith("/events/")) return null;
-  return <SiteFAQ />;
+  const items = getFaqsForPath(pathname);
+  if (!items) return null;
+  return <SiteFAQ items={items} />;
 };
 
 const App = () => (
