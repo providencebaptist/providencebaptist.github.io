@@ -38,6 +38,8 @@ const queryClient = new QueryClient();
 const GlobalFAQ = () => {
   const { pathname } = useLocation();
   if (pathname.startsWith("/events/")) return null;
+  // VBS page renders its own themed FAQ at the end of the parallax scroll.
+  if (pathname === "/vacation-bible-school-2026") return null;
   const items = getFaqsForPath(pathname);
   if (!items) return null;
   return <SiteFAQ items={items} />;
