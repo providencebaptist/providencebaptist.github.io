@@ -17,6 +17,9 @@ import heroWorshipStillLife from "@/assets/hero-worship-stilllife.jpg";
 import heroChildrenStillLife from "@/assets/hero-children-stilllife.jpg";
 import galleryBibleStudy from "@/assets/gallery-biblestudy.jpg";
 import heroLadiesBibleStudy from "@/assets/hero-ladies-bible-study.jpg";
+import heroTeenSundaySchool from "@/assets/hero-teen-sunday-school.jpg";
+import heroAdultSundaySchool from "@/assets/hero-adult-sunday-school.jpg";
+import heroKidsChoir from "@/assets/hero-kids-choir.jpg";
 
 export interface EventHeroImage {
   image: string;
@@ -119,11 +122,32 @@ export function getEventHeroImage(eventName: string): EventHeroImage | null {
       overlay: "bg-gradient-to-b from-black/40 via-black/25 to-black/65",
     };
   }
-  if (name.includes("kid's sunday school") || name.includes("kids sunday school") || name.includes("kid's choir") || name.includes("kids choir")) {
+  if (name.includes("kid's choir") || name.includes("kids choir") || name.includes("children's choir")) {
+    return {
+      image: heroKidsChoir,
+      alt: "Child-sized hymnal, tambourine, triangle, and colorful felt letters arranged on a small wooden chair for a kid's choir",
+      overlay: "bg-gradient-to-b from-black/35 via-black/20 to-black/60",
+    };
+  }
+  if (name.includes("kid's sunday school") || name.includes("kids sunday school")) {
     return {
       image: heroChildrenStillLife,
       alt: "Open illustrated children's Bible storybook with crayons and a wooden Noah's ark toy",
       overlay: "bg-gradient-to-b from-black/35 via-black/20 to-black/60",
+    };
+  }
+  if (name.includes("teen sunday school") || name.includes("teen & adult sunday school")) {
+    return {
+      image: heroTeenSundaySchool,
+      alt: "Open Bible, leather journal, smartphone, and coffee mug arranged on a wooden table for teen Sunday school",
+      overlay: "bg-gradient-to-b from-black/45 via-black/25 to-black/70",
+    };
+  }
+  if (name.includes("adult sunday school")) {
+    return {
+      image: heroAdultSundaySchool,
+      alt: "Open study Bible with reading glasses, commentary, coffee, and a fountain pen on a wooden table for adult Sunday school",
+      overlay: "bg-gradient-to-b from-black/45 via-black/25 to-black/70",
     };
   }
   if (
