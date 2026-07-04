@@ -28,6 +28,7 @@ import heroAnniversary from "@/assets/hero-anniversary.jpg";
 import heroTeenCamp from "@/assets/hero-teen-camp.jpg";
 import heroKidsCamp from "@/assets/hero-kids-camp.jpg";
 import vbsForest from "@/assets/vbs-forest.jpg";
+import heroHomeschoolInfoNight from "@/assets/hero-homeschool-info-night.jpg";
 import { useChurchData, type EventData } from "@/hooks/useChurchData";
 
 // Map a special event name → themed hero artwork + CTA configuration.
@@ -217,6 +218,24 @@ const getSpecialHeroConfig = (event: EventData): SpecialHeroConfig => {
       subtitleClass: "text-[#fdf6ec]/95 drop-shadow",
       eyebrowClass:
         "bg-black/55 backdrop-blur-sm text-[#ffd6a8] border border-[#ffd6a8]/40",
+    };
+  }
+
+  if (name.includes("homeschool")) {
+    return {
+      image: heroHomeschoolInfoNight,
+      alt: "Open book, apple, globe, and stack of textbooks on a rustic table in a warmly lit church",
+      title: "Homeschool Information Night",
+      subtitle:
+        "Doors open at 6:00 PM, panel discussion 7:00 - 8:00 PM. Wisdom, encouragement, and community for homeschool families and the homeschool-curious.",
+      eyebrow: (e) => `${formatDate(e.date)}${e.time ? ` • Doors ${e.time}` : ""}`,
+      ctaLabel: "See Event Details",
+      ctaHref: "/events",
+      overlay: "bg-gradient-to-b from-black/50 via-black/30 to-black/75",
+      titleClass: "text-amber-50 drop-shadow-lg",
+      subtitleClass: "text-amber-50/95 drop-shadow",
+      eyebrowClass:
+        "bg-black/60 backdrop-blur-sm text-amber-200 border border-amber-200/40",
     };
   }
 
