@@ -47,6 +47,10 @@ const getEventCategories = (eventName: string): EventCategory[] => {
     categories.push("special");
   }
 
+  if (name.includes("homeschool")) {
+    categories.push("special");
+  }
+
   if (name.includes("sunday morning") || name.includes("sunday am") || name.includes("sunday evening") || name.includes("sunday pm") || categories.some(c => c === "special" && (name.includes("sunday") || name.includes("celebration") || name.includes("service")))) {
     categories.push("sunday");
   }
