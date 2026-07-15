@@ -1,5 +1,6 @@
 import { promises as fs } from "fs";
 import path from "path";
+import { slugifyEvent } from "./site-routes.mjs";
 
 const rootDir = process.cwd();
 const outputPath = path.join(rootDir, "public", "llms.txt");
@@ -8,16 +9,6 @@ const churchDataPath = path.join(rootDir, "public", "church-data.json");
 
 const SITE_NAME = "Providence Baptist Church";
 const SITE_URL = "https://pbcatx.org";
-
-function slugifyEvent(name) {
-  return name
-    .toLowerCase()
-    .trim()
-    .replace(/['']/g, "")
-    .replace(/&/g, "and")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
 
 function formatScheduleLine(svc) {
   const tags = [];

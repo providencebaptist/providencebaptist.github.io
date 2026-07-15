@@ -93,7 +93,8 @@ Advanced Mode is for teams that want production-grade optimizations, automated d
    - Update `public/church-data.json` if location, schedule, or contact details change.
 
 4. **SEO and sitemap**
-   - Run `node scripts/generate-sitemap.js` after adding routes so `public/sitemap.xml` stays current.
+   - `npm run build` generates routable HTML documents and `dist/sitemap.xml` from `scripts/site-routes.mjs`.
+   - Add new public routes and their share metadata to `scripts/site-routes.mjs`.
    - Confirm canonical URLs, titles, and descriptions in `src/components/SEO.tsx` and page components.
 
 5. **Configure hosting-specific environment**
@@ -122,6 +123,8 @@ Deploy to Vercel for zero-config hosting or serve the static `dist/` output on a
 2. Deploy the `dist/` folder to Vercel, Netlify, GitHub Pages, or your preferred host.
 
 3. Set environment variables (e.g., `VITE_SITE_URL`, `FORM_ID`) in your hosting dashboard for consistent SEO and form routing.
+
+For the production GitHub Pages and Cloudflare configuration, follow the [hosting runbook](docs/github-pages-cloudflare.md).
 
 ## Contributing
 
