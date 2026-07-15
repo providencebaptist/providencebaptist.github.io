@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/generate-llms.mjs && vite build",
-    "build:dev": "node scripts/generate-llms.mjs && vite build --mode development",
+    "build": "node scripts/generate-llms.mjs && vite build && node scripts/generate-site-artifacts.mjs",
+    "build:dev": "node scripts/generate-llms.mjs && vite build --mode development && node scripts/generate-site-artifacts.mjs",
     "lint": "eslint .",
     "test": "node scripts/run-tests.js --coverage",
     "preview": "vite preview"

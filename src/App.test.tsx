@@ -24,11 +24,12 @@ type QueryMethod = (text: string | RegExp) => HTMLElement | HTMLElement[] | null
 // Let's try rendering it.
 
 describe("App Integration", () => {
-    it("renders Home by default", async () => {
+    it("renders the application shell with a home link", () => {
         render(<App />);
-        // Use findAllByText to wait for any lazy loading or effects
-        const elements = await screen.findAllByText(/Welcome Home/i);
-        assert.ok(elements.length > 0);
+        const homeLink = screen.getByRole("link", {
+            name: /Providence Baptist Church Logo/i,
+        });
+        assert.equal(homeLink.getAttribute("href"), "/");
     });
 
     it("navigates to About page", async () => {

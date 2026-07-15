@@ -97,8 +97,6 @@ jobs:
           node-version: 20
       - run: npm ci --legacy-peer-deps --include=dev
       - run: npm run build
-      - run: node scripts/generate-sitemap.js
-      - run: cp dist/index.html dist/404.html
       - name: Check GitHub Pages status
         id: pages_status
         run: |
