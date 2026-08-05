@@ -21,6 +21,7 @@ import heroTeenSundaySchool from "@/assets/hero-teen-sunday-school.jpg";
 import heroAdultSundaySchool from "@/assets/hero-adult-sunday-school.jpg";
 import heroKidsChoir from "@/assets/hero-kids-choir.jpg";
 import heroHomeschoolInfoNight from "@/assets/hero-homeschool-info-night.jpg";
+import heroDellDiamond from "@/assets/hero-dell-diamond-baseball.jpg";
 
 export interface EventHeroImage {
   image: string;
