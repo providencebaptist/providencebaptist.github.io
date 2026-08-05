@@ -29,6 +29,7 @@ import heroTeenCamp from "@/assets/hero-teen-camp.jpg";
 import heroKidsCamp from "@/assets/hero-kids-camp.jpg";
 import vbsForest from "@/assets/vbs-forest.jpg";
 import heroHomeschoolInfoNight from "@/assets/hero-homeschool-info-night.jpg";
+import heroDellDiamond from "@/assets/hero-dell-diamond-baseball.jpg";
 import { useChurchData, type EventData } from "@/hooks/useChurchData";
 
 // Map a special event name → themed hero artwork + CTA configuration.
@@ -236,6 +237,24 @@ const getSpecialHeroConfig = (event: EventData): SpecialHeroConfig => {
       subtitleClass: "text-amber-50/95 drop-shadow",
       eyebrowClass:
         "bg-black/60 backdrop-blur-sm text-amber-200 border border-amber-200/40",
+    };
+  }
+
+  if (name.includes("dell diamond") || name.includes("baseball")) {
+    return {
+      image: heroDellDiamond,
+      alt: "Baseball stadium at dusk with the field lit by stadium lights",
+      title: "Church Night at Dell Diamond",
+      subtitle:
+        "Join the church family for a night at the ballpark. First pitch at 7:00 PM, tickets are $19 each and purchased through the church.",
+      eyebrow: (e) => `${formatDate(e.date)}${e.time ? ` • First pitch ${e.time}` : ""}`,
+      ctaLabel: "See Game Details",
+      ctaHref: "/events",
+      overlay: "bg-gradient-to-b from-black/45 via-black/30 to-black/75",
+      titleClass: "text-white drop-shadow-lg",
+      subtitleClass: "text-white/95 drop-shadow",
+      eyebrowClass:
+        "bg-black/60 backdrop-blur-sm text-emerald-200 border border-emerald-200/40",
     };
   }
 

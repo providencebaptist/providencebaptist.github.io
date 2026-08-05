@@ -9,6 +9,7 @@ import {
   CalendarPlus,
   Video,
   ArrowLeft,
+  Ticket,
 } from "lucide-react";
 import { useChurchData } from "@/hooks/useChurchData";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -21,6 +22,18 @@ import SiteFAQ, { type FAQItem } from "@/components/SiteFAQ";
 
 const CHURCH_ADDRESS = "505 W. University Ave, Ste. #109, Georgetown, TX 78626";
 const GOOGLE_MAPS_URL = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(CHURCH_ADDRESS)}`;
+
+const TICKET_LINKS: { match: (name: string) => boolean; url: string; label: string; price: string }[] = [
+  {
+    match: (n) => n.includes("dell diamond") || n.includes("baseball"),
+    url: "https://secure.anedot.com/providence-baptist-church-adcd4df3-f08b-4275-9bb3-db67bff9c43f/events/3ab7971c-ba2e-427a-b3a9-a80942c251a6",
+    label: "Buy Tickets ($19)",
+    price: "$19 per ticket",
+  },
+];
+
+const getTicketInfo = (groupName: string) =>
+  TICKET_LINKS.find((t) => t.match(groupName.toLowerCase()));
 
 const parseEventDateTime = (dateStr: string, timeStr?: string): Date => {
   const date = new Date(dateStr);
@@ -268,6 +281,14 @@ const buildEventFAQs = (
     });
   }
 
+  const ticket = getTicketInfo(groupName);
+  if (ticket) {
+    items.push({
+      question: `How much are tickets for ${groupName}?`,
+      answer: `Tickets are ${ticket.price} and are purchased through the church. Use the ticket link on this page to reserve your seats.`,
+    });
+  }
+
   items.push({
     question: hasLivestream
       ? `Is ${groupName} livestreamed?`
@@ -342,6 +363,7 @@ const EventDetail = () => {
   const hasLivestream = isLivestreamed(next.name);
   const isMultiPart = occurrences.some((o) => o.name !== groupName);
   const heroImage = getEventHeroImage(groupName);
+  const ticketInfo = getTicketInfo(groupName);
   const faqItems: FAQItem[] = buildEventFAQs(
     groupName,
     occurrences,
@@ -510,6 +532,18 @@ const EventDetail = () => {
                     Add to Calendar
                   </a>
                 </Button>
+                {ticketInfo && (
+                  <Button asChild size="sm">
+                    <a
+                      href={ticketInfo.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Ticket className="w-3 h-3" />
+                      {ticketInfo.label}
+                    </a>
+                  </Button>
+                )}
               </div>
             </CardContent>
           </Card>

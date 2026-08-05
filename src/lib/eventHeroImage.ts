@@ -21,6 +21,7 @@ import heroTeenSundaySchool from "@/assets/hero-teen-sunday-school.jpg";
 import heroAdultSundaySchool from "@/assets/hero-adult-sunday-school.jpg";
 import heroKidsChoir from "@/assets/hero-kids-choir.jpg";
 import heroHomeschoolInfoNight from "@/assets/hero-homeschool-info-night.jpg";
+import heroDellDiamond from "@/assets/hero-dell-diamond-baseball.jpg";
 
 export interface EventHeroImage {
   image: string;
@@ -93,6 +94,14 @@ export function getEventHeroImage(eventName: string): EventHeroImage | null {
       image: heroHomeschoolInfoNight,
       alt: "Open book, apple, globe, and stack of textbooks on a rustic table in a warmly lit church",
       overlay: "bg-gradient-to-b from-black/50 via-black/30 to-black/75",
+    };
+  }
+
+  if (name.includes("dell diamond") || name.includes("baseball")) {
+    return {
+      image: heroDellDiamond,
+      alt: "Baseball stadium at dusk with stadium lights over the field",
+      overlay: "bg-gradient-to-b from-black/45 via-black/30 to-black/75",
     };
   }
 
