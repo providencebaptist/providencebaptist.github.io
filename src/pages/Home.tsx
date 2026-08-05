@@ -29,6 +29,7 @@ import heroTeenCamp from "@/assets/hero-teen-camp.jpg";
 import heroKidsCamp from "@/assets/hero-kids-camp.jpg";
 import vbsForest from "@/assets/vbs-forest.jpg";
 import heroHomeschoolInfoNight from "@/assets/hero-homeschool-info-night.jpg";
+import heroDellDiamond from "@/assets/hero-dell-diamond-baseball.jpg";
 import { useChurchData, type EventData } from "@/hooks/useChurchData";
 
 // Map a special event name → themed hero artwork + CTA configuration.

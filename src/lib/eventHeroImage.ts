@@ -96,6 +96,14 @@ export function getEventHeroImage(eventName: string): EventHeroImage | null {
     };
   }
 
+  if (name.includes("dell diamond") || name.includes("baseball")) {
+    return {
+      image: heroDellDiamond,
+      alt: "Baseball stadium at dusk with stadium lights over the field",
+      overlay: "bg-gradient-to-b from-black/45 via-black/30 to-black/75",
+    };
+  }
+
   if (name.includes("youth conference") || name.includes("basic training")) {
     return {
       image: heroYouthConference,
