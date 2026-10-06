@@ -183,7 +183,7 @@ const Navigation = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="lg:hidden py-4 space-y-3 border-t border-border">
+          <div className="lg:hidden py-4 space-y-3 border-t border-border max-h-[calc(100vh-4rem)] overflow-y-auto overscroll-contain">
             <div className="space-y-2">
               <div className="px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                 About
