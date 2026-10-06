@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import LatestShorts from "@/components/LatestShorts";
 import Autoplay from "embla-carousel-autoplay";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
