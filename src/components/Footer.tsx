@@ -1,4 +1,4 @@
-import { Mail, MapPin, Clock, BookOpen } from "lucide-react";
+import { Mail, MapPin, Clock, BookOpen, Youtube, Facebook, Video } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export const Footer = () => {
@@ -34,6 +34,17 @@ export const Footer = () => {
               >
                 <span>Watch Live</span>
               </Link>
+            </div>
+            <div className="flex flex-wrap gap-4 mt-4">
+              <a href="https://www.youtube.com/@pbcatx" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="inline-flex items-center gap-2 text-primary-foreground/80 hover:text-accent transition-colors text-sm">
+                <Youtube className="h-5 w-5" /><span>YouTube</span>
+              </a>
+              <a href="https://www.facebook.com/PBCatx/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="inline-flex items-center gap-2 text-primary-foreground/80 hover:text-accent transition-colors text-sm">
+                <Facebook className="h-5 w-5" /><span>Facebook</span>
+              </a>
+              <a href="https://www.sermonaudio.com/solo/pbcatx/sermons/" target="_blank" rel="noopener noreferrer" aria-label="SermonAudio" className="inline-flex items-center gap-2 text-primary-foreground/80 hover:text-accent transition-colors text-sm">
+                <Video className="h-5 w-5" /><span>SermonAudio</span>
+              </a>
             </div>
           </div>
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Video, Clock, Smartphone, Facebook } from "lucide-react";
+import { Video, Clock, Smartphone, Facebook, Youtube, Tv } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -12,6 +12,7 @@ import SEO from "@/components/SEO";
 
 const Livestream = () => {
   const [isLiveStreamOpen, setIsLiveStreamOpen] = useState(false);
+  const [player, setPlayer] = useState<"sermonaudio" | "youtube">("sermonaudio");
 
   return (
     <div className="min-h-screen bg-background">
@@ -225,6 +226,38 @@ const Livestream = () => {
                 <CardContent className="p-6">
                   <div className="flex items-start gap-4">
                     <div className="p-3 bg-accent/10 rounded-lg">
+                      <Youtube className="h-8 w-8 text-accent" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold mb-3 text-foreground">YouTube</h3>
+                      <p className="text-muted-foreground mb-2">
+                        Watch live and past services on our YouTube channel
+                      </p>
+                      <p className="text-sm text-muted-foreground mb-4 flex items-center gap-2">
+                        <Tv className="h-4 w-4 flex-shrink-0" />
+                        Easiest way to watch on your TV with Apple TV, Roku, Fire TV, smart TVs, or Chromecast
+                      </p>
+                      <div className="flex flex-col sm:flex-row gap-3">
+                        <Button asChild variant="hero">
+                          <a href="https://www.youtube.com/@pbcatx?sub_confirmation=1" target="_blank" rel="noopener noreferrer">
+                            Subscribe on YouTube
+                          </a>
+                        </Button>
+                        <Button asChild variant="outline">
+                          <a href="https://www.youtube.com/@pbcatx" target="_blank" rel="noopener noreferrer">
+                            Visit Channel
+                          </a>
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="shadow-lg md:col-span-2">
+                <CardContent className="p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 bg-accent/10 rounded-lg">
                       <Facebook className="h-8 w-8 text-accent" />
                     </div>
                     <div className="flex-1">
@@ -270,17 +303,30 @@ const Livestream = () => {
         <DialogContent className="max-w-6xl w-[95vw] sm:w-[90vw] p-0 gap-0">
           <DialogHeader className="px-4 sm:px-6 pt-4 sm:pt-6 pb-2">
             <DialogTitle className="text-lg sm:text-xl">Live Stream</DialogTitle>
+            <div className="flex gap-2 pt-2" role="group" aria-label="Choose player">
+              <Button size="sm" variant={player === "sermonaudio" ? "default" : "outline"} onClick={() => setPlayer("sermonaudio")}>
+                SermonAudio
+              </Button>
+              <Button size="sm" variant={player === "youtube" ? "default" : "outline"} onClick={() => setPlayer("youtube")}>
+                <Youtube className="h-4 w-4 mr-1" /> YouTube
+              </Button>
+            </div>
           </DialogHeader>
           <div className="relative w-full aspect-video px-4 sm:px-6 pb-4 sm:pb-6">
-            <iframe 
-              allow="autoplay" 
-              scrolling="no" 
+            <iframe
+              key={player}
+              allow="autoplay; encrypted-media; picture-in-picture"
+              scrolling="no"
               allowFullScreen
-              src="https://embed.sermonaudio.com/player/l/pbcatx/?autoplay=true&wmode=opaque" 
-              tabIndex={-1} 
-              width="100%" 
-              style={{ position: 'absolute', left: 0, top: 0 }} 
-              frameBorder="0" 
+              title="Providence Baptist Church live stream"
+              src={
+                player === "youtube"
+                  ? "https://www.youtube.com/embed/live_stream?channel=UCblyD0D5m6QWqNrjjMqy_cw&autoplay=1"
+                  : "https://embed.sermonaudio.com/player/l/pbcatx/?autoplay=true&wmode=opaque"
+              }
+              width="100%"
+              style={{ position: 'absolute', left: 0, top: 0 }}
+              frameBorder="0"
               height="100%"
               className="rounded-b-lg px-4 sm:px-6"
             />
