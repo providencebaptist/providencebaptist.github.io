@@ -613,32 +613,17 @@ const Home = () => {
               </Button>
             </div>
           </div>
-          <div className="max-w-5xl mx-auto grid gap-10 md:grid-cols-2 md:items-start">
-            <div>
-              <h3 className="text-lg sm:text-xl font-semibold mb-4 text-center text-foreground">Videos</h3>
-              <div className="relative w-full aspect-video rounded-lg overflow-hidden shadow-2xl bg-primary">
-                <iframe
-                  src="https://www.youtube-nocookie.com/embed/videoseries?list=UULFblyD0D5m6QWqNrjjMqy_cw"
-                  title="A video on YouTube from Providence Baptist Church"
-                  loading="lazy"
-                  allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="absolute inset-0 h-full w-full border-0"
-                />
-              </div>
-            </div>
-            <div>
-              <h3 className="text-lg sm:text-xl font-semibold mb-4 text-center text-foreground">Shorts</h3>
-              <div className="relative w-full max-w-sm mx-auto aspect-[9/16] rounded-lg overflow-hidden shadow-2xl bg-primary">
-                <iframe
-                  src="https://www.youtube-nocookie.com/embed/videoseries?list=UUSHblyD0D5m6QWqNrjjMqy_cw"
-                  title="A Short on YouTube from Providence Baptist Church"
-                  loading="lazy"
-                  allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="absolute inset-0 h-full w-full border-0"
-                />
-              </div>
+          <div className="max-w-5xl mx-auto">
+            <h3 className="text-lg sm:text-xl font-semibold mb-4 text-center text-foreground">Shorts</h3>
+            <div className="relative w-full max-w-sm mx-auto aspect-[9/16] rounded-lg overflow-hidden shadow-2xl bg-primary">
+              <iframe
+                src="https://www.youtube-nocookie.com/embed/videoseries?list=UUSHblyD0D5m6QWqNrjjMqy_cw"
+                title="A Short on YouTube from Providence Baptist Church"
+                loading="lazy"
+                allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="absolute inset-0 h-full w-full border-0"
+              />
             </div>
           </div>
         </div>
