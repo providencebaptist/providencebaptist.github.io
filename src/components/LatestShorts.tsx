@@ -10,7 +10,7 @@ const LatestShorts = () => {
   useEffect(() => {
     fetch(`/youtube-shorts.json?t=${Date.now()}`)
       .then((r) => (r.ok ? r.json() : null))
-      .then((d) => setShorts(Array.isArray(d?.shorts) ? d.shorts.slice(0, 3) : []))
+      .then((d) => setShorts(Array.isArray(d?.shorts) ? d.shorts.slice(0, 2) : []))
       .catch(() => setShorts([]));
   }, []);
 
@@ -22,7 +22,7 @@ const LatestShorts = () => {
       : [{ key: "list", src: `https://www.youtube-nocookie.com/embed/videoseries?list=${FALLBACK_LIST}`, title: "A Short on YouTube" }];
 
   return (
-    <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-items-center">
+    <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 justify-items-center">
       {items.map((item) => (
         <div key={item.key} className="w-full max-w-xs">
           <div className="relative w-full aspect-[9/16] rounded-lg overflow-hidden shadow-2xl bg-primary">
