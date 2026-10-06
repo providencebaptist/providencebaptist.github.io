@@ -587,6 +587,47 @@ const Home = () => {
       {/* Service Times */}
       <ServiceTimes />
 
+      {/* Watch Online (YouTube) */}
+      <section className="py-12 sm:py-16 bg-muted/30">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-5xl mx-auto grid gap-8 md:grid-cols-2 items-center">
+            <div>
+              <div className="inline-flex items-center justify-center p-3 bg-accent/10 rounded-full mb-4">
+                <Youtube className="h-8 w-8 text-accent" />
+              </div>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 text-foreground">
+                See a Service Before You Visit
+              </h2>
+              <p className="text-base sm:text-lg text-muted-foreground mb-6">
+                Watch our latest services, sermons, and special music on YouTube, from your phone, computer, or TV.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Button asChild variant="hero" size="lg" className="min-h-[44px]">
+                  <a href="https://www.youtube.com/@pbcatx?sub_confirmation=1" target="_blank" rel="noopener noreferrer">
+                    Subscribe on YouTube
+                  </a>
+                </Button>
+                <Button asChild variant="outline" size="lg" className="min-h-[44px]">
+                  <a href="https://www.youtube.com/@pbcatx/videos" target="_blank" rel="noopener noreferrer">
+                    Browse Videos
+                  </a>
+                </Button>
+              </div>
+            </div>
+            <div className="relative w-full aspect-video rounded-lg overflow-hidden shadow-2xl bg-primary">
+              <iframe
+                src="https://www.youtube-nocookie.com/embed/videoseries?list=UUblyD0D5m6QWqNrjjMqy_cw"
+                title="Latest videos from Providence Baptist Church on YouTube"
+                loading="lazy"
+                allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="absolute inset-0 h-full w-full border-0"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Latest Sermons CTA */}
       <section className="py-12 sm:py-16 bg-gradient-to-r from-accent/10 to-secondary/10">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
