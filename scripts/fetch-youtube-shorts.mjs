@@ -24,7 +24,7 @@ try {
   const shorts = entries
     .filter((s) => s.id)
     .sort((a, b) => b.published.localeCompare(a.published))
-    .slice(0, 3);
+    .slice(0, 2);
   if (shorts.length) {
     writeFileSync(OUT, JSON.stringify({ updated: new Date().toISOString(), shorts }, null, 2) + "\n");
     console.log(`youtube-shorts.json: ${shorts.length} shorts`);
