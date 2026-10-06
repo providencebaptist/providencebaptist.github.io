@@ -112,6 +112,21 @@ const Navigation = () => {
                           </NavigationMenuLink>
                         </li>
                       ))}
+                      <li>
+                        <NavigationMenuLink asChild>
+                          <a
+                            href="https://www.youtube.com/@pbcatx"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                          >
+                            <div className="text-sm font-medium leading-none">YouTube</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                              Watch services on our channel
+                            </p>
+                          </a>
+                        </NavigationMenuLink>
+                      </li>
                     </ul>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
@@ -168,7 +183,7 @@ const Navigation = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="lg:hidden py-4 space-y-3 border-t border-border">
+          <div className="lg:hidden py-4 space-y-3 border-t border-border max-h-[calc(100vh-4rem)] overflow-y-auto overscroll-contain">
             <div className="space-y-2">
               <div className="px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                 About
@@ -201,6 +216,15 @@ const Navigation = () => {
                   {link.label}
                 </NavLink>
               ))}
+              <a
+                href="https://www.youtube.com/@pbcatx"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block px-4 py-2 text-sm font-medium text-foreground hover:bg-muted transition-colors rounded-lg mx-2"
+                onClick={() => setIsOpen(false)}
+              >
+                YouTube
+              </a>
             </div>
 
             <div className="space-y-2">
