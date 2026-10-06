@@ -2,7 +2,7 @@ import { useRef } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Calendar, Heart, Users, MapPin, Mail, BookOpen, Clock } from "lucide-react";
+import { Calendar, Heart, Users, MapPin, Mail, BookOpen, Clock, Youtube } from "lucide-react";
 import { Link } from "react-router-dom";
 import ServiceTimes from "@/components/ServiceTimes";
 import SEO from "@/components/SEO";
